@@ -18,7 +18,7 @@
               <b-tab title="Scheduled" active>
                 <div class="card mb-20">
                   <div class="card-body p-0">
-                    <DynamicCustomTable
+                    <DynamicCustomTableView
                       :columns="tableColumns"
                       :rows="tableRows"
                     />
@@ -28,7 +28,7 @@
               <b-tab title="In Office">
                 <div class="card mb-20">
                   <div class="card-body p-0">
-                    <DynamicCustomTable
+                    <DynamicCustomTableView
                       :columns="tableColumns2"
                       :rows="tableRows2"
                     />
@@ -38,7 +38,7 @@
               <b-tab title="Finished">
                 <div class="card mb-20">
                   <div class="card-body p-0">
-                    <DynamicCustomTable
+                    <DynamicCustomTableView
                       :columns="tableColumns"
                       :rows="tableRows"
                     />
@@ -48,7 +48,7 @@
               <b-tab title="Deferred">
                 <div class="card mb-20">
                   <div class="card-body p-0">
-                    <DynamicCustomTable
+                    <DynamicCustomTableView
                       :columns="tableColumns2"
                       :rows="tableRows2"
                     />
@@ -64,7 +64,7 @@
 </template>
 <script>
 import { echartBar, echartPie } from "@/data/echarts";
-import DynamicCustomTable from "../dashboards/tables/DynamicCustomTable";
+import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
 import { echart1, echart2, echart3 } from "@/data/dashboard1";
 
 import { mapGetters, mapActions } from "vuex";
@@ -76,7 +76,7 @@ export default {
     title: "Dashboard v1",
   },
   components: {
-    DynamicCustomTable,
+    DynamicCustomTableView,
   },
   data() {
     return {

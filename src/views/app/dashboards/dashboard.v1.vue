@@ -2,283 +2,390 @@
   <!-- ============ Body content start ============= -->
   <div class="main-content">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
-    <b-card header="Daily Huddle" header-bg-variant="transparent">
-      <b-row>
-        <!-- column-one -->
-        <b-col md="3" class="mb-30">
-          <b-card>
-            <div class="d-flex justify-content-between mb-3">
-              <p class="card-title m-0">Task List</p>
-
-              <div class="btn-group">
-                <b-button variant="primary">Action</b-button>
-              </div>
-            </div>
-            <b-row>
-              <b-col md="12">
-                <draggable
-                  v-bind="dragOptions"
-                  @start="drag = true"
-                  @end="drag = false"
-                >
-                  <transition-group
-                    type="transition"
-                    :name="!drag ? 'flip-list' : null"
-                  >
-                    <b-card
-                      class="mb-30 cursor-pointer"
-                      v-for="element in list1"
-                      :key="element.name"
-                    >
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                        <a href>
-                          <i class="nav-icon i-Pen-2"></i>
-                        </a>
-                      </div>
-                      <div
-                        class="ul-board--description d-flex justify-content-between mt-3"
-                      >
-                        <div class="ul-board--lDesc d-flex align-items-center">
-                          <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                          <span class="text-muted">7</span>
-                        </div>
-                      </div>
-                    </b-card>
-                  </transition-group>
-                </draggable>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-col>
-
-        <!-- column-two -->
-        <b-col md="3" class="mb-30">
-          <b-card>
-            <div class="d-flex justify-content-between mb-3">
-              <p class="card-title m-0">In Progress</p>
-
-              <div class="btn-group">
-                <b-button variant="primary">Action</b-button>
-              </div>
-            </div>
-            <b-row>
-              <b-col md="12">
-                <draggable
-                  v-bind="dragOptions"
-                  @start="drag = true"
-                  @end="drag = false"
-                >
-                  <transition-group
-                    type="transition"
-                    :name="!drag ? 'flip-list' : null"
-                  >
-                    <b-card
-                      class="mb-30 cursor-pointer"
-                      v-for="element in list2"
-                      :key="element.name"
-                    >
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                        <a href>
-                          <i class="nav-icon i-Pen-2"></i>
-                        </a>
-                      </div>
-                      <div
-                        class="ul-board--description d-flex justify-content-between mt-3"
-                      >
-                        <div class="ul-board--lDesc d-flex align-items-center">
-                          <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                          <span class="text-muted">7</span>
-                        </div>
-                      </div>
-                    </b-card>
-                  </transition-group>
-                </draggable>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-col>
-
-        <!-- column-three -->
-        <b-col md="3" class="mb-30">
-          <b-card>
-            <div class="d-flex justify-content-between mb-3">
-              <p class="card-title m-0">In Review</p>
-
-              <div class="btn-group">
-                <b-button variant="primary">Action</b-button>
-              </div>
-            </div>
-            <b-row>
-              <b-col md="12">
-                <draggable
-                  v-bind="dragOptions"
-                  @start="drag = true"
-                  @end="drag = false"
-                >
-                  <transition-group
-                    type="transition"
-                    :name="!drag ? 'flip-list' : null"
-                  >
-                    <b-card
-                      class="mb-30 cursor-pointer"
-                      v-for="element in list3"
-                      :key="element.name"
-                    >
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                        <a href>
-                          <i class="nav-icon i-Pen-2"></i>
-                        </a>
-                      </div>
-                      <div
-                        class="ul-board--description d-flex justify-content-between mt-3"
-                      >
-                        <div class="ul-board--lDesc d-flex align-items-center">
-                          <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                          <span class="text-muted">7</span>
-                        </div>
-                      </div>
-                    </b-card>
-                  </transition-group>
-                </draggable>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-col>
-
-        <!-- column-four -->
-        <b-col md="3">
-          <b-card>
-            <div class="d-flex justify-content-between mb-3">
-              <p class="card-title m-0">Completed</p>
-
-              <div class="btn-group">
-                <b-button variant="primary">Action</b-button>
-              </div>
-            </div>
-            <b-row>
-              <b-col md="12">
-                <draggable
-                  v-bind="dragOptions"
-                  @start="drag = true"
-                  @end="drag = false"
-                >
-                  <transition-group
-                    type="transition"
-                    :name="!drag ? 'flip-list' : null"
-                  >
-                    <b-card
-                      class="mb-30 cursor-pointer"
-                      v-for="element in list2"
-                      :key="element.name"
-                    >
-                      <div class="d-flex justify-content-between">
-                        <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                        <a href>
-                          <i class="nav-icon i-Pen-2"></i>
-                        </a>
-                      </div>
-                      <div
-                        class="ul-board--description d-flex justify-content-between mt-3"
-                      >
-                        <div class="ul-board--lDesc d-flex align-items-center">
-                          <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                          <span class="text-muted">7</span>
-                        </div>
-                      </div>
-                    </b-card>
-                  </transition-group>
-                </draggable>
-              </b-col>
-            </b-row>
-          </b-card>
-        </b-col>
-      </b-row>
-    </b-card>
+    <b-row>
+      <b-col lg="12" xl="12" md="12">
+        <b-card header="Daily Huddle" header-bg-variant="transparent">
+          <b-row class="provider-dropdown">
+            <b-dropdown
+              id="view-selector"
+              class="mb-2 mr-5"
+              :text="selectedView"
+            >
+              <b-dropdown-item
+                v-for="item in viewOptions"
+                :value="item.id"
+                :key="item.id"
+                @click="selectedView = item.title"
+                >{{ item.title }}</b-dropdown-item
+              >
+            </b-dropdown>
+          </b-row>
+          <div v-if="selectedView === 'Table View'">
+            <b-tabs content-class="mt-1">
+              <b-tab title="Scheduled" active>
+                <div class="card mb-20">
+                  <div class="card-body p-0">
+                    <DynamicCustomTableView
+                      :columns="tableColumns"
+                      :rows="tableRows"
+                    />
+                  </div>
+                </div>
+              </b-tab>
+              <b-tab title="In Office">
+                <div class="card mb-20">
+                  <div class="card-body p-0">
+                    <DynamicCustomTableView
+                      :columns="tableColumns2"
+                      :rows="tableRows2"
+                    />
+                  </div>
+                </div>
+              </b-tab>
+              <b-tab title="Finished">
+                <div class="card mb-20">
+                  <div class="card-body p-0">
+                    <DynamicCustomTableView
+                      :columns="tableColumns"
+                      :rows="tableRows"
+                    />
+                  </div>
+                </div>
+              </b-tab>
+              <b-tab title="Deferred">
+                <div class="card mb-20">
+                  <div class="card-body p-0">
+                    <DynamicCustomTableView
+                      :columns="tableColumns2"
+                      :rows="tableRows2"
+                    />
+                  </div>
+                </div>
+              </b-tab>
+            </b-tabs>
+          </div>
+          <div class="mt-1" v-if="selectedView === 'Draggable View'">
+            <DynamicDraggableView />
+          </div>
+        </b-card>
+      </b-col>
+    </b-row>
   </div>
 </template>
 <script>
-import draggable from "vuedraggable";
+import { echartBar, echartPie } from "@/data/echarts";
+import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
+import DynamicDraggableView from "../dashboards/views/draggable/DynamicDraggableView";
+import { echart1, echart2, echart3 } from "@/data/dashboard1";
 
-// transition
+import { mapGetters, mapActions } from "vuex";
+
 export default {
-  display: "Transitions",
-  order: 7,
+  name: "DashboardV1",
+  metaInfo: {
+    // if no subcomponents specify a metaInfo.title, this title will be used
+    title: "Dashboard v1",
+  },
   components: {
-    draggable,
+    DynamicCustomTableView,
+    DynamicDraggableView,
   },
   data() {
     return {
-      list1: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
+      selectedView: "Table View",
+      viewOptions: [
+        {
+          id: "table_view",
+          title: "Table View",
+        },
+        {
+          id: "draggable_view",
+          title: "Draggable View",
+        },
       ],
-      list2: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-        { name: "Juan", id: 5 },
-        { name: "Edgard", id: 6 },
-        { name: "Johnson", id: 7 },
-      ],
-      list3: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-        { name: "Juan", id: 5 },
-        { name: "Edgard", id: 6 },
-      ],
+      rating: 4,
+      search: "",
+      isProduct: true,
+      echartBar,
+      echartPie,
+      echart1,
+      echart2,
+      echart3,
+      columns: [
+        {
+          label: "Order Id",
+          field: "id",
+          thClass: "text-left pl-3",
+          tdClass: "text-left pl-3",
+        },
+        {
+          label: "Buyer Name",
+          field: "name",
+          thClass: "text-left",
+          tdClass: "text-left",
+        },
+        {
+          label: "Product",
+          field: "img",
+          html: true,
+          thClass: "text-left",
+          tdClass: "text-left",
+        },
+        {
+          label: "Status",
+          field: "span",
+          html: true,
+          thClass: "text-left",
+          tdClass: "text-left",
+        },
 
-      drag: false,
+        {
+          label: "Shipping Cost",
+          field: "score",
+
+          // html:true,
+          type: "percentage",
+          thClass: "text-left",
+          tdClass: "text-left",
+        },
+        {
+          label: "Date",
+          field: "createdAt",
+          type: "date",
+          dateInputFormat: "yyyy-mm-dd",
+          dateOutputFormat: "mmm Do yy",
+          thClass: "text-left",
+          tdClass: "text-left",
+        },
+        {
+          label: "Action",
+          field: "action",
+          html: true,
+          thClass: "text-left",
+          tdClass: "text-left",
+        },
+      ],
+      tableColumns: [
+        "Time",
+        "Location",
+        "Name",
+        "DOB",
+        "Contact",
+        "Status",
+        "action",
+      ],
+      tableColumns2: [
+        "Time",
+        "Location",
+        "Name",
+        "DOB",
+        "Contact",
+        "Status",
+        "action",
+      ],
+      tableRows: [
+        {
+          id: "1Pm",
+          location: "Tower-NZ",
+          name: "Alex",
+          dob: "01-01-1985",
+          contact: "9909601051",
+          status: "Pending",
+        },
+        {
+          id: "2Pm",
+          location: "Ala-NZ",
+          name: "Max",
+          dob: "01-01-1854",
+          contact: "99434501051",
+          status: "Done",
+        },
+        {
+          id: "3Pm",
+          location: "Tower-NZ",
+          name: "Joohn",
+          dob: "01-01-1945",
+          contact: "9905321051",
+          status: "Review",
+        },
+      ],
+      tableRows2: [
+        {
+          id: "3Pm",
+          location: "Tower-NZ",
+          name: "Alex",
+          dob: "01-01-1985",
+          contact: "9909601051",
+          status: "Pending",
+        },
+        {
+          id: "6Pm",
+          location: "Ala-NZ",
+          name: "Max",
+          dob: "01-01-1854",
+          contact: "99434501051",
+          status: "Done",
+        },
+        {
+          id: "9Pm",
+          location: "Tower-NZ",
+          name: "John",
+          dob: "01-01-1945",
+          contact: "9905321051",
+          status: "Review",
+        },
+      ],
+      rows: [
+        {
+          id: 1,
+          name: "John",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/iphone-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/iphone-2.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-primary p-2 ">Delivered</span>',
+          createdAt: "2019-10-31 ",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 2,
+          name: "Jane",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/headphone-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/headphone-2.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-danger p-2">Shipped</span>',
+          createdAt: "2011-10-31",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 3,
+          name: "Susan",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/headphone-3.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/headphone-4.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-success p-2 ">Delivered</span>',
+          createdAt: "2011-10-30",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 4,
+          name: "Chris",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/speaker-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/speaker-2.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-primary p-2">Pending</span>',
+          createdAt: "2011-10-11",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 5,
+          name: "Dan",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/watch-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/watch-2.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-info p-2">Processing</span>',
+          createdAt: "2011-10-21",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 6,
+          name: "John",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/speaker-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/speaker-2.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-success p-2 ">Delivered</span>',
+          createdAt: "2011-10-31",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 7,
+          name: "John",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/headphone-3.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/headphone-4.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-info p-2 ">Pending</span>',
+          createdAt: "2019-10-31 ",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+        {
+          id: 8,
+          name: "Jane",
+          img:
+            '<img src="' +
+            require("@/assets/images/products/iphone-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
+            require("@/assets/images/products/iphone-1.jpg") +
+            '" class="rounded-circle avatar-sm" alt="">',
+          span:
+            '<span class="badge badge-pill badge-outline-danger p-2">Shipped</span>',
+          createdAt: "2011-10-31",
+          score: 0.03343,
+          action:
+            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
+        },
+      ],
     };
   },
-  methods: {},
   computed: {
-    dragOptions() {
-      return {
-        animation: 200,
-        group: "description",
-        disabled: false,
-        ghostClass: "ghost",
-      };
+    ...mapGetters(["getItems"]),
+    totalRows() {
+      // return this.getFilterProducts.length;
     },
+  },
+  created: function () {
+    // this.items = this.getItems;
+  },
+  methods: {
+    addCartPage(item) {},
+  },
+  mounted() {
+    // this.paginate(this.perPage, 0);
   },
 };
 </script>
-
 <style>
-.button {
-  margin-top: 35px;
-}
-
-.flip-list-move {
-  transition: transform 0.5s;
-}
-
-.no-move {
-  transition: transform 0s;
-}
-
-.ghost {
-  opacity: 0.5;
-  background: #c8ebfb;
-}
-
-.list-group {
-  min-height: 20px;
-}
-
-.list-group-item {
-  cursor: move;
-}
-
-.list-group-item i {
-  cursor: pointer;
+.provider-dropdown {
+  justify-content: flex-end;
 }
 </style>

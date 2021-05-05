@@ -12,348 +12,112 @@
     }"
     :settings="{ suppressScrollX: true, wheelPropagation: false }"
   >
-    <div>
-      <div
-        class="gull-brand text-center d-flex align-items-center pl-2 mb-2 justify-content-between"
-      >
-        <div>
-          <img class src="@/assets/images/logo.png" />
-        </div>
-        <div class="toggle-sidebar-compact">
-          <label class="switch ul-switch switch-primary ml-auto">
-            <input @click="switchSidebar" type="checkbox" />
-            <span class="ul-slider o-hidden"></span>
-          </label>
-        </div>
-      </div>
+    <div
+      class="gull-brand text-center d-flex align-items-center pl-2 mb-4 justify-content-center"
+    >
+      <img class="logo" src="@/assets/images/new-logo.png" />
+    </div>
 
-      <div class="close-mobile-menu" @click="mobileSidebar">
-        <i class="text-16 text-primary i-Close-Window font-weight-bold"></i>
-      </div>
+    <div class="close-mobile-menu" @click="mobileSidebar">
+      <i class="text-16 text-primary i-Close-Window font-weight-bold"></i>
+    </div>
 
-      <div class="mt-4 main-menu">
+    <div class="mt-5 main-menu">
+      <div class="nav-menu">
         <ul class="ul-vertical-sidebar pl-4" id="menu">
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-1>
+          <li class="hover-menu" v-for="menu in sideMenu" :key="menu.title">
+            <div>
               <router-link
                 tag="a"
                 class="has-arrow"
-                to="/app/dashboards/dashboard.v1"
-                :class="{ active: selectedParentMenu == 'dashboards' }"
+                :to="menu.redirectTo"
+                :class="{
+                  active: selectedParentMenu === menu.selectedParentMenu,
+                }"
               >
                 <i
-                  class="i-Bar-Chart text-25 mr-2 text-muted"
-                  v-b-popover.hover.right="'Daily Huddle'"
+                  :class="`${menu.icon} text-25 mr-2 icon font-weight-bold`"
+                  v-b-popover.hover.right="menu.title"
                 ></i>
                 <span
                   class="text-15"
                   :class="{
                     'vertical-item-name': getVerticalCompact.isItemName,
                   }"
-                  >Daily Huddle</span
+                  >{{ menu.title }}</span
                 >
               </router-link>
             </div>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-2>
-              <router-link
-                tag="a"
-                class="has-arrow"
-                to="/app/dashboards/dashboard.v1"
-                :class="{ active: selectedParentMenu == 'scheduler' }"
-              >
-                <i
-                  class="i-Bar-Chart text-25 mr-2 text-muted"
-                  v-b-popover.hover.right="'Scheduler'"
-                ></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Scheduler</span
-                >
-              </router-link>
-            </div>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-3>
-              <a
-                class="has-arrow"
-                href="#"
-                :class="{ active: selectedParentMenu == 'reports' }"
-              >
-                <i class="i-Suitcase text-20 mr-2"></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Reports</span
-                >
-                <arrowIcon />
-              </a>
-            </div>
-            <b-collapse id="collapse-3">
-              <ul
-                class="Ul_collapse"
-                :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
-              >
-                <li class="item-name">
-                  <router-link tag="a" to="/app/reports">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Reports</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/alerts">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>KPI Dashboard</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/pages/icons">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Revenue Discovery</span>
-                  </router-link>
-                </li>
-              </ul>
-            </b-collapse>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-4>
-              <a
-                class="has-arrow"
-                href="#"
-                :class="{ active: selectedParentMenu == 'claims' }"
-              >
-                <i class="i-Suitcase text-20 mr-2"></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Claims</span
-                >
-                <arrowIcon />
-              </a>
-            </div>
-            <b-collapse id="collapse-4">
-              <ul
-                class="Ul_collapse"
-                :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
-              >
-                <li class="item-name">
-                  <router-link tag="a" to="/app/extraKits/dropdown">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Claim Management</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/accordion">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Claim History</span>
-                  </router-link>
-                </li>
-              </ul>
-            </b-collapse>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-5>
-              <router-link
-                tag="a"
-                class="has-arrow"
-                to="/app/dashboards/dashboard.v1"
-                :class="{ active: selectedParentMenu == 'payment' }"
-              >
-                <i
-                  class="i-Bar-Chart text-25 mr-2 text-muted"
-                  v-b-popover.hover.right="'Payment Plan'"
-                ></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Payment Plan</span
-                >
-              </router-link>
-            </div>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-6>
-              <router-link
-                tag="a"
-                class="has-arrow"
-                to="/app/dashboards/dashboard.v1"
-                :class="{ active: selectedParentMenu == 'secure' }"
-              >
-                <i
-                  class="i-Bar-Chart text-25 mr-2 text-muted"
-                  v-b-popover.hover.right="'Secure Messages'"
-                ></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Secure Messages</span
-                >
-              </router-link>
-            </div>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-7>
-              <a
-                class="has-arrow"
-                href="#"
-                :class="{ active: selectedParentMenu == 'statement' }"
-              >
-                <i class="i-Suitcase text-20 mr-2"></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Statement & Bulk</span
-                >
-                <arrowIcon />
-              </a>
-            </div>
-            <b-collapse id="collapse-7">
-              <ul
-                class="Ul_collapse"
-                :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
-              >
-                <li class="item-name">
-                  <router-link tag="a" to="/app/ui-kits/badges">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Billing Statement</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/buttons">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Bulk Check</span>
-                  </router-link>
-                </li>
-              </ul>
-            </b-collapse>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-8>
-              <a
-                class="has-arrow"
-                href="#"
-                :class="{ active: selectedParentMenu == 'settings' }"
-              >
-                <i class="i-Suitcase text-20 mr-2"></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Settings</span
-                >
-                <arrowIcon />
-              </a>
-            </div>
-            <b-collapse id="collapse-8">
-              <ul
-                class="Ul_collapse"
-                :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
-              >
-                <li class="item-name">
-                  <router-link tag="a" to="/app/ui-kits/cards">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Clinic</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/list">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>HelloPatient</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/progressbar">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Insurance</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/modals">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Progress Notes</span>
-                  </router-link>
-                </li>
-              </ul>
-            </b-collapse>
-          </li>
-
-          <li class="Ul_li--hover">
-            <div v-b-toggle.collapse-9>
-              <a
-                class="has-arrow"
-                href="#"
-                :class="{ active: selectedParentMenu == 'more' }"
-              >
-                <i class="i-Suitcase text-20 mr-2"></i>
-                <span
-                  class="text-15"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >More</span
-                >
-                <arrowIcon />
-              </a>
-            </div>
-            <b-collapse id="collapse-9">
-              <ul
-                class="Ul_collapse"
-                :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
-              >
-                <li class="item-name">
-                  <router-link tag="a" to="/app/ui-kits/carousel">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Activity Audit</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/ui-kits/pagination">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Imaging Studio</span>
-                  </router-link>
-                </li>
-                <li>
-                  <router-link tag="a" to="/app/extraKits/rating">
-                    <i class="i-Circular-Point mr-2"></i>
-                    <span class>Time Keeper</span>
-                  </router-link>
-                </li>
-              </ul>
-            </b-collapse>
           </li>
         </ul>
+      </div>
+
+      <div class="sidenav-bottom">
+        <ul class="ul-vertical-sidebar pl-4" id="menu">
+          <li class="hover-menu">
+            <div>
+              <router-link tag="a" class="has-arrow" to="/app/help">
+                <i
+                  :class="`i-Information text-25 mr-2 icon font-weight-bold`"
+                  v-b-popover.hover.right="'Help'"
+                ></i>
+                <span
+                  class="text-15"
+                  :class="{
+                    'vertical-item-name': getVerticalCompact.isItemName,
+                  }"
+                  >Help</span
+                >
+              </router-link>
+            </div>
+          </li>
+        </ul>
+
+        <div class="dropdown">
+          <b-dropdown
+            id="dropdown-1"
+            right
+            text="Right align"
+            class="m-md-2 user col align-self-end"
+            toggle-class="text-decoration-none"
+            no-caret
+            variant="button"
+          >
+            <template slot="button-content">
+              <img
+                src="@/assets/images/faces/1.jpg"
+                id="userDropdown"
+                alt
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              />
+              <span>Alexa smith</span>
+              <i class="i-Arrow-Down"></i>
+            </template>
+
+            <div class="dropdown-menu-right" aria-labelledby="userDropdown">
+              <div class="dropdown-header">
+                <i class="i-Lock-User mr-1"></i> Timothy Carlson
+              </div>
+              <a class="dropdown-item">Profile Update</a>
+              <a class="dropdown-item">Change Password</a>
+              <a class="dropdown-item" href="#" @click.prevent="logoutUser"
+                >Sign out</a
+              >
+            </div>
+          </b-dropdown>
+        </div>
       </div>
     </div>
   </vue-perfect-scrollbar>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import arrowIcon from "@/components/arrow/arrowIcon";
+// import arrowIcon from "@/components/arrow/arrowIcon";
 export default {
   components: {
-    arrowIcon,
+    // arrowIcon,
   },
   computed: {
     ...mapGetters(["getVerticalCompact", "getVerticalSidebar"]),
@@ -361,6 +125,44 @@ export default {
   data() {
     return {
       selectedParentMenu: "",
+      sideMenu: [
+        {
+          title: "Daily Huddle",
+          selectedParentMenu: "dashboards",
+          icon: "i-Home1",
+          redirectTo: "/app/dashboards/dashboard.v1",
+        },
+        {
+          title: "Scheduler",
+          selectedParentMenu: "scheduler",
+          icon: "i-Calendar-4",
+          redirectTo: "/app/scheduler",
+        },
+        {
+          title: "Report",
+          selectedParentMenu: "report",
+          icon: "i-File-TXT",
+          redirectTo: "/app/report",
+        },
+        {
+          title: "Billings",
+          selectedParentMenu: "billings",
+          icon: "i-Dollar-Sign-2",
+          redirectTo: "/app/billings",
+        },
+        {
+          title: "Virtual Consults",
+          selectedParentMenu: "virtual-consults",
+          icon: "i-Stethoscope",
+          redirectTo: "/app/virtual-consults",
+        },
+        {
+          title: "Settings",
+          selectedParentMenu: "settings",
+          icon: "i-Globe",
+          redirectTo: "/app/settings",
+        },
+      ],
     };
   },
   mounted() {
@@ -385,7 +187,6 @@ export default {
 
       if (currentParentUrl !== undefined || currentParentUrl !== null) {
         this.selectedParentMenu = currentParentUrl.toLowerCase();
-        console.log(currentParentUrl);
       } else {
         this.selectedParentMenu = "dashboards";
       }
@@ -397,4 +198,7 @@ export default {
 };
 </script>
 <style>
+.gull-brand .logo {
+  max-width: 100px;
+}
 </style>

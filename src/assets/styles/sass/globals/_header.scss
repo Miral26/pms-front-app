@@ -2,12 +2,12 @@
   position: fixed;
   width: 100%;
   height: $topbar-height;
-  box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+  // box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
-  background: $background;
+  // background: $background;
   z-index: 100;
   .menu-toggle {
     width: 90px;
@@ -27,11 +27,12 @@
     display: flex;
     align-items: center;
     justify-content: left;
-    background: $gray-100;
+    background: $white;
     border: 1px solid $gray-200;
-    border-radius: 20px;
+    border-radius: 7px;
     position: relative;
-    width: 230px;
+    max-width: 350px;
+    width: 100%;
     height: 40px;
     input {
       background: transparent;
@@ -59,15 +60,11 @@
       display: block;
     }
   }
-  .show {
-    .header-icon {
-      background: $gray-100;
-    }
-  }
   .header-icon {
     font-size: 19px;
     cursor: pointer;
     height: 36px;
+    color: #8da1b5;
     width: 36px;
     line-height: 36px;
     display: inline-block;
@@ -75,7 +72,7 @@
     border-radius: 8px;
     margin: 0 2px;
     &:hover {
-      background: $gray-100;
+        color: #6cdcd4
     }
     &.dropdown-toggle {
       &:after {
@@ -93,6 +90,73 @@
         height: 36px;
         border-radius: 50%;
         cursor: pointer;
+      }
+    }
+    .datepicker-input {
+      padding: 10px;
+      border: 0;
+      background-color: transparent;
+      margin-right: 10px;
+      &:focus,&.focus {
+        outline: none;
+        box-shadow: none;
+      }
+      label {
+        padding: 0;
+        min-height: auto;
+        margin-left: 10px;
+        line-height: normal;
+        &:after {
+          content: "\f072";
+          font-family: 'iconsmind';
+          font-size: 16px;
+          vertical-align: middle;
+          margin-left: 10px;
+        }
+      }
+      button {
+        background-color: transparent;
+        padding: 0;
+        svg {
+          vertical-align: baseline;
+        }
+        label {
+          min-height: auto;
+          padding: 0 0 0 10px
+        }
+      }
+    }
+    .location {
+      .dropdown-toggle {
+        padding-right: 30px !important;
+        color: #00c5b4;
+        font-weight: bold;
+        border-radius: 10px;
+        background-color: #e5f4f8;
+        i {
+          color: #00c5b4;
+          vertical-align: middle;
+        }
+        span {
+          max-width: 100px;
+          min-width: 100px;
+          width: 100%;
+          display: inline-flex;
+          align-items: center;
+          vertical-align: middle;
+         .header-icon {
+            position: absolute;
+            right: 0;
+            background-color: transparent !important;
+            top: 0;
+          }
+        }
+      }
+      .dropdown-menu {
+        transform: none !important;
+        top: 100% !important;
+        right: 0;
+        left: auto !important;
       }
     }
   }

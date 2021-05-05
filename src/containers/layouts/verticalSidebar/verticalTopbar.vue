@@ -1,86 +1,84 @@
 <template>
   <div class="mb-30">
-    <header
-      class="main-header vertical-header bg-white d-flex justify-content-between"
-    >
+    <header class="main-header vertical-header d-flex">
       <div class="menu-toggle vertical-toggle" @click="mobileSidebar">
         <div></div>
         <div></div>
         <div></div>
       </div>
-      <div class="header-toggle justify-content-between">
-        <div class="search-bar md-4 col-md-5 col-lg-5">
-          <input type="text" placeholder="Search a Patient" v-model="headerSearch" />
+      <div class="header-toggle">
+        <div class="search-bar">
           <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+          <input
+            type="text"
+            placeholder="Search a Patient"
+            v-model="headerSearch"
+          />
         </div>
 
         <!-- Header Icons -->
-        <div class=" " >
-            <i class="i-File-Clipboard-File--Text text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'Add Appointment'"  > </i>
-        </div>
-        <div class="  " >
-            <i class="i-Add-UserStar text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'New Patient'"  > </i>
-        </div>
-        <div class="   " >
-            <i class="i-Find-User text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'Advance Patient Search'"  > </i>
-        </div>
-        <div class="   " >
-            <i class="i-Telephone text-20 cursor-pointer header-icon d-none d-sm-inline-block text-success" v-b-popover.hover.bottom="'Calls'"  > </i>
-        </div>
-        <div class=" ">
-          <i class="i-Clinic text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'Client Home'"></i>
-        </div>
-        <div class=" " >
-            <i class="i-Speach-Bubble-3 text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'Instant Message'"  > </i>
-        </div>
-        <div class="  " >
-            <i class="i-Checkout-Basket text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'Todo Lists'"  > </i>
+        <div class="d-flex">
+          <i
+            class="i-File-Clipboard-File--Text cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
+            v-b-popover.hover.bottom="'Add Appointment'"
+          >
+          </i>
+          <i
+            class="i-Add-User cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
+            v-b-popover.hover.bottom="'Add Patient'"
+          >
+          </i>
+          <i
+            class="i-Magnifi-Glass- cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
+            v-b-popover.hover.bottom="'Advanced Patient Search'"
+          >
+          </i>
         </div>
       </div>
 
-      <div class="header-part-right justify-content-between">
-        <!-- <div style="margin: auto"> -->
-          <v2-datepicker  v-model="dateSelected" lang="en" format="yyyy-MM-DD"></v2-datepicker>
-        <!-- </div> -->
-        <!-- <i
-          class="i-Full-Screen header-icon d-none d-sm-inline-block"
-          @click="handleFullScreen"
-        ></i> -->
+      <div class="header-part-right">
+        <b-form-datepicker
+          id="example-datepicker"
+          v-model="dateSelected"
+          class="datepicker-input"
+        ></b-form-datepicker>
 
-        <div class="dropdown">
+        <div class="dropdown location">
           <b-dropdown
             id="dropdown"
             text="Dropdown Button"
-            class="m-md-2"
             toggle-class="text-decoration-none"
             no-caret
-            variant="link"
+            variant="button"
           >
             <template slot="button-content">
               <i
-                class="i-Safe-Box text-muted header-icon"
+                class="i-Home1 header-icon"
                 role="button"
                 id="dropdownMenuButton"
                 data-toggle="dropdown"
                 aria-haspopup="true"
                 aria-expanded="false"
               ></i>
-              <span class="text-muted text-decoration-none text-14 cursor-pointer" style="text-decoration: none">
-                {{cloudBase.clinic ? cloudBase.clinic :  'Cloud Base...'}}
-                <i class="i-Map-Marker text-20 cursor-pointer header-icon  d-sm-inline-block" v-b-popover.hover.bottom="'Client - Location'"  > </i>
-                {{cloudBase.location}}
+              <span
+                class="text-decoration-none text-14 cursor-pointer"
+                style="text-decoration: none"
+              >
+                {{ cloudBase.clinic ? cloudBase.clinic : "Cloud Base..." }}
+                <i
+                  class="i-Arrow-Down text-20 cursor-pointer header-icon d-sm-inline-block"
+                  v-b-popover.hover.bottom="'Client - Location'"
+                >
+                </i>
               </span>
-              
-
             </template>
             <div class="menu-icon-grid p-3 border-dark">
-              
-              <div class=" form-group w-100 " > 
+              <div class="form-group w-100">
                 <b-form>
                   <div class="form-group">
                     <label for="">Select a Clinic</label>
                     <b-form-select
-                      id="input-3"  
+                      id="input-3"
                       v-model="cloudBase.clinic"
                       :options="cloudBase.clinics"
                       required
@@ -88,18 +86,18 @@
                     </b-form-select>
                   </div>
 
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label for="">Select Location</label>
-                    <b-form-select 
-                    class=" "
-                    placeholder="Select Location"
+                    <b-form-select
+                      class=" "
+                      placeholder="Select Location"
                       id="input-3"
                       v-model="cloudBase.location"
                       :options="cloudBase.locations"
                       required
                     >
                     </b-form-select>
-                  </div>
+                  </div> -->
                 </b-form>
               </div>
               <!-- <a href="#"> <i class="i-Shop-4"></i> Home </a> -->
@@ -115,9 +113,6 @@
 
         <!-- <div class="" >
         </div> -->
-        <div class=" " >
-            <i class="i-Repeat-3 text-20 cursor-pointer header-icon d-none d-sm-inline-block" v-b-popover.hover.bottom="'Refresh'"  > </i>
-        </div>
         <!-- Notificaiton -->
         <!-- <div class="dropdown">
           <b-dropdown 
@@ -207,39 +202,6 @@
         <!-- Notificaiton End -->
 
         <!-- User avatar dropdown -->
-        <div class="dropdown">
-          <b-dropdown
-            id="dropdown-1"
-            right
-            text="Right align"
-            class="m-md-2 user col align-self-end"
-            toggle-class="text-decoration-none"
-            no-caret
-            variant="link"
-          >
-            <template slot="button-content">
-              <img
-                src="@/assets/images/faces/1.jpg"
-                id="userDropdown"
-                alt
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              />
-            </template>
-
-            <div class="dropdown-menu-right" aria-labelledby="userDropdown">
-              <div class="dropdown-header">
-                <i class="i-Lock-User mr-1"></i> Timothy Carlson
-              </div>
-              <a class="dropdown-item">Profile Update</a>
-              <a class="dropdown-item">Change Password</a>
-              <a class="dropdown-item" href="#" @click.prevent="logoutUser"
-                >Sign out</a
-              >
-            </div>
-          </b-dropdown>
-        </div>
       </div>
     </header>
   </div>
@@ -247,21 +209,26 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Util from "@/utils";
+import * as moment from "moment";
 
 export default {
-  computed:{
-    ...mapGetters(["getVerticalCompact", "getVerticalSidebar", "getSideBarToggleProperties"])
+  computed: {
+    ...mapGetters([
+      "getVerticalCompact",
+      "getVerticalSidebar",
+      "getSideBarToggleProperties",
+    ]),
   },
   data() {
     return {
-      dateSelected: '',
-      headerSearch: '',
+      dateSelected: new Date(),
+      headerSearch: "",
       options2: [
-        { value: '1', text: 'aa' + ' - ' + '1' },
-        { value: '2', text: 'ab' + ' - ' + '2' },
-        { value: '3', text: 'bc' + ' - ' + '3' },
-        { value: '4', text: 'cd' + ' - ' + '4' },
-        { value: '5', text: 'de' + ' - ' + '5' }
+        { value: "1", text: "aa" + " - " + "1" },
+        { value: "2", text: "ab" + " - " + "2" },
+        { value: "3", text: "bc" + " - " + "3" },
+        { value: "4", text: "cd" + " - " + "4" },
+        { value: "5", text: "de" + " - " + "5" },
       ],
 
       cloudBase: {
@@ -271,7 +238,7 @@ export default {
           "Cloud Base...",
           "Clinic1",
           "Clinic2",
-          "Clinic3"
+          "Clinic3",
         ],
         location: null,
         locations: [
@@ -279,16 +246,21 @@ export default {
           "USD",
           "Canada",
           "Africa",
-          "Australia"
+          "Australia",
         ],
       },
-      
     };
   },
   methods: {
-    ...mapActions(["signOut", "switchSidebar", "sidebarCompact", "removeSidebarCompact", "mobileSidebar"]),
-    
-     handleFullScreen() {
+    ...mapActions([
+      "signOut",
+      "switchSidebar",
+      "sidebarCompact",
+      "removeSidebarCompact",
+      "mobileSidebar",
+    ]),
+
+    handleFullScreen() {
       Util.toggleFullScreen();
     },
     logoutUser() {
@@ -297,8 +269,8 @@ export default {
     },
   },
   watch: {
-      // dateSelected(val){
-      // }
-  }
+    // dateSelected(val){
+    // }
+  },
 };
 </script>>

@@ -7,11 +7,12 @@
   }
 
   .main-content-wrap.vertical-sidebar {
-    width: calc(100% - 240px);
+    width: calc(100% - 210px);
     position: unset !important;
     padding: 1rem 2rem 0;
     position: relative;
     z-index: 500;
+    background: #f2f7fc;
   }
   /* sidebar */
   .gull-brand {
@@ -19,9 +20,9 @@
     min-width: 200px;
   }
   .sidebar-panel {
-    width: 240px;
+    width: 210px;
     left: 0;
-    box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
+    // box-shadow: 0 1px 15px rgba(0, 0, 0, 0.04), 0 1px 6px rgba(0, 0, 0, 0.04);
     height: 100%;
     position: fixed;
     z-index: 1000;
@@ -29,22 +30,85 @@
     left: 0;
     bottom: 0;
     overflow-x: hidden;
-    padding-top: 20px;
+    padding-top: 35px;
     transition: width 0.3s ease-in;
-    background: #fff;
-  }
-  .gull-brand img {
-    width: 60px;
-    margin-right: 5px;
+    background: #f7fafd;
   }
 
   ul {
     position: relative;
   }
 
+  .logo {
+    width: 100%;
+  }
+  .main-menu {
+    display: flex;
+    height: -moz-calc(100% - 82px);
+    height: -webkit-calc(100% - 82px);
+    height: calc(100% - 82px);
+    flex-direction: column;
+    .nav-menu {
+      flex-grow: 1;
+    }
+    .sidenav-bottom {
+      margin-top: 20px;
+      padding-bottom: 20px;
+    }
+  }
+  .main-menu .active {
+    color: black !important;
+    font-weight: bold;
+    .icon {
+      color: #6cdcd4;
+    }
+  }
+  .user {
+    button {
+      background-color: transparent;
+      padding: 0;
+      text-align: left;
+      width: 100%;
+      img {
+        max-width: 40px;
+        border-radius: 5px;
+        margin-right: 10px;
+      }
+      i {
+        margin-left: 6px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .main-menu .hover-menu {
+    list-style: none;
+  }
+  .ul-vertical-sidebar a.has-arrow:before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 3px;
+    background-color: #6cdcd4;
+    transition: all 0.5s ease-in-out;
+    bottom: 0;
+  }
+  .ul-vertical-sidebar a.has-arrow:hover:before,
+  .ul-vertical-sidebar a.has-arrow.active:before {
+    top: 0;
+  }
+  .main-menu .hover-menu > div > a:hover {
+    color: black !important;
+    font-weight: bold;
+    .icon {
+      color: #6cdcd4;
+    }
+  }
+
   .Ul_li--hover {
     list-style: none;
-    min-width: 260px;
+    min-width: 190px;
     position: relative;
   }
   ul.Ul_collapse {
@@ -55,7 +119,7 @@
     background-color: $purple;
     position: absolute;
     height: 35px;
-    width: 225px;
+    width: 190px;
 
     margin-left: -25px;
     border-top-right-radius: 25px;
@@ -66,11 +130,11 @@
   }
 
   .ul-vertical-sidebar a.has-arrow {
-    color: $gray-800;
+    color: #8da1b5;
     margin-bottom: 15px;
     height: 35px;
     // padding: 0 15px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
     align-items: center;
   }
   .ul-vertical-sidebar a.has-arrow:hover {

@@ -1,14 +1,10 @@
 <template>
-  <b-row>
+  <b-row class="daily-huddle-card">
     <!-- column-one -->
     <b-col md="3" class="mb-30">
-      <b-card>
+      <b-card class="bg-blue">
         <div class="d-flex justify-content-between mb-3">
-          <p class="card-title m-0">Task List</p>
-
-          <div class="btn-group">
-            <b-button variant="primary">Action</b-button>
-          </div>
+          <p class="card-title m-0">Scheduled(34)</p>
         </div>
         <b-row>
           <b-col md="12">
@@ -24,20 +20,19 @@
                 <b-card
                   class="mb-30 cursor-pointer"
                   v-for="element in list1"
-                  :key="element.name"
+                  :key="element.id"
                 >
                   <div class="d-flex justify-content-between">
-                    <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                    <a href>
-                      <i class="nav-icon i-Pen-2"></i>
-                    </a>
+                    <h6 class="text-muted mb-1">{{ element.title }}</h6>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h6 class="text-muted mb-2">{{ element.time }}</h6>
                   </div>
                   <div
                     class="ul-board--description d-flex justify-content-between mt-3"
                   >
                     <div class="ul-board--lDesc d-flex align-items-center">
-                      <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                      <span class="text-muted">7</span>
+                      <span class="text-muted">{{element.date}}</span>
                     </div>
                   </div>
                 </b-card>
@@ -50,13 +45,9 @@
 
     <!-- column-two -->
     <b-col md="3" class="mb-30">
-      <b-card>
+      <b-card class="bg-blue">
         <div class="d-flex justify-content-between mb-3">
-          <p class="card-title m-0">In Progress</p>
-
-          <div class="btn-group">
-            <b-button variant="primary">Action</b-button>
-          </div>
+          <p class="card-title m-0">In Office(67)</p>
         </div>
         <b-row>
           <b-col md="12">
@@ -72,20 +63,19 @@
                 <b-card
                   class="mb-30 cursor-pointer"
                   v-for="element in list2"
-                  :key="element.name"
+                  :key="element.id"
                 >
                   <div class="d-flex justify-content-between">
-                    <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                    <a href>
-                      <i class="nav-icon i-Pen-2"></i>
-                    </a>
+                    <h6 class="text-muted mb-1">{{ element.title }}</h6>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h6 class="text-muted mb-2">{{ element.time }}</h6>
                   </div>
                   <div
                     class="ul-board--description d-flex justify-content-between mt-3"
                   >
                     <div class="ul-board--lDesc d-flex align-items-center">
-                      <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                      <span class="text-muted">7</span>
+                      <span class="text-muted">{{element.date}}</span>
                     </div>
                   </div>
                 </b-card>
@@ -98,13 +88,9 @@
 
     <!-- column-three -->
     <b-col md="3" class="mb-30">
-      <b-card>
+      <b-card class="bg-blue">
         <div class="d-flex justify-content-between mb-3">
-          <p class="card-title m-0">In Review</p>
-
-          <div class="btn-group">
-            <b-button variant="primary">Action</b-button>
-          </div>
+          <p class="card-title m-0">Finished(4)</p>
         </div>
         <b-row>
           <b-col md="12">
@@ -120,20 +106,19 @@
                 <b-card
                   class="mb-30 cursor-pointer"
                   v-for="element in list3"
-                  :key="element.name"
+                  :key="element.id"
                 >
                   <div class="d-flex justify-content-between">
-                    <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                    <a href>
-                      <i class="nav-icon i-Pen-2"></i>
-                    </a>
+                    <h6 class="text-muted mb-1">{{ element.title }}</h6>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h6 class="text-muted mb-1">{{ element.time }}</h6>
                   </div>
                   <div
                     class="ul-board--description d-flex justify-content-between mt-3"
                   >
                     <div class="ul-board--lDesc d-flex align-items-center">
-                      <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                      <span class="text-muted">7</span>
+                      <span class="text-muted">{{ element.date }}</span>
                     </div>
                   </div>
                 </b-card>
@@ -146,13 +131,9 @@
 
     <!-- column-four -->
     <b-col md="3">
-      <b-card>
+      <b-card class="bg-blue">
         <div class="d-flex justify-content-between mb-3">
-          <p class="card-title m-0">Completed</p>
-
-          <div class="btn-group">
-            <b-button variant="primary">Action</b-button>
-          </div>
+          <p class="card-title m-0">Deffered(3)</p>
         </div>
         <b-row>
           <b-col md="12">
@@ -167,21 +148,20 @@
               >
                 <b-card
                   class="mb-30 cursor-pointer"
-                  v-for="element in list2"
-                  :key="element.name"
+                  v-for="element in list4"
+                  :key="element.id"
                 >
                   <div class="d-flex justify-content-between">
-                    <h6 class="text-muted mb-1">{{ element.name }}</h6>
-                    <a href>
-                      <i class="nav-icon i-Pen-2"></i>
-                    </a>
+                    <h6 class="text-muted mb-1">{{ element.title }}</h6>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <h6 class="text-muted mb-2">{{ element.time }}</h6>
                   </div>
                   <div
                     class="ul-board--description d-flex justify-content-between mt-3"
                   >
                     <div class="ul-board--lDesc d-flex align-items-center">
-                      <i class="nav-icon i-Speach-Bubble-3 mr-1"></i>
-                      <span class="text-muted">7</span>
+                      <span class="text-muted">{{element.date}}</span>
                     </div>
                   </div>
                 </b-card>
@@ -207,27 +187,90 @@ export default {
   data() {
     return {
       list1: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
+        {
+          id: 1,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 2,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 3,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 4,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
       ],
       list2: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-        { name: "Juan", id: 5 },
-        { name: "Edgard", id: 6 },
-        { name: "Johnson", id: 7 },
+        {
+          id: 5,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 6,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 7,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 8,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
       ],
       list3: [
-        { name: "John", id: 1 },
-        { name: "Joao", id: 2 },
-        { name: "Jean", id: 3 },
-        { name: "Gerard", id: 4 },
-        { name: "Juan", id: 5 },
-        { name: "Edgard", id: 6 },
+        {
+          id: 9,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 10,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 11,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+      ],
+      list4: [
+        {
+          id: 12,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
+        {
+          id: 13,
+          title: "Doctor appointment with patient",
+          time: "07:00-07:30 AM",
+          date: "12 Apr",
+        },
       ],
 
       drag: false,
@@ -275,5 +318,9 @@ export default {
 
 .list-group-item i {
   cursor: pointer;
+}
+
+.bg-blue {
+  background-color: #eaf4fb !important;
 }
 </style>

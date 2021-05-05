@@ -58,11 +58,27 @@ const routes = [
       },
 
       {
-        path: "/app/reports",
+        path: "/app/report",
         component: AppReports,
         children: [
-          route('reports', '/', Reports),
+          route('report', '/', Reports),
         ]
+      },
+      {
+        path: "/app/scheduler",
+        component: () => import("./views/app/ui-kits/accordion")
+      },
+      {
+        path: "/app/billings",
+        component: () => import("./views/app/pages/icons")
+      },
+      {
+        path: "/app/virtual-consults",
+        component: () => import("./views/app/widgets/widgetCard")
+      },
+      {
+        path: "/app/settings",
+        component: () => import("./views/app/pages/profile")
       },
 
       //ui-kits

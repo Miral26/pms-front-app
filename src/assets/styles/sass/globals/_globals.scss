@@ -238,3 +238,44 @@ blockquote {
     }
   }
 }
+
+
+.form-control:focus {
+  box-shadow: none !important;
+}
+.btn-default {
+  background-color: #00c5b4;
+  color: #ffff;
+}
+
+.billing-dropdown li .dropdown,
+.billing-dropdown li .dropdown-toggle {
+  width: 100% !important;
+  text-align: left;
+  color: #cfd7df !important;
+  border-color: #dfe0e0;
+  border-radius: 6px;
+}
+.billing-dropdown li .dropdown-toggle:after {
+  content: "\f107";
+  border: 0;
+  font-family: FontAwesome;
+  font-size: 16px;
+  color: #000;
+  width: auto;
+  height: auto;
+  transform: translateY(-50%);
+  top: 50%;
+  font-weight: bold;
+}
+.billing-dropdown li .dropdown-toggle:active,
+.billing-dropdown li .show > .btn-secondary.dropdown-toggle {
+  border-color: #dfe0e0 !important;
+}
+.billing-dropdown li .dropdown-menu {
+  width: 100%;
+}
+.billing-dropdown li .dropdown-item:active {
+  background-color: transparent;
+  color: #111827;
+}

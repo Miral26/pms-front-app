@@ -15,7 +15,9 @@ import DashboardV2 from './views/app/dashboards/dashboard.v2.vue'
 import DashboardV3 from './views/app/dashboards/dashboard.v3.vue'
 import DashboardV4 from './views/app/dashboards/dashboard.v4.vue'
 import AppReports from './views/app/reports'
+import AppBillings from './views/app/billings'
 import Reports from './views/app/reports/reports.vue';
+import Billiings from './views/app/billings/billings.vue';
 import SessionIndex from './views/app/sessions/index.vue'
 import signIn from './views/app/sessions/signIn'
 import signUp from './views/app/sessions/signUp.vue'
@@ -62,6 +64,13 @@ const routes = [
         component: AppReports,
         children: [
           route('report', '/', Reports),
+        ]
+      },
+      {
+        path: "/app/billings",
+        component: AppBillings,
+        children: [
+          route('billing', '/', Billiings),
         ]
       },
       {

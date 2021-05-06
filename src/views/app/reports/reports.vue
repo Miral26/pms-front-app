@@ -4,70 +4,107 @@
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="12" xl="12" md="12">
-        <b-card header="Daily Huddle" header-bg-variant="transparent">
-          <b-row class="provider-dropdown">
-            <b-dropdown id="dropdown-1" text="Select Provider" class="mb-2 mr-5">
-              <b-dropdown-item>-- None --</b-dropdown-item>
-              <b-dropdown-item>Heather Jones</b-dropdown-item>
-              <b-dropdown-item>Kevin Paige</b-dropdown-item>
-              <b-dropdown-item>Richard Greene</b-dropdown-item>
-            </b-dropdown>
-          </b-row>
-          <div>
-            <b-tabs content-class="mt-1">
-              <b-tab title="Scheduled" active>
-                <div class="card mb-20">
-                  <div class="card-body p-0">
-                    <DynamicCustomTableView
-                      :columns="tableColumns"
-                      :rows="tableRows"
-                    />
-                  </div>
-                </div>
-              </b-tab>
-              <b-tab title="In Office">
-                <div class="card mb-20">
-                  <div class="card-body p-0">
-                    <DynamicCustomTableView
-                      :columns="tableColumns2"
-                      :rows="tableRows2"
-                    />
-                  </div>
-                </div>
-              </b-tab>
-              <b-tab title="Finished">
-                <div class="card mb-20">
-                  <div class="card-body p-0">
-                    <DynamicCustomTableView
-                      :columns="tableColumns"
-                      :rows="tableRows"
-                    />
-                  </div>
-                </div>
-              </b-tab>
-              <b-tab title="Deferred">
-                <div class="card mb-20">
-                  <div class="card-body p-0">
-                    <DynamicCustomTableView
-                      :columns="tableColumns2"
-                      :rows="tableRows2"
-                    />
-                  </div>
-                </div>
-              </b-tab>
-            </b-tabs>
+        <!--  <b-card header="Daily Huddle" header-bg-variant="transparent">-->
+        <div class="d-flex justify-content-between">
+          <div class="d-flex align-items-center mb-4">
+            <div class="mr-3 page-title">
+              <h3 class="font-weight-bold m-0">Report</h3>
+            </div>
           </div>
-        </b-card>
+        </div>
+
+        <div class="report-tab">
+          <b-tabs content-class="mt-1">
+            <b-tab title="Production" active>
+              <div class="mb-20">
+                <div>
+                  <h6 class="mb-3 report-label">Daily</h6>
+                  <b-row class="report-card-row">
+                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                      <div class="report-card">
+                        <i class="fa fa-check"></i>
+                        <span>Lorem Ipsum Docet</span>
+                      </div>
+                    </b-col>
+                  </b-row>
+                </div>
+              </div>
+              <div class="mb-20">
+                <div>
+                  <h6 class="mb-3 report-label">Weekly</h6>
+                  <b-row class="report-card-row">
+                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                      <div class="report-card">
+                        <i class="fa fa-check"></i>
+                        <span>Lorem Ipsum Docet</span>
+                      </div>
+                    </b-col>
+                  </b-row>
+                </div>
+              </div>
+              <div class="mb-20">
+                <div>
+                  <h6 class="mb-3 report-label">Monthly</h6>
+                  <b-row class="report-card-row">
+                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                      <div class="report-card">
+                        <i class="fa fa-check"></i>
+                        <span>Lorem Ipsum Docet</span>
+                      </div>
+                    </b-col>
+                  </b-row>
+                </div>
+              </div>
+              <div class="mb-20">
+                <div>
+                  <h6 class="mb-3 report-label">Yearly</h6>
+                  <b-row class="report-card-row">
+                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                      <div class="report-card">
+                        <i class="fa fa-check"></i>
+                        <span>Lorem Ipsum Docet</span>
+                      </div>
+                    </b-col>
+                  </b-row>
+                </div>
+              </div>
+              <div class="mb-20">
+                <div>
+                  <h6 class="mb-3 report-label">Custom</h6>
+                  <b-row class="report-card-row">
+                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                      <div class="report-card">
+                        <i class="fa fa-check"></i>
+                        <span>Lorem Ipsum Docet</span>
+                      </div>
+                    </b-col>
+                  </b-row>
+                </div>
+              </div>
+            </b-tab>
+            <b-tab title="Collection">
+              <div class="mb-20"></div>
+            </b-tab>
+            <b-tab title="Patient">
+              <div class="mb-20"></div>
+            </b-tab>
+            <b-tab title="Accounting">
+              <div class="mb-20"></div>
+            </b-tab>
+            <b-tab title="Other">
+              <div class="mb-20"></div>
+            </b-tab>
+            <b-tab title="Custom">
+              <div class="mb-20"></div>
+            </b-tab>
+          </b-tabs>
+        </div>
       </b-col>
     </b-row>
   </div>
 </template>
 <script>
-import { echartBar, echartPie } from "@/data/echarts";
-import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
-import { echart1, echart2, echart3 } from "@/data/dashboard1";
-
-import { mapGetters, mapActions } from "vuex";
+import { mapGetters } from "vuex";
 
 export default {
   name: "DashboardV1",
@@ -75,286 +112,17 @@ export default {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: "Dashboard v1",
   },
-  components: {
-    DynamicCustomTableView,
-  },
   data() {
-    return {
-      rating: 4,
-      search: "",
-      isProduct: true,
-      echartBar,
-      echartPie,
-      echart1,
-      echart2,
-      echart3,
-      columns: [
-        {
-          label: "Order Id",
-          field: "id",
-          thClass: "text-left pl-3",
-          tdClass: "text-left pl-3",
-        },
-        {
-          label: "Buyer Name",
-          field: "name",
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Product",
-          field: "img",
-          html: true,
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Status",
-          field: "span",
-          html: true,
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-
-        {
-          label: "Shipping Cost",
-          field: "score",
-
-          // html:true,
-          type: "percentage",
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Date",
-          field: "createdAt",
-          type: "date",
-          dateInputFormat: "yyyy-mm-dd",
-          dateOutputFormat: "mmm Do yy",
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Action",
-          field: "action",
-          html: true,
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-      ],
-      tableColumns: [
-        "Time",
-        "Location",
-        "Name",
-        "DOB",
-        "Contact",
-        "Status",
-        "action",
-      ],
-      tableColumns2: [
-        "Time",
-        "Location",
-        "Name",
-        "DOB",
-        "Contact",
-        "Status",
-        "action",
-      ],
-      tableRows: [
-        {
-          id: "1Pm",
-          location: "Tower-NZ",
-          name: "Alex",
-          dob: "01-01-1985",
-          contact: "9909601051",
-          status: "Pending",
-        },
-        {
-          id: "2Pm",
-          location: "Ala-NZ",
-          name: "Max",
-          dob: "01-01-1854",
-          contact: "99434501051",
-          status: "Done",
-        },
-        {
-          id: "3Pm",
-          location: "Tower-NZ",
-          name: "Joohn",
-          dob: "01-01-1945",
-          contact: "9905321051",
-          status: "Review",
-        },
-      ],
-      tableRows2: [
-        {
-          id: "3Pm",
-          location: "Tower-NZ",
-          name: "Alex",
-          dob: "01-01-1985",
-          contact: "9909601051",
-          status: "Pending",
-        },
-        {
-          id: "6Pm",
-          location: "Ala-NZ",
-          name: "Max",
-          dob: "01-01-1854",
-          contact: "99434501051",
-          status: "Done",
-        },
-        {
-          id: "9Pm",
-          location: "Tower-NZ",
-          name: "John",
-          dob: "01-01-1945",
-          contact: "9905321051",
-          status: "Review",
-        },
-      ],
-      rows: [
-        {
-          id: 1,
-          name: "John",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/iphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/iphone-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-primary p-2 ">Delivered</span>',
-          createdAt: "2019-10-31 ",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 2,
-          name: "Jane",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/headphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/headphone-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-danger p-2">Shipped</span>',
-          createdAt: "2011-10-31",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 3,
-          name: "Susan",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/headphone-3.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/headphone-4.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-success p-2 ">Delivered</span>',
-          createdAt: "2011-10-30",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 4,
-          name: "Chris",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/speaker-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/speaker-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-primary p-2">Pending</span>',
-          createdAt: "2011-10-11",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 5,
-          name: "Dan",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/watch-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/watch-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-info p-2">Processing</span>',
-          createdAt: "2011-10-21",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 6,
-          name: "John",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/speaker-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/speaker-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-success p-2 ">Delivered</span>',
-          createdAt: "2011-10-31",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 7,
-          name: "John",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/headphone-3.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/headphone-4.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-info p-2 ">Pending</span>',
-          createdAt: "2019-10-31 ",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-        {
-          id: 8,
-          name: "Jane",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/iphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/iphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-danger p-2">Shipped</span>',
-          createdAt: "2011-10-31",
-          score: 0.03343,
-          action:
-            '<button class=" btn btn-outline-primary text-black btn-rounded">View</button>',
-        },
-      ],
-    };
+    return {};
   },
   computed: {
     ...mapGetters(["getItems"]),
-    totalRows() {
-      // return this.getFilterProducts.length;
-    },
   },
   created: function () {
     // this.items = this.getItems;
   },
   methods: {
-    addCartPage(item) {},
+    addCartPage() {},
   },
   mounted() {
     // this.paginate(this.perPage, 0);
@@ -362,7 +130,188 @@ export default {
 };
 </script>
 <style>
-.provider-dropdown {
-  justify-content: flex-end;
+.report-label {
+  color: #8da1b5;
+}
+.report-tab span.active-tab {
+  color: #355677;
+}
+.report-tab {
+  background-color: #eaf4fb;
+  padding: 20px;
+  border-radius: 10px;
+}
+.tabs .nav-tabs {
+  border: 0;
+}
+.tabs .nav-tabs .nav-item .nav-link {
+  border: 0;
+  background-color: transparent;
+  position: relative;
+  font-weight: bold;
+  color: #8da1b5 !important;
+  padding: 0;
+  margin: 10px;
+}
+.tabs .nav-tabs .nav-item .nav-link:before {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px !important;
+  background-color: #6cdcd4;
+  transition: all 0.5s ease-in-out;
+}
+.tabs .nav-tabs .nav-item .nav-link.active:before,
+.tabs .nav-tabs .nav-item .nav-link:hover:before {
+  width: 100%;
+}
+.tabs .nav-tabs .nav-item .nav-link.active,
+.tabs .nav-tabs .nav-item .nav-link:hover {
+  color: #6cdcd4 !important;
+  border: 0;
+  background-color: transparent;
+}
+.row.report-card-row {
+  margin-left: -25px;
+  margin-right: -25px;
+}
+.report-card {
+  background-color: #fff;
+  padding: 30px 50px;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px 1px rgb(0 0 0 / 6%), 0 1px 4px rgb(0 0 0 / 8%);
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-weight: 600;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+}
+.report-card i {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #fff;
+  padding: 6px 12px 10px 8px;
+  border-radius: 0 0 100%;
+  transition: all 0.5s ease-in-out;
+  width: 33px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 15px;
+  -moz-transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.report-card:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  background-color: #00c5b4;
+  animation-name: reverse;
+  animation-duration: 0.6s;
+  margin: -10px;
+}
+.report-card:hover:before {
+  animation-name: myanimation;
+  animation-duration: 0.3s;
+  animation-fill-mode: forwards;
+  border-radius: 0;
+}
+@-webkit-keyframes myanimation {
+  0% {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+  50% {
+    width: 50%;
+    height: 100%;
+    border-radius: 0 0 100%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+@keyframes myanimation {
+  0% {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+  }
+  50% {
+    width: 50%;
+    height: 100%;
+    border-radius: 0 0 100%;
+  }
+  100% {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+}
+@-webkit-keyframes reverse {
+  0% {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  50% {
+    width: 50%;
+    height: 100%;
+    border-radius: 0 0 100%;
+  }
+  100% {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin: -10px;
+  }
+}
+
+@keyframes reverse {
+ 0% {
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+  50% {
+    width: 50%;
+    height: 100%;
+    border-radius: 0 0 100%;
+  }
+  100% {
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    margin: -10px;
+  }
+}
+.report-card:hover i {
+  border-radius: 0;
+  text-align: center;
+  left: 50%;
+  font-size: 20px;
+  top: 50%;
+  margin: 0;
 }
 </style>

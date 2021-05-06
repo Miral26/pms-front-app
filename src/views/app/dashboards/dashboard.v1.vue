@@ -7,9 +7,12 @@
         <!--  <b-card header="Daily Huddle" header-bg-variant="transparent">-->
         <div class="d-flex justify-content-between">
           <div class="d-flex align-items-center mb-4">
-            <div class="mr-3 page-title"><h3 class="font-weight-bold m-0">Daily Huddle</h3></div>
+            <div class="mr-3 page-title">
+              <h3 class="font-weight-bold m-0">Daily Huddle</h3>
+            </div>
             <div class="daily-huddle">
-              <span :class="`mr-3 ${selectedView === 'Table' ? 'active-tab' : ''}`"
+              <span
+                :class="`mr-3 ${selectedView === 'Table' ? 'active-tab' : ''}`"
                 >Tab</span
               >
               <label class="switch m-0">
@@ -23,7 +26,10 @@
                 />
                 <span class="slider"></span>
               </label>
-              <span :class="`ml-2 ${selectedView !== 'Table' ? 'active-tab' : ''}`">Card</span>
+              <span
+                :class="`ml-2 ${selectedView !== 'Table' ? 'active-tab' : ''}`"
+                >Card</span
+              >
             </div>
           </div>
           <div>
@@ -45,10 +51,10 @@
             </b-dropdown>
           </div>
         </div>
-        <b-row class="provider-dropdown"> </b-row>
+
         <div class="huddle-tab" v-if="selectedView === 'Table'">
           <b-tabs content-class="mt-1">
-            <b-tab title="Scheduled" active>
+            <b-tab title="Scheduled (12)" active>
               <div class="mb-20">
                 <DynamicCustomTableView
                   :columns="tableColumns"
@@ -56,34 +62,28 @@
                 />
               </div>
             </b-tab>
-            <b-tab title="In Office">
-              <div class="card mb-20">
-                <div class="card-body p-0">
-                  <DynamicCustomTableView
-                    :columns="tableColumns2"
-                    :rows="tableRows2"
-                  />
-                </div>
+            <b-tab title="In Office (45)">
+              <div class="mb-20">
+                <DynamicCustomTableView
+                  :columns="tableColumns"
+                  :rows="tableRows"
+                />
               </div>
             </b-tab>
-            <b-tab title="Finished">
-              <div class="card mb-20">
-                <div class="card-body p-0">
-                  <DynamicCustomTableView
-                    :columns="tableColumns"
-                    :rows="tableRows"
-                  />
-                </div>
+            <b-tab title="Finished (34)">
+              <div class="mb-20">
+                <DynamicCustomTableView
+                  :columns="tableColumns"
+                  :rows="tableRows"
+                />
               </div>
             </b-tab>
-            <b-tab title="Deferred">
-              <div class="card mb-20">
-                <div class="card-body p-0">
-                  <DynamicCustomTableView
-                    :columns="tableColumns2"
-                    :rows="tableRows2"
-                  />
-                </div>
+            <b-tab title="Deferred (21)">
+              <div class="mb-20">
+                <DynamicCustomTableView
+                  :columns="tableColumns"
+                  :rows="tableRows"
+                />
               </div>
             </b-tab>
           </b-tabs>
@@ -97,10 +97,8 @@
   </div>
 </template>
 <script>
-import { echartBar, echartPie } from "@/data/echarts";
 import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
 import DynamicDraggableView from "../dashboards/views/draggable/DynamicDraggableView";
-import { echart1, echart2, echart3 } from "@/data/dashboard1";
 
 import { mapGetters } from "vuex";
 
@@ -142,227 +140,52 @@ export default {
           title: "Draggable",
         },
       ],
-      rating: 4,
-      search: "",
-      isProduct: true,
-      echartBar,
-      echartPie,
-      echart1,
-      echart2,
-      echart3,
-      columns: [
-        {
-          label: "Order Id",
-          field: "id",
-          thClass: "text-left pl-3",
-          tdClass: "text-left pl-3",
-        },
-        {
-          label: "Buyer Name",
-          field: "name",
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Product",
-          field: "img",
-          html: true,
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Status",
-          field: "span",
-          html: true,
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-
-        {
-          label: "Shipping Cost",
-          field: "score",
-
-          // html:true,
-          type: "percentage",
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-        {
-          label: "Date",
-          field: "createdAt",
-          type: "date",
-          dateInputFormat: "yyyy-mm-dd",
-          dateOutputFormat: "mmm Do yy",
-          thClass: "text-left",
-          tdClass: "text-left",
-        },
-      ],
       tableColumns: ["Time", "Location", "Name", "DOB", "Contact", "Status"],
-      tableColumns2: ["Time", "Location", "Name", "DOB", "Contact", "Status"],
       tableRows: [
         {
-          id: "1Pm",
-          location: "Tower-NZ",
-          name: "Alex",
-          dob: "01-01-1985",
-          contact: "9909601051",
-          status: "Scheduled",
-        },
-        {
-          id: "2Pm",
-          location: "Ala-NZ",
-          name: "Max",
-          dob: "01-01-1854",
-          contact: "99434501051",
-          status: "Scheduled",
-        },
-        {
-          id: "3Pm",
-          location: "Tower-NZ",
-          name: "Joohn",
-          dob: "01-01-1945",
-          contact: "9905321051",
-          status: "Scheduled",
-        },
-      ],
-      tableRows2: [
-        {
-          id: "3Pm",
-          location: "Tower-NZ",
-          name: "Alex",
-          dob: "01-01-1985",
-          contact: "9909601051",
-          status: "Scheduled",
-        },
-        {
-          id: "6Pm",
-          location: "Ala-NZ",
-          name: "Max",
-          dob: "01-01-1854",
-          contact: "99434501051",
-          status: "Scheduled",
-        },
-        {
-          id: "9Pm",
-          location: "Tower-NZ",
-          name: "John",
-          dob: "01-01-1945",
-          contact: "9905321051",
-          status: "Scheduled",
-        },
-      ],
-      rows: [
-        {
           id: 1,
-          name: "John",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/iphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/iphone-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-primary p-2 ">Delivered</span>',
-          createdAt: "2019-10-31 ",
-          score: 0.03343,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
         },
         {
           id: 2,
-          name: "Jane",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/headphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/headphone-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-danger p-2">Shipped</span>',
-          createdAt: "2011-10-31",
-          score: 0.03343,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
         },
         {
           id: 3,
-          name: "Susan",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/headphone-3.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/headphone-4.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-success p-2 ">Delivered</span>',
-          createdAt: "2011-10-30",
-          score: 0.03343,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
         },
         {
           id: 4,
-          name: "Chris",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/speaker-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/speaker-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-primary p-2">Pending</span>',
-          createdAt: "2011-10-11",
-          score: 0.03343,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
         },
         {
           id: 5,
-          name: "Dan",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/watch-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/watch-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-info p-2">Processing</span>',
-          createdAt: "2011-10-21",
-          score: 0.03343,
-        },
-        {
-          id: 6,
-          name: "John",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/speaker-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/speaker-2.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-success p-2 ">Delivered</span>',
-          createdAt: "2011-10-31",
-          score: 0.03343,
-        },
-        {
-          id: 7,
-          name: "John",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/headphone-3.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/headphone-4.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-info p-2 ">Pending</span>',
-          createdAt: "2019-10-31 ",
-          score: 0.03343,
-        },
-        {
-          id: 8,
-          name: "Jane",
-          img:
-            '<img src="' +
-            require("@/assets/images/products/iphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt=""> <img src="' +
-            require("@/assets/images/products/iphone-1.jpg") +
-            '" class="rounded-circle avatar-sm" alt="">',
-          span:
-            '<span class="badge badge-pill badge-outline-danger p-2">Shipped</span>',
-          createdAt: "2011-10-31",
-          score: 0.03343,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
         },
       ],
     };
@@ -405,12 +228,12 @@ export default {
   border: 0;
 }
 .tabs .nav-tabs .nav-item .nav-link {
-    border: 0;
-    background-color: transparent;
-    position: relative;
-    font-weight: bold;
-    color: #05070b;
-    padding: 10px 10px 5px;
+  border: 0;
+  background-color: transparent;
+  position: relative;
+  font-weight: bold;
+  color: #05070b;
+  padding: 10px 10px 5px;
 }
 .tabs .nav-tabs .nav-item .nav-link.active:before {
   content: "";
@@ -424,15 +247,15 @@ export default {
   margin: 0 auto;
 }
 .tabs .nav-tabs .nav-item .nav-link.active {
-    color: #6cdcd4;
-     border: 0;
-    background-color: transparent;
+  color: #6cdcd4;
+  border: 0;
+  background-color: transparent;
 }
 .card-table .table th {
   border: 0;
   padding: 0;
   text-align: center;
-    background-color: transparent;
+  background-color: transparent;
 }
 .card-table .table th span {
   padding: 12px;
@@ -441,24 +264,42 @@ export default {
   border-bottom: 1px solid #ddd;
 }
 .card-table .table tbody tr td {
-    border: 0;
-    padding: 0;
-    text-align: center;
+  border: 0;
+  padding: 0;
+  text-align: center;
 }
 .card-table .table tbody tr:hover {
   background-color: transparent;
 }
 .card-table .table tbody tr td span {
-    background-color: #fff;
-    border: 0;
-    margin-top: 8px;
-    display: block;
-    padding: 15px;
+  background-color: #fff;
+  border: 0;
+  margin-top: 8px;
+  display: block;
+  padding: 25px;
+}
+.card-table .table tbody tr td span label {
+  margin: 0;
+  padding-left: 12px;
+  margin-left: 10px;
+  position: relative;
+}
+.card-table .table tbody tr td span label:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #111827;
+}
+.status {
+  color: #00c5b4;
 }
 .card-table .table tbody tr td:first-child span {
-    border-radius: 10px 0 0 10px;
+  border-radius: 10px 0 0 10px;
 }
 .card-table .table tbody tr td:last-child span {
-    border-radius: 0 10px 10px 0;
+  border-radius: 0 10px 10px 0;
 }
 </style>

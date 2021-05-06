@@ -1,0 +1,157 @@
+<template>
+  <!-- ============ Body content start ============= -->
+  <div class="main-content">
+    <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
+    <b-row>
+      <b-col lg="12" xl="12" md="12">
+        <!--  <b-card header="Daily Huddle" header-bg-variant="transparent">-->
+        <div class="w-100">
+          <div class="mb-4">
+            <div class="mb-3 page-title">
+              <h3 class="font-weight-bold m-0">Billings</h3>
+            </div>
+            <ul class="billing-dropdown mb-4">
+              <li v-for="num in [1, 2, 3, 4, 5, 6, 7, 8]" :key="num">
+                <b-dropdown id="view-selector" :text="'Location'">
+                  <b-dropdown-item>Location</b-dropdown-item>
+                </b-dropdown>
+              </li>
+              <li>
+                <b-button variant="ripple" block class="btn-default"
+                  >Search</b-button
+                >
+              </li>
+            </ul>
+            <div class="huddle-tab">
+              <b-tabs content-class="mt-1">
+                <b-tab title="Scheduled (12)" active>
+                  <div class="mb-20">
+                    <DynamicCustomTableView
+                      :columns="tableColumns"
+                      :rows="tableRows"
+                    />
+                  </div>
+                </b-tab>
+                <b-tab title="In Office (45)">
+                  <div class="mb-20">
+                    <DynamicCustomTableView
+                      :columns="tableColumns"
+                      :rows="tableRows"
+                    />
+                  </div>
+                </b-tab>
+                <b-tab title="Finished (34)">
+                  <div class="mb-20">
+                    <DynamicCustomTableView
+                      :columns="tableColumns"
+                      :rows="tableRows"
+                    />
+                  </div>
+                </b-tab>
+                <b-tab title="Deferred (21)">
+                  <div class="mb-20">
+                    <DynamicCustomTableView
+                      :columns="tableColumns"
+                      :rows="tableRows"
+                    />
+                  </div>
+                </b-tab>
+              </b-tabs>
+            </div>
+          </div>
+        </div>
+      </b-col>
+    </b-row>
+  </div>
+</template>
+<script>
+import { mapGetters } from "vuex";
+import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
+
+export default {
+  name: "Billings",
+  metaInfo: {
+    // if no subcomponents specify a metaInfo.title, this title will be used
+    title: "Billings",
+  },
+  data() {
+    return {
+      tableColumns: ["Time", "Location", "Name", "DOB", "Contact", "Status"],
+      tableRows: [
+        {
+          id: 1,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
+        },
+        {
+          id: 2,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
+        },
+        {
+          id: 3,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
+        },
+        {
+          id: 4,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
+        },
+        {
+          id: 5,
+          time: "07:00-07:30 AM",
+          location: "Medical Center 1",
+          name: "Jack Liang",
+          dob: "12-21-1992",
+          contact: "(815) - 302 - 864",
+          status: "Scheduled",
+        },
+      ],
+    };
+  },
+  components: { DynamicCustomTableView },
+  computed: {
+    ...mapGetters(["getItems"]),
+  },
+  created: function () {
+    // this.items = this.getItems;
+  },
+  methods: {
+    addCartPage() {},
+  },
+  mounted() {
+    // this.paginate(this.perPage, 0);
+  },
+};
+</script>
+<style scoped>
+.billing-dropdown {
+  padding: 0;
+  margin: -12px;
+  display: table;
+  width: 100%;
+}
+.billing-dropdown > li {
+  float: left;
+  list-style: none;
+  width: 14.28%;
+  padding: 12px;
+}
+</style>

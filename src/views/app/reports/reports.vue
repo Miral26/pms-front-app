@@ -20,7 +20,13 @@
                 <div>
                   <h6 class="mb-3 report-label">Daily</h6>
                   <b-row class="report-card-row">
-                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                    <b-col
+                      lg="4"
+                      xl="3"
+                      md="4"
+                      v-for="num in [1, 2, 3, 4, 5, 6]"
+                      :key="num"
+                    >
                       <div class="report-card">
                         <i class="fa fa-check"></i>
                         <span>Lorem Ipsum Docet</span>
@@ -33,7 +39,13 @@
                 <div>
                   <h6 class="mb-3 report-label">Weekly</h6>
                   <b-row class="report-card-row">
-                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                    <b-col
+                      lg="4"
+                      xl="3"
+                      md="4"
+                      v-for="num in [1, 2, 3, 4, 5, 6]"
+                      :key="num"
+                    >
                       <div class="report-card">
                         <i class="fa fa-check"></i>
                         <span>Lorem Ipsum Docet</span>
@@ -46,7 +58,13 @@
                 <div>
                   <h6 class="mb-3 report-label">Monthly</h6>
                   <b-row class="report-card-row">
-                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                    <b-col
+                      lg="4"
+                      xl="3"
+                      md="4"
+                      v-for="num in [1, 2, 3, 4, 5, 6]"
+                      :key="num"
+                    >
                       <div class="report-card">
                         <i class="fa fa-check"></i>
                         <span>Lorem Ipsum Docet</span>
@@ -59,7 +77,13 @@
                 <div>
                   <h6 class="mb-3 report-label">Yearly</h6>
                   <b-row class="report-card-row">
-                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                    <b-col
+                      lg="4"
+                      xl="3"
+                      md="4"
+                      v-for="num in [1, 2, 3, 4, 5, 6]"
+                      :key="num"
+                    >
                       <div class="report-card">
                         <i class="fa fa-check"></i>
                         <span>Lorem Ipsum Docet</span>
@@ -72,7 +96,13 @@
                 <div>
                   <h6 class="mb-3 report-label">Custom</h6>
                   <b-row class="report-card-row">
-                    <b-col lg="4" xl="3" md="4" v-for="num in [1,2,3,4,5,6]" :key="num">
+                    <b-col
+                      lg="4"
+                      xl="3"
+                      md="4"
+                      v-for="num in [1, 2, 3, 4, 5, 6]"
+                      :key="num"
+                    >
                       <div class="report-card">
                         <i class="fa fa-check"></i>
                         <span>Lorem Ipsum Docet</span>
@@ -107,10 +137,10 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "DashboardV1",
+  name: "Report",
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: "Dashboard v1",
+    title: "Report",
   },
   data() {
     return {};
@@ -218,13 +248,12 @@ export default {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  border-radius: 0 0 100%;
   background-color: #00c5b4;
   animation-name: reverse;
   animation-duration: 0.6s;
-  margin: -10px;
 }
 .report-card:hover:before {
   animation-name: myanimation;
@@ -234,9 +263,9 @@ export default {
 }
 @-webkit-keyframes myanimation {
   0% {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    border-radius: 0 0 100%;
   }
   50% {
     width: 50%;
@@ -247,15 +276,14 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    margin: 0;
   }
 }
 
 @keyframes myanimation {
   0% {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
+    width: 30px;
+    height: 30px;
+    border-radius: 0 0 100%;
   }
   50% {
     width: 50%;
@@ -266,7 +294,6 @@ export default {
     width: 100%;
     height: 100%;
     border-radius: 0;
-    margin: 0;
   }
 }
 @-webkit-keyframes reverse {
@@ -281,15 +308,14 @@ export default {
     border-radius: 0 0 100%;
   }
   100% {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    margin: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 0 0 100%;
   }
 }
 
 @keyframes reverse {
- 0% {
+  0% {
     width: 100%;
     height: 100%;
     border-radius: 0;
@@ -300,10 +326,9 @@ export default {
     border-radius: 0 0 100%;
   }
   100% {
-    width: 40px;
-    height: 40px;
-    border-radius: 100%;
-    margin: -10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 0 0 100%;
   }
 }
 .report-card:hover i {

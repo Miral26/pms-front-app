@@ -11,9 +11,9 @@
               <h3 class="font-weight-bold m-0">Billings</h3>
             </div>
             <ul class="billing-dropdown mb-4">
-              <li v-for="num in [1, 2, 3, 4, 5, 6, 7, 8]" :key="num">
-                <b-dropdown id="view-selector" :text="'Location'">
-                  <b-dropdown-item>Location</b-dropdown-item>
+              <li v-for="option in billingOptions" :key="option.id">
+                <b-dropdown id="view-selector" :text="option.title">
+                  <b-dropdown-item>{{option.title}}</b-dropdown-item>
                 </b-dropdown>
               </li>
               <li>
@@ -76,6 +76,40 @@ export default {
   },
   data() {
     return {
+      billingOptions: [
+        {
+          id: 1,
+          title: "Location",
+        },
+        {
+          id: 2,
+          title: "Time",
+        },
+        {
+          id: 3,
+          title: "Billing Entity",
+        },
+        {
+          id: 4,
+          title: "Treating Provider",
+        },
+        {
+          id: 5,
+          title: "Fee Amount",
+        },
+        {
+          id: 6,
+          title: "Insurance Carrier",
+        },
+        {
+          id: 7,
+          title: "Insurance Plan",
+        },
+        {
+          id: 8,
+          title: "Search Service",
+        },
+      ],
       tableColumns: ["Time", "Location", "Name", "DOB", "Contact", "Status"],
       tableRows: [
         {

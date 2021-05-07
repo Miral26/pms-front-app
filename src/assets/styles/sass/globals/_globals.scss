@@ -3,6 +3,7 @@
 @import "mixins/mixins";
 @import "colors";
 @import "palette";
+@import url("../../css/syncfusion-material.css");
 @import "../../vendor/animate.scss/animate.scss";
 @import "animations";
 @import "typography";
@@ -15,6 +16,8 @@
 @import "footer";
 @import "utilities/utilities";
 @import "views/views";
+@import "views/scheduler";
+
 html {
   font-size: 16px;
 }
@@ -242,10 +245,19 @@ blockquote {
 
 .form-control:focus {
   box-shadow: none !important;
+  border-color: #eaf4fb;
 }
 .btn-default {
   background-color: #00c5b4;
   color: #ffff;
+}
+.dropdown-toggle:active,
+.show > .btn-secondary.dropdown-toggle {
+  border-color: #dfe0e0 !important;
+}
+.dropdown-item:active {
+  background-color: transparent;
+  color: #111827;
 }
 
 .billing-dropdown li .dropdown,
@@ -268,14 +280,56 @@ blockquote {
   top: 50%;
   font-weight: bold;
 }
-.billing-dropdown li .dropdown-toggle:active,
-.billing-dropdown li .show > .btn-secondary.dropdown-toggle {
-  border-color: #dfe0e0 !important;
-}
 .billing-dropdown li .dropdown-menu {
   width: 100%;
 }
-.billing-dropdown li .dropdown-item:active {
-  background-color: transparent;
-  color: #111827;
+
+.main-header .header-part-right .datepicker-input button:hover {
+  background-color: #6cdcd4;
 }
+
+.b-calendar {
+  background-color: #f2f7fc;
+}
+.btn.btn-primary {
+  color: #fff;
+}
+.btn-outline-primary{
+  color: #6cdcd4;
+  border-color: #6cdcd4;
+}
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:not(:disabled):not(.disabled):active,
+.btn-outline-primary:active {
+  box-shadow: none !important;
+  outline: none;
+  background-color: #6cdcd4;
+  border-color: #6cdcd4;
+  color: #fff;
+}
+.btn-radius {
+  border-radius: 30px;
+}
+.btn-primary {
+  color: #26222a;
+  background-color: #6cdcd4 ;
+  border-color: #6cdcd4 ; }
+  .btn-primary:hover {
+    color: #26222a;
+    background-color: #00c5b4;
+    border-color: #00c5b4; }
+  .btn-primary:focus, .btn-primary.focus {
+    box-shadow: 0 0 0 0.2rem #6cdcd4  }
+  .btn-primary.disabled, .btn-primary:disabled {
+    color: #26222a;
+    background-color: #6cdcd4 ;
+    border-color: #6cdcd4 ; }
+  .btn-primary:not(:disabled):not(.disabled):active, .btn-primary:not(:disabled):not(.disabled).active,
+  .show > .btn-primary.dropdown-toggle {
+    color: #26222a;
+    background-color: #6cdcd4 ;
+    border-color: #6cdcd4 ; }
+    .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
+    .show > .btn-primary.dropdown-toggle:focus {
+      box-shadow: 0 0 0 0.2rem #6cdcd4 ; }

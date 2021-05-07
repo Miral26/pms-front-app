@@ -34,8 +34,7 @@
           </div>
           <div>
             <b-dropdown
-              id="view-selector"
-              class="mb-2 mr-5"
+              class="provider-dropdown mb-2 mr-5"
               :text="selectedProvider ? selectedProvider : 'Select Provider'"
             >
               <b-dropdown-item @click="selectedProvider = ''"
@@ -215,6 +214,14 @@ export default {
 .daily-huddle span {
   color: #9badbf;
   font-weight: normal;
+}
+.provider-dropdown .dropdown-toggle {
+    max-width: 200px;
+    min-width: 200px;
+    text-align: left;
+}
+.provider-dropdown .dropdown-menu {
+    right: 0 !important;
 }
 .daily-huddle span.active-tab {
   color: #355677;

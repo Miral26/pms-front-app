@@ -2,7 +2,6 @@ import Vue from "vue";
 import store from "./store";
 // import {isMobile} from "mobile-device-detect";
 import Router from "vue-router";
-import NProgress from "nprogress";
 import authenticate from "./auth/authenticate";
 
 Vue.use(Router);
@@ -16,8 +15,10 @@ import DashboardV3 from './views/app/dashboards/dashboard.v3.vue'
 import DashboardV4 from './views/app/dashboards/dashboard.v4.vue'
 import AppReports from './views/app/reports'
 import AppBillings from './views/app/billings'
+import AppScheduler from './views/app/scheduler'
 import Reports from './views/app/reports/reports.vue';
 import Billiings from './views/app/billings/billings.vue';
+import Scheduler from './views/app/scheduler/scheduler.vue';
 import SessionIndex from './views/app/sessions/index.vue'
 import signIn from './views/app/sessions/signIn'
 import signUp from './views/app/sessions/signUp.vue'
@@ -70,7 +71,14 @@ const routes = [
         path: "/app/billings",
         component: AppBillings,
         children: [
-          route('billing', '/', Billiings),
+          route('billings', '/', Billiings),
+        ]
+      },
+      {
+        path: "/app/scheduler",
+        component: AppScheduler,
+        children: [
+          route('scheduler', '/', Scheduler),
         ]
       },
       {
@@ -588,15 +596,6 @@ const router = new Router({
   }
 });
 
-router.beforeEach((to, from, next) => {
-  // If this isn't an initial page load.
-  if (to.path) {
-    // Start the route progress bar.
-    NProgress.start();
-    NProgress.set(0.1);
-  }
-  next();
-});
 
 router.afterEach(() => {
   // Remove initial loading
@@ -605,8 +604,6 @@ router.afterEach(() => {
     gullPreLoading.style.display = "none";
   }
   // Complete the animation of the route progress bar.
-  setTimeout(() => NProgress.done(), 500);
-  // NProgress.done();
   // if (isMobile) {
   if (window.innerWidth <= 1200) {
     // console.log("mobile");

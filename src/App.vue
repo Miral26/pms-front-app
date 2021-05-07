@@ -21,7 +21,7 @@ export default {
     },
     rtl() {
       return this.getThemeMode.rtl ? "rtl" : " ";
-    }
+    },
   },
   metaInfo() {
     return {
@@ -30,13 +30,13 @@ export default {
       // all titles will be injected into this template
       titleTemplate: "%s | Gull - Vuejs Admin Dashboard Template",
       bodyAttrs: {
-        class: [this.themeName, "text-left"]
+        class: [this.themeName, "text-left"],
       },
       htmlAttrs: {
-        dir: this.rtl
-      }
+        dir: this.rtl,
+      },
     };
-  }
+  },
 };
 </script>
 

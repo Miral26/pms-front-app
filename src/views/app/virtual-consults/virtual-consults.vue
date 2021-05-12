@@ -23,7 +23,7 @@
           <div class="calender-right">
             <h5>Select a Date & Time</h5>
             <div class="calender-wrap">
-              <Calendar
+              <DatePicker
                 mode="single"
                 title-position="left"
                 v-model="selectedDate"
@@ -36,10 +36,16 @@
                 <h6 v-if="selectedDate">
                   {{ moment(selectedDate).format("dddd, MMM YY") }}
                 </h6>
-                <li v-for="timeSlot in timeSlots" :key="timeSlot.time">
-                  <b-button variant="outline-primary ripple">{{
-                    timeSlot.time
-                  }}</b-button>
+                <li
+                  v-for="timeSlot in timeSlots"
+                  :key="timeSlot.time"
+                  :class="selectedTimeSlot === timeSlot ? 'active' : ''"
+                >
+                  <b-button
+                    variant="outline-primary ripple"
+                    @click="selectedTimeSlot = timeSlot"
+                    >{{ timeSlot.time }}</b-button
+                  >
                   <b-button pill variant="primary ripple">Confirm</b-button>
                 </li>
               </ul>
@@ -52,7 +58,7 @@
 </template>
 <style>
 .appointment-calender {
-  max-width: 980px;
+  max-width: 1140px;
   width: 100%;
 }
 .appointment-calender .card-body {
@@ -75,9 +81,15 @@
   margin: 0;
   width: 100%;
 }
-.appointment-calender .vc-container .vc-day-content:not(.vc-text-gray-400) {
+.appointment-calender .vc-container .vc-day-content:not(.is-disabled) {
   background-color: #f2f7fc;
   color: #00c5b4;
+  height: 40px;
+  width: 40px;
+}
+.appointment-calender .vc-container .vc-day-content.is-disabled {
+  pointer-events: none;
+  cursor: not-allowed;
 }
 .appointment-calender .vc-container .vc-highlights + .vc-day-content,
 .appointment-calender .vc-container .vc-day-content:focus {
@@ -102,17 +114,50 @@
 .time-slots {
   padding: 0 20px 0 0;
   margin: 0;
+  width: 35%;
+  overflow: hidden;
+}
+.time-slots h6 {
+  font-size: 16px;
+  padding-bottom: 5px;
+  margin-top: 15px;
 }
 .time-slots li {
   list-style: none;
+  display: flex;
+  margin-top: 15px;
+  justify-content: space-between;
 }
 .time-slots li button {
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
   width: 100%;
+  flex: 0 0 100%;
+}
+.time-slots li.active button {
+  width: 49%;
+  flex: 0 0 49%;
+}
+.time-slots li.active button.btn-outline-primary,
+.time-slots li.active button.btn-outline-primary:focus {
+  background-color: #4d5055;
+  border-color: #f2f7fc;
+  color: #fff;
 }
 .time-slots li button + button {
-  width: 0;
   opacity: 0;
   visibility: hidden;
+  position: relative;
+  margin-left: 3%;
+  -moz-transform: translateX(40px);
+  -webkit-transform: translateX(40px);
+  transform: translateX(40px);
+}
+.time-slots li.active button + button {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0px);
+  margin: 0;
 }
 .calender-meeting-info {
   padding: 20px;
@@ -171,26 +216,25 @@
 </style>
 
 <script>
-import { Calendar } from "v-calendar";
+import { DatePicker } from "v-calendar";
 import * as moment from "moment";
 
 export default {
   data() {
     return {
       selectedDate: new Date(),
+      selectedTimeSlot: null,
       firstDayOfWeek: 2,
       moment: moment,
-      timeSlots: [],
-      attributes: [
-        {
-          highlight: true,
-          dates: this.selectedDate || new Date(),
-        },
-      ],
+      timeSlots: this.getTimeSlots(
+        moment(new Date()).set({ hours: 15, minutes: 0, seconds: 0 }),
+        moment(new Date()).set({ hours: 18, minutes: 0, seconds: 0 }),
+        60
+      ),
     };
   },
   components: {
-    Calendar,
+    DatePicker,
   },
   methods: {
     myDayFormat(e) {
@@ -219,7 +263,7 @@ export default {
       this.getTimeSlots(
         moment(e.date).set({ hours: 15, minutes: 0, seconds: 0 }),
         moment(e.date).set({ hours: 18, minutes: 0, seconds: 0 }),
-        30
+        60
       );
       console.log(`e`, moment(e.date).format("MM-DD-YYYY HH:mm:ss a"));
       console.log(`this.timeSlots`, this.timeSlots);

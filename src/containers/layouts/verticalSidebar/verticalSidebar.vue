@@ -132,7 +132,7 @@
               <div class="dropdown-header">
                 <i class="i-Lock-User mr-1"></i> Timothy Carlson
               </div>
-              <!-- <a class="dropdown-item" href="/app/settings">Settings</a> -->
+              <a class="dropdown-item" href="/app/virtual-consults">Virtual Consults</a>
               <a class="dropdown-item">Profile Update</a>
               <a class="dropdown-item">Change Password</a>
               <a class="dropdown-item" href="#" @click.prevent="logoutUser"

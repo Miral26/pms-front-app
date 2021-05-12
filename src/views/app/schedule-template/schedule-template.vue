@@ -47,6 +47,15 @@
             :key="operatory.id"
           >
             <div class="appointment-title">{{ operatory.title }}</div>
+            <ul class="days">
+              <li>M</li>
+              <li>T</li>
+              <li>W</li>
+              <li>T</li>
+              <li>F</li>
+              <li>S</li>
+              <li>S</li>
+            </ul>
           </div>
         </div>
       </b-col>
@@ -74,6 +83,20 @@
   color: #12395f;
   font-weight: bold;
   font-size: 17px;
+}
+.days {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+.days li {
+  float: left;
+  color: #33b5e6;
+  list-style: none;
+  margin-right: 5px;
+  font-size: 20px;
+  line-height: 1;
+  margin-top: 5px;
 }
 </style>
 

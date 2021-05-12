@@ -61,12 +61,9 @@
                 />
               </div>
             </b-tab>
-            <b-tab title="In Office (45)">
+            <b-tab title="Insights">
               <div class="mb-20">
-                <DailyHuddleTableView
-                  :columns="tableColumns"
-                  :rows="tableRows"
-                />
+                <EChartView />
               </div>
             </b-tab>
             <!-- <b-tab title="Finished (34)">
@@ -100,6 +97,7 @@
 <script>
 import DailyHuddleTableView from "../dashboards/views/table/DailyHuddleTableView";
 import DynamicDraggableView from "../dashboards/views/draggable/DynamicDraggableView";
+import EChartView from "../chart/echart";
 
 import { mapGetters } from "vuex";
 
@@ -112,6 +110,7 @@ export default {
   components: {
     DailyHuddleTableView,
     DynamicDraggableView,
+    EChartView,
   },
   data() {
     return {

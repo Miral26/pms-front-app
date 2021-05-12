@@ -27,7 +27,7 @@
                 mode="single"
                 title-position="left"
                 v-model="selectedDate"
-                firstDayOfWeek="2"
+                :locale="{ firstDayOfWeek: 2, masks: { weekdays: 'WWW' } }"
                 :disabled-dates="{ weekdays: [1, 7] }"
                 :min-date="new Date()"
                 @dayclick="onDayClick"
@@ -177,18 +177,15 @@ import * as moment from "moment";
 export default {
   data() {
     return {
-      selectedDate: null,
+      selectedDate: new Date(),
+      firstDayOfWeek: 2,
       moment: moment,
-      formats: {
-        weekdays: "WWW",
-        ordinalWeekdays: "2",
-      },
       timeSlots: [],
-      attrs: [
-        // {
-        //   highlight: true,
-        //   dates: new Date(),
-        // },
+      attributes: [
+        {
+          highlight: true,
+          dates: this.selectedDate || new Date(),
+        },
       ],
     };
   },

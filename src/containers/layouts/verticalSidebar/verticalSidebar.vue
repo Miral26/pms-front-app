@@ -78,7 +78,7 @@
                 :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
               >
                 <li class="item-name">
-                  <router-link tag="a" to="/app/virtual-consults">
+                  <router-link tag="a" to="/app/schedule-template">
                     <!-- <i class="i-Circular-Point mr-1"></i> -->
                     <span class>Schedule Template</span>
                   </router-link>

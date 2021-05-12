@@ -16,7 +16,7 @@
 @import "footer";
 @import "utilities/utilities";
 @import "views/views";
-@import "views/scheduler";
+@import "views/schedule";
 @import "views/new_appointment_modal";
 
 html {
@@ -186,6 +186,10 @@ blockquote {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
+}
+
+.c-pointer {
+  cursor: pointer;
 }
 
 // np progress bar

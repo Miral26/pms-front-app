@@ -15,12 +15,14 @@ import DashboardV3 from './views/app/dashboards/dashboard.v3.vue'
 import DashboardV4 from './views/app/dashboards/dashboard.v4.vue'
 import AppReports from './views/app/reports'
 import AppBillings from './views/app/billings'
-import AppScheduler from './views/app/scheduler'
+import AppSchedule from './views/app/schedule'
+import AppScheduleTemplate from './views/app/schedule-template'
 import VirtualConsults from './views/app/virtual-consults'
 import AppVirtualConsults from './views/app/virtual-consults/virtual-consults.vue'
 import Reports from './views/app/reports/reports.vue';
 import Billiings from './views/app/billings/billings.vue';
-import Scheduler from './views/app/scheduler/scheduler.vue';
+import Schedule from './views/app/schedule/schedule.vue';
+import ScheduleTemplate from './views/app/schedule-template/schedule-template.vue';
 import SessionIndex from './views/app/sessions/index.vue'
 import signIn from './views/app/sessions/signIn'
 import signUp from './views/app/sessions/signUp.vue'
@@ -78,9 +80,16 @@ const routes = [
       },
       {
         path: "/app/schedule",
-        component: AppScheduler,
+        component: AppSchedule,
         children: [
-          route('schedule', '/', Scheduler),
+          route('schedule', '/', Schedule),
+        ]
+      },
+      {
+        path: "/app/schedule-template",
+        component: AppScheduleTemplate,
+        children: [
+          route('schedule-template', '/', ScheduleTemplate),
         ]
       },
       {

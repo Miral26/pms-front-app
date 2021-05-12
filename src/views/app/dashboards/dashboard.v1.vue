@@ -55,19 +55,17 @@
           <b-tabs content-class="mt-1">
             <b-tab title="Scheduled (12)" active>
               <div class="mb-20">
-                <DynamicCustomTableView
+                <DailyHuddleTableView
                   :columns="tableColumns"
                   :rows="tableRows"
-                  :statusList="statusList"
                 />
               </div>
             </b-tab>
             <b-tab title="In Office (45)">
               <div class="mb-20">
-                <DynamicCustomTableView
+                <DailyHuddleTableView
                   :columns="tableColumns"
                   :rows="tableRows"
-                  :statusList="statusList"
                 />
               </div>
             </b-tab>
@@ -100,7 +98,7 @@
   </div>
 </template>
 <script>
-import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
+import DailyHuddleTableView from "../dashboards/views/table/DailyHuddleTableView";
 import DynamicDraggableView from "../dashboards/views/draggable/DynamicDraggableView";
 
 import { mapGetters } from "vuex";
@@ -112,7 +110,7 @@ export default {
     title: "Dashboard v1",
   },
   components: {
-    DynamicCustomTableView,
+    DailyHuddleTableView,
     DynamicDraggableView,
   },
   data() {
@@ -149,52 +147,68 @@ export default {
         { id: 3, title: "Finished" },
         { id: 4, title: "Deferred" },
       ],
-      tableColumns: ["Time", "Provider", "Name", "DOB", "Contact", "Status"],
+      tableColumns: [
+        "Date/Time",
+        "Name/Cell Phone",
+        "Social History",
+        "Last Dental Treatment",
+        "Pending Treatment",
+        "Insurance Example",
+      ],
       tableRows: [
         {
           id: 1,
           time: "07:00-07:30 AM",
-          location: "Medical Center 1",
-          name: "Jack Liang",
-          dob: "12-21-1992",
-          contact: "(815) - 302 - 864",
-          status: "Scheduled",
+          phone: "(815) - 302 - 864",
+          socialHistory: "Medical Center 1",
+          lastTreatment: "-",
+          pendingTreatment: "-",
+          insuranceExample: "Delta Dental ",
         },
         {
           id: 2,
           time: "07:00-07:30 AM",
-          location: "Medical Center 1",
-          name: "Jack Liang",
-          dob: "12-21-1992",
-          contact: "(815) - 302 - 864",
-          status: "Scheduled",
+          phone: "(815) - 302 - 864",
+          socialHistory: "Medical Center 1",
+          lastTreatment: "-",
+          pendingTreatment: "-",
+          insuranceExample: "Delta Dental ",
         },
         {
           id: 3,
           time: "07:00-07:30 AM",
-          location: "Medical Center 1",
-          name: "Jack Liang",
-          dob: "12-21-1992",
-          contact: "(815) - 302 - 864",
-          status: "Scheduled",
+          phone: "(815) - 302 - 864",
+          socialHistory: "Medical Center 1",
+          lastTreatment: "-",
+          pendingTreatment: "-",
+          insuranceExample: "Delta Dental ",
         },
         {
           id: 4,
           time: "07:00-07:30 AM",
-          location: "Medical Center 1",
-          name: "Jack Liang",
-          dob: "12-21-1992",
-          contact: "(815) - 302 - 864",
-          status: "Scheduled",
+          phone: "(815) - 302 - 864",
+          socialHistory: "Medical Center 1",
+          lastTreatment: "-",
+          pendingTreatment: "-",
+          insuranceExample: "Delta Dental ",
         },
         {
           id: 5,
           time: "07:00-07:30 AM",
-          location: "Medical Center 1",
-          name: "Jack Liang",
-          dob: "12-21-1992",
-          contact: "(815) - 302 - 864",
-          status: "Scheduled",
+          phone: "(815) - 302 - 864",
+          socialHistory: "Medical Center 1",
+          lastTreatment: "-",
+          pendingTreatment: "-",
+          insuranceExample: "Delta Dental ",
+        },
+        {
+          id: 6,
+          time: "07:00-07:30 AM",
+          phone: "(815) - 302 - 864",
+          socialHistory: "Medical Center 1",
+          lastTreatment: "-",
+          pendingTreatment: "-",
+          insuranceExample: "Delta Dental ",
         },
       ],
     };

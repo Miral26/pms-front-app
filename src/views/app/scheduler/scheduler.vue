@@ -5,7 +5,7 @@
       <b-col lg="9" md="8">
         <!--  <b-card header="Daily Huddle" header-bg-variant="transparent">-->
         <div class="mb-3 page-title">
-          <h3 class="font-weight-bold m-0">Scheduler</h3>
+          <h3 class="font-weight-bold m-0">Schedule</h3>
         </div>
 
         <div class="schedule-vue-sample">
@@ -33,8 +33,8 @@
                 </e-header-rows>
                 <e-views>
                   <e-view option="Day"></e-view>
-                  <e-view option="Week"></e-view>
-                  <e-view option="Month"></e-view>
+                  <!-- <e-view option="Week"></e-view>
+                  <e-view option="Month"></e-view> -->
                   <!-- <e-view option="TimelineDay"></e-view>
             <e-view option="TimelineWeek"></e-view>
             <e-view option="TimelineMonth"></e-view> -->
@@ -80,7 +80,7 @@
         </div>
       </b-col>
     </b-row>
-    <b-row>
+    <!-- <b-row>
       <b-col md="12 mt-4">
         <b-button
           class="btn-radius"
@@ -92,7 +92,7 @@
           >Schedule template</b-button
         >
       </b-col>
-    </b-row>
+    </b-row> -->
 
     <b-modal id="new-appointment" size="xl">
       <div class="appointment-head">
@@ -400,7 +400,7 @@
   background-color: #fff;
   border-radius: 10px;
   padding: 15px;
-  margin-bottom: 35px;
+  margin-bottom: 40px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
 }
 .appointment-card:last-child {
@@ -697,8 +697,7 @@ export default {
       if (args.requestType === "toolbarItemRendering") {
         let userIconItem = {
           align: "Right",
-          prefixIcon: "i-Full-View-Window",
-          text: "Full Screen",
+          prefixIcon: "i-Full-Screen",
           cssClass: "e-schedule-user-icon full-screen-view",
         };
         args.items.push(userIconItem);
@@ -712,25 +711,20 @@ export default {
         );
         userIconEle.onclick = () => {
           const element = document.querySelector(".schedule-container");
-          const element1 = document.querySelector(
-            ".full-screen-view button .e-tbar-btn-text"
-          );
 
           if (element.classList.contains("full-screen")) {
             element.classList.remove("full-screen");
-            element1.innerHTML = "Full Screen";
             const fullScreenElement = document.querySelector(
               ".full-screen-view button .i-Close-Window"
             );
-            fullScreenElement.classList.add("i-Full-View-Window");
+            fullScreenElement.classList.add("i-Full-Screen");
             fullScreenElement.classList.remove("i-Close-Window");
           } else {
             const fullScreenElement = document.querySelector(
-              ".full-screen-view button .i-Full-View-Window"
+              ".full-screen-view button .i-Full-Screen"
             );
             element.classList.add("full-screen");
-            element1.innerHTML = "Close";
-            fullScreenElement.classList.remove("i-Full-View-Window");
+            fullScreenElement.classList.remove("i-Full-Screen");
             fullScreenElement.classList.add("i-Close-Window");
           }
         };

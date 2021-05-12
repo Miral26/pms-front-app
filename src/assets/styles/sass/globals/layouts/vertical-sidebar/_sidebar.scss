@@ -52,6 +52,16 @@
       flex-grow: 1;
     }
     .sidenav-bottom {
+      li {
+        list-style: none;
+      }
+      a {
+        color: #8da1b5;
+      }
+      a:hover {
+        color: black !important;
+        font-weight: bold;
+      }
       margin-top: 20px;
       padding-bottom: 20px;
     }

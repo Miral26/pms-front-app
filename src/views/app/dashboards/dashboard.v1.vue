@@ -10,7 +10,7 @@
             <div class="mr-3 page-title">
               <h3 class="font-weight-bold m-0">Daily Huddle</h3>
             </div>
-            <div class="daily-huddle">
+            <!-- <div class="daily-huddle">
               <span
                 :class="`mr-3 ${selectedView === 'Table' ? 'active-tab' : ''}`"
                 >Tab</span
@@ -30,7 +30,7 @@
                 :class="`ml-2 ${selectedView !== 'Table' ? 'active-tab' : ''}`"
                 >Card</span
               >
-            </div>
+            </div> -->
           </div>
           <div>
             <b-dropdown
@@ -71,7 +71,7 @@
                 />
               </div>
             </b-tab>
-            <b-tab title="Finished (34)">
+            <!-- <b-tab title="Finished (34)">
               <div class="mb-20">
                 <DynamicCustomTableView
                   :columns="tableColumns"
@@ -88,7 +88,7 @@
                   :statusList="statusList"
                 />
               </div>
-            </b-tab>
+            </b-tab> -->
           </b-tabs>
         </div>
         <div class="mt-1" v-if="selectedView === 'Draggable'">
@@ -277,7 +277,6 @@ export default {
   padding: 12px;
   margin-bottom: 10px;
   display: block;
-  border-bottom: 1px solid #ddd;
 }
 .card-table .table tbody tr td {
   text-align: center;
@@ -302,13 +301,13 @@ export default {
   background-color: #111827;
 }
 .status-dropdown button {
-    border: 0;
-    background-color: transparent !important;
-    color: #00c5b4 !important;
+  border: 0;
+  background-color: transparent !important;
+  color: #00c5b4 !important;
 }
 .status-dropdown button:focus,
 .status-dropdown button:hover {
-    box-shadow: none;
+  box-shadow: none;
 }
 .card-table .table tbody tr td:first-child span {
   border-radius: 10px 0 0 10px;

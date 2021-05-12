@@ -55,6 +55,38 @@
       <div class="sidenav-bottom">
         <ul class="ul-vertical-sidebar pl-4" id="menu">
           <li class="hover-menu">
+            <div v-b-toggle.collapse-3>
+              <a
+                class="has-arrow"
+                href="#"
+                :class="{ active: selectedParentMenu == 'settings' }"
+              >
+                <i class="i-Globe text-23 mr-2 icon font-weight-bold"></i>
+                <span
+                  class="text-15"
+                  :class="{
+                    'vertical-item-name': getVerticalCompact.isItemName,
+                  }"
+                  >Settings</span
+                >
+                <arrowIcon />
+              </a>
+            </div>
+            <b-collapse id="collapse-3">
+              <ul
+                class="Ul_collapse"
+                :class="{ 'vertical-item-name': getVerticalCompact.isItemName }"
+              >
+                <li class="item-name">
+                  <router-link tag="a" to="/app/virtual-consults">
+                    <!-- <i class="i-Circular-Point mr-1"></i> -->
+                    <span class>Schedule Template</span>
+                  </router-link>
+                </li>
+              </ul>
+            </b-collapse>
+          </li>
+          <!-- <li class="hover-menu">
             <div>
               <router-link tag="a" class="has-arrow" to="/app/help">
                 <i
@@ -70,7 +102,7 @@
                 >
               </router-link>
             </div>
-          </li>
+          </li> -->
         </ul>
 
         <div class="dropdown">
@@ -100,7 +132,7 @@
               <div class="dropdown-header">
                 <i class="i-Lock-User mr-1"></i> Timothy Carlson
               </div>
-              <a class="dropdown-item" href="/app/settings">Settings</a>
+              <!-- <a class="dropdown-item" href="/app/settings">Settings</a> -->
               <a class="dropdown-item">Profile Update</a>
               <a class="dropdown-item">Change Password</a>
               <a class="dropdown-item" href="#" @click.prevent="logoutUser"
@@ -115,10 +147,10 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-// import arrowIcon from "@/components/arrow/arrowIcon";
+import arrowIcon from "@/components/arrow/arrowIcon";
 export default {
   components: {
-    // arrowIcon,
+    arrowIcon,
   },
   computed: {
     ...mapGetters(["getVerticalCompact", "getVerticalSidebar"]),
@@ -134,10 +166,10 @@ export default {
           redirectTo: "/app/dashboards/dashboard.v1",
         },
         {
-          title: "Scheduler",
-          selectedParentMenu: "scheduler",
+          title: "Schedule",
+          selectedParentMenu: "schedule",
           icon: "i-Calendar-4",
-          redirectTo: "/app/scheduler",
+          redirectTo: "/app/schedule",
         },
         {
           title: "Report",
@@ -151,12 +183,12 @@ export default {
           icon: "i-Dollar-Sign-2",
           redirectTo: "/app/billings",
         },
-        {
-          title: "Overview",
-          selectedParentMenu: "overview",
-          icon: "i-Bar-Chart",
-          redirectTo: "/app/overview",
-        },
+        // {
+        //   title: "Overview",
+        //   selectedParentMenu: "overview",
+        //   icon: "i-Bar-Chart",
+        //   redirectTo: "/app/overview",
+        // },
       ],
     };
   },

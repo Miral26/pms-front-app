@@ -77,10 +77,10 @@ const routes = [
         ]
       },
       {
-        path: "/app/scheduler",
+        path: "/app/schedule",
         component: AppScheduler,
         children: [
-          route('scheduler', '/', Scheduler),
+          route('schedule', '/', Scheduler),
         ]
       },
       {

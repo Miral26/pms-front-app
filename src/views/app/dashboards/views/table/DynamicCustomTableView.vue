@@ -1,6 +1,6 @@
 <template>
   <div class="card-table table-responsive">
-    <table class="table table-striped">
+    <table class="table">
       <thead>
         <tr>
           <th :key="column" v-for="column in columns">

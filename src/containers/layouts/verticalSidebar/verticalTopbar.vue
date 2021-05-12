@@ -6,7 +6,7 @@
         <div></div>
         <div></div>
       </div>
-      <div
+      <!-- <div
         :class="{ show: isMegaMenuOpen }"
         class="dropdown mega-menu d-none d-md-block"
         v-on-clickaway="closeMegaMenu"
@@ -108,7 +108,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="header-toggle">
         <div class="search-bar">
           <i class="search-icon text-muted i-Magnifi-Glass1"></i>
@@ -131,16 +131,16 @@
             v-b-popover.hover.bottom="'Add Patient'"
           >
           </i>
-          <i
+          <!-- <i
             class="i-Magnifi-Glass- cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
             v-b-popover.hover.bottom="'Advanced Patient Search'"
           >
-          </i>
+          </i> -->
         </div>
       </div>
 
       <div class="header-part-right">
-        <b-form-datepicker
+        <!-- <b-form-datepicker
           :date-format-options="{
             year: 'numeric',
             month: '2-digit',
@@ -149,7 +149,7 @@
           id="example-datepicker"
           v-model="dateSelected"
           class="datepicker-input"
-        ></b-form-datepicker>
+        ></b-form-datepicker> -->
 
         <div class="dropdown location">
           <b-dropdown
@@ -172,7 +172,7 @@
                 class="text-decoration-none text-14 cursor-pointer"
                 style="text-decoration: none"
               >
-                {{ cloudBase.clinic ? cloudBase.clinic : "Cloud Based Smiles" }}
+                {{ cloudBase.clinic ? cloudBase.clinic : "Cloud Based..." }}
                 <i
                   class="i-Arrow-Down text-20 cursor-pointer header-icon d-sm-inline-block"
                   v-b-popover.hover.bottom="'Client - Location'"
@@ -229,8 +229,8 @@ export default {
       ],
 
       cloudBase: {
-        clinic: "Cloud Based Smiles",
-        clinics: ["Cloud Based Smiles", "Clinic1", "Clinic2", "Clinic3"],
+        clinic: "Cloud Based...",
+        clinics: ["Cloud Based...", "Clinic1", "Clinic2", "Clinic3"],
         location: null,
         locations: [
           { text: "Select Location", value: null },

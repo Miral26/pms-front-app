@@ -17,6 +17,7 @@
 @import "utilities/utilities";
 @import "views/views";
 @import "views/scheduler";
+@import "views/new_appointment_modal";
 
 html {
   font-size: 16px;
@@ -294,6 +295,13 @@ blockquote {
 .btn.btn-primary {
   color: #fff;
 }
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary:active {
+  color: #fff !important;
+  box-shadow: none !important;
+}
 .btn-outline-primary{
   color: #6cdcd4;
   border-color: #6cdcd4;
@@ -333,3 +341,13 @@ blockquote {
     .btn-primary:not(:disabled):not(.disabled):active:focus, .btn-primary:not(:disabled):not(.disabled).active:focus,
     .show > .btn-primary.dropdown-toggle:focus {
       box-shadow: 0 0 0 0.2rem #6cdcd4 ; }
+
+  .checkbox-outline-primary .checkmark {
+    border-color: #6cdcd4 ;
+  }
+  .checkbox-outline-primary .checkmark:after {
+    border-color: #6cdcd4 ;
+  }
+  .checkbox-outline-primary:hover input ~ .checkmark {
+    background-color: transparent;
+  }

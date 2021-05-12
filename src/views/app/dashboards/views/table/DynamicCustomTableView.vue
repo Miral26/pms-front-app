@@ -1,6 +1,6 @@
 <template>
   <div class="card-table table-responsive">
-    <table class="table table-hover">
+    <table class="table table-striped">
       <thead>
         <tr>
           <th :key="column" v-for="column in columns">
@@ -26,7 +26,15 @@
             <span>{{ row.contact }}</span>
           </td>
           <td>
-            <span class="status">{{ row.status }}</span>
+            <b-dropdown class="status-dropdown" :text="row.status">
+              <b-dropdown-item
+                v-for="status in statusList"
+                :value="status.title"
+                :key="status.id"
+                @click="row.status = status.title"
+                >{{ status.title }}</b-dropdown-item
+              >
+            </b-dropdown>
           </td>
           <!--<td>
             <span
@@ -50,6 +58,7 @@ export default {
   props: {
     columns: Array,
     rows: Array,
+    statusList: Array,
   },
 };
 </script>

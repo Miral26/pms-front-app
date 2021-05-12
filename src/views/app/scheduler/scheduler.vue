@@ -16,27 +16,25 @@
                 ref="ScheduleObj"
                 :height="calenderHieght"
                 :cssClass="cssClass"
-                :selectedDate="selectedDate"
+                :selectedDate="dateSelected"
                 :eventSettings="eventSettings"
                 :eventRendered="onEventRendered"
                 :group="group"
                 :currentView="currentView"
+                :actionBegin="onActionBegin"
+                :actionComplete="onActionComplete"
+                :renderCell="onRenderCell"
               >
                 <e-header-rows>
-                  <!-- <e-header-row
-              option="Month"
-              :template="monthHeaderTemplate"
-            ></e-header-row>
-            <e-header-row
-              option="Week"
-              :template="weekHeaderTemplate"
-            ></e-header-row> -->
-                  <!-- <e-header-row option="Date"></e-header-row> -->
+                  <e-header-row
+                    option="Day"
+                    :template="dayHeaderTemplate"
+                  ></e-header-row>
                 </e-header-rows>
                 <e-views>
                   <e-view option="Day"></e-view>
                   <e-view option="Week"></e-view>
-                  <!-- <e-view option="Month"></e-view> -->
+                  <e-view option="Month"></e-view>
                   <!-- <e-view option="TimelineDay"></e-view>
             <e-view option="TimelineWeek"></e-view>
             <e-view option="TimelineMonth"></e-view> -->
@@ -84,7 +82,10 @@
     </b-row>
     <b-row>
       <b-col md="12 mt-4">
-        <b-button class="btn-radius" variant="primary ripple m-1"
+        <b-button
+          class="btn-radius"
+          variant="primary ripple m-1"
+          v-b-modal.new-appointment
           ><i class="fa fa-plus mr-1"></i> New Appointment</b-button
         >
         <b-button class="btn-radius" variant="outline-primary ripple ml-2"
@@ -92,6 +93,252 @@
         >
       </b-col>
     </b-row>
+
+    <b-modal id="new-appointment" size="xl">
+      <div class="appointment-head">
+        <h2>New Appointment</h2>
+        <div class="head-right">
+          <i
+            class="i-Add-User cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
+            v-b-popover.hover.bottom="'Add Patient'"
+          >
+          </i>
+          <div class="search-bar">
+            <i class="search-icon text-muted i-Magnifi-Glass1"></i>
+            <input
+              type="text"
+              placeholder="Search a Patient"
+              v-model="headerSearch"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="appointment-body">
+        <b-tabs>
+          <b-tab title="Appoitment" active>
+            <div class="mb-20">
+              <div class="row">
+                <div class="col-md-9">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <b-form-datepicker
+                          :date-format-options="{
+                            year: 'numeric',
+                            month: '2-digit',
+                            day: '2-digit',
+                          }"
+                          id="new-appointment-date-selector"
+                          v-model="dateSelected"
+                          class="datepicker-input"
+                        ></b-form-datepicker>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <b-form-timepicker
+                          id="timepicker-placeholder"
+                          placeholder="Choose a time"
+                          local="en"
+                        ></b-form-timepicker>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <div class="input-icon"><i class="fa fa-arrows-h"></i></div>
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Duration"
+                    ></b-form-input>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Location"
+                    ></b-form-input>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Operatory"
+                    ></b-form-input>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Provider"
+                    ></b-form-input>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <b-form-input
+                      type="text"
+                      required
+                      placeholder="Secondary"
+                    ></b-form-input>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <b-dropdown
+                      class="provider-dropdown mb-2 mr-5"
+                      text="Staff"
+                    >
+                      <b-dropdown-item @click="selectedProvider = ''"
+                        >Staff</b-dropdown-item
+                      >
+                    </b-dropdown>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <b-dropdown
+                      class="provider-dropdown mb-2 mr-5"
+                      text="Status"
+                    >
+                      <b-dropdown-item @click="selectedProvider = ''"
+                        >Status</b-dropdown-item
+                      >
+                    </b-dropdown>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group">
+                    <b-dropdown
+                      class="color-option mb-2 mr-5"
+                      text="Color Options"
+                    >
+                      <b-dropdown-item @click="selectedProvider = ''"
+                        >Color Options</b-dropdown-item
+                      >
+                    </b-dropdown>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="mb-20">
+              <h5 class="font-weight-bold mb-3">Treatments</h5>
+              <b-tabs content-class="mt-1">
+                <b-tab title="Selected" active>
+                  <div class="treatments-wrap pt-4 mt-5">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <b-dropdown
+                            class="provider-dropdown mb-2 mr-5"
+                            text="Recurrence"
+                          >
+                            <b-dropdown-item @click="selectedProvider = ''"
+                              >Recurrence</b-dropdown-item
+                            >
+                          </b-dropdown>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <b-form-input
+                            type="text"
+                            required
+                            placeholder="Location"
+                          ></b-form-input>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h6 class="font-weight-bold mb-3">Teledentistry</h6>
+                      <label class="checkbox checkbox-outline-primary">
+                        <input type="checkbox" checked />
+                        <span>Meet patient on HIPAA secured video</span>
+                        <span class="checkmark"></span>
+                      </label>
+                      <div class="form-group">
+                        <b-dropdown
+                          class="provider-dropdown mb-2 mr-5"
+                          text="Select HellpPatient Service"
+                        >
+                          <b-dropdown-item @click="selectedProvider = ''"
+                            >Select HellpPatient Service</b-dropdown-item
+                          >
+                        </b-dropdown>
+                      </div>
+                      <h6 class="font-weight-bold mb-3">Save The Date</h6>
+                      <label class="checkbox checkbox-outline-primary">
+                        <input type="checkbox" checked />
+                        <span
+                          >(HelloPatient - message sent via e-mail/text)</span
+                        >
+                        <span class="checkmark"></span>
+                      </label>
+                    </div>
+                  </div>
+                </b-tab>
+                <b-tab title="Template"> </b-tab>
+              </b-tabs>
+            </div>
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <div class="appointment-btn">
+                  <b-button
+                    class="btn-radius"
+                    variant="outline-primary ripple ml-2"
+                    >More Option</b-button
+                  >
+                  <b-button class="btn-radius" variant="primary ripple m-1"
+                    >Save</b-button
+                  >
+                </div>
+              </div>
+            </div>
+          </b-tab>
+          <b-tab title="Insurance">
+            <div class="mb-20">
+              <div></div>
+            </div>
+          </b-tab>
+          <b-tab title="History">
+            <div class="mb-20">
+              <div></div>
+            </div>
+          </b-tab>
+          <b-tab title="Patient Notes">
+            <div class="mb-20">
+              <div></div>
+            </div>
+          </b-tab>
+          <b-tab title="Recall/Frequency">
+            <div class="mb-20">
+              <div></div>
+            </div>
+          </b-tab>
+          <b-tab title="SOC">
+            <div class="mb-20">
+              <div></div>
+            </div>
+          </b-tab>
+        </b-tabs>
+      </div>
+    </b-modal>
   </div>
 </template>
 <style>
@@ -153,7 +400,7 @@
   background-color: #fff;
   border-radius: 10px;
   padding: 15px;
-  margin-bottom: 40px;
+  margin-bottom: 35px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
 }
 .appointment-card:last-child {
@@ -167,7 +414,7 @@
 .appointment-title {
   color: #12395f;
   font-weight: bold;
-  font-size: 20px;
+  font-size: 17px;
 }
 .contact-info span {
   color: #c7cadd;
@@ -175,13 +422,13 @@
   font-size: 16px;
 }
 .contact-info {
-  margin-top: 15px;
+  margin-top: 10px;
 }
 .submitted-date {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 15px;
   color: #c7cadd;
 }
 .submitted-date i {
@@ -192,18 +439,34 @@
 
 <script>
 import Vue from "vue";
-import { extend } from "@syncfusion/ej2-base";
+import { createElement, compile, extend } from "@syncfusion/ej2-base";
+import { getWeekNumber, getWeekLastDate } from "@syncfusion/ej2-schedule";
 import {
   SchedulePlugin,
   Day,
   TimelineViews,
   TimelineMonth,
-  // Month,
+  Month,
   Week,
   Resize,
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
+
 Vue.use(SchedulePlugin);
+
+const weekHeaderVue = Vue.component("week-header", {
+  template: '<span class="week">{{getWeekDetails(data)}}</span>',
+  data() {
+    return {
+      data: {},
+    };
+  },
+  methods: {
+    getWeekDetails: function (value) {
+      return "Week " + getWeekNumber(getWeekLastDate(value.date, 0));
+    },
+  },
+});
 
 export default {
   data() {
@@ -333,13 +596,20 @@ export default {
       eventSettings: {
         dataSource: extend([], this.blockData, null, true),
       },
-      selectedDate: new Date(2018, 7, 1),
+      headerSearch: "",
+      dateSelected: new Date(2018, 7, 1),
       currentView: "Day",
       calenderHieght: window.innerHeight - 255,
       cssClass: "block-events",
       group: {
         enableCompactView: true,
         resources: ["Doctor"],
+      },
+      dayHeaderTemplate(e) {
+        console.log(`e`, e);
+        return {
+          template: weekHeaderVue,
+        };
       },
       employeeDataSource: [
         {
@@ -383,6 +653,39 @@ export default {
 
   computed: {},
   methods: {
+    getWeather: function (value) {
+      switch (value.getDay()) {
+        case 0:
+          return '<img class="weather-image" src="source/schedule/images/weather-clear.svg"/><div class="weather-text">25°C</div>';
+        case 1:
+          return '<img class="weather-image" src="source/schedule/images/weather-clouds.svg"/><div class="weather-text">18°C</div>';
+        case 2:
+          return '<img class="weather-image" src="source/schedule/images/weather-rain.svg"/><div class="weather-text">10°C</div>';
+        case 3:
+          return '<img class="weather-image" src="source/schedule/images/weather-clouds.svg"/><div class="weather-text">16°C</div>';
+        case 4:
+          return '<img class="weather-image" src="source/schedule/images/weather-rain.svg"/><div class="weather-text">8°C</div>';
+        case 5:
+          return '<img class="weather-image" src="source/schedule/images/weather-clear.svg"/><div class="weather-text">27°C</div>';
+        case 6:
+          return '<img class="weather-image" src="source/schedule/images/weather-clouds.svg"/><div class="weather-text">17°C</div>';
+        default:
+          return null;
+      }
+    },
+    onRenderCell: function (args) {
+      // console.log(`args`, args)
+      let scheduleObj = this.$refs.ScheduleObj;
+      if (
+        args.elementType === "dateHeader" &&
+        scheduleObj.ej2Instances.currentView === "Day"
+      ) {
+        if (args.groupIndex !== 0) {
+          console.log(`args`, args);
+          args.element.remove();
+        }
+      }
+    },
     onEventRendered: function (args) {
       let categoryColor = args.data.CategoryColor;
       if (!args.element || !categoryColor) {
@@ -390,13 +693,66 @@ export default {
       }
       args.element.style.backgroundColor = categoryColor;
     },
+    onActionBegin: function (args) {
+      if (args.requestType === "toolbarItemRendering") {
+        let userIconItem = {
+          align: "Right",
+          prefixIcon: "i-Full-View-Window",
+          text: "Full Screen",
+          cssClass: "e-schedule-user-icon full-screen-view",
+        };
+        args.items.push(userIconItem);
+      }
+    },
+    onActionComplete: function (args) {
+      let scheduleElement = document.getElementById("Schedule");
+      if (args.requestType === "toolBarItemRendered") {
+        let userIconEle = scheduleElement.querySelector(
+          ".e-schedule-user-icon"
+        );
+        userIconEle.onclick = () => {
+          const element = document.querySelector(".schedule-container");
+          const element1 = document.querySelector(
+            ".full-screen-view button .e-tbar-btn-text"
+          );
+
+          if (element.classList.contains("full-screen")) {
+            element.classList.remove("full-screen");
+            element1.innerHTML = "Full Screen";
+            const fullScreenElement = document.querySelector(
+              ".full-screen-view button .i-Close-Window"
+            );
+            fullScreenElement.classList.add("i-Full-View-Window");
+            fullScreenElement.classList.remove("i-Close-Window");
+          } else {
+            const fullScreenElement = document.querySelector(
+              ".full-screen-view button .i-Full-View-Window"
+            );
+            element.classList.add("full-screen");
+            element1.innerHTML = "Close";
+            fullScreenElement.classList.remove("i-Full-View-Window");
+            fullScreenElement.classList.add("i-Close-Window");
+          }
+        };
+      }
+      let userContentEle = createElement("div", {
+        className: "e-profile-wrapper",
+      });
+      scheduleElement.parentElement.appendChild(userContentEle);
+      const template = '<div class="name">Full Screen</div>';
+      compile(template);
+    },
+    // function to handle the CheckBox change event
+    onChange: function (args) {
+      this.$refs.ScheduleObj.ej2Instances.showHeaderBar = args.checked;
+    },
   },
   provide: {
     schedule: [
       Day,
       TimelineViews,
       TimelineMonth,
-      // Month,
+      Month,
       Week,
       Resize,
       DragAndDrop,

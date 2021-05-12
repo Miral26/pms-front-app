@@ -23,7 +23,7 @@
     "mobile-device-detect": "^0.4.3",
     "moment": "^2.29.1",
     "nprogress": "^0.2.0",
-    "v-calendar": "^1.0.8",
+    "v-calendar": "^2.3.0",
     "v2-datepicker": "^3.1.1",
     "vue": "^2.6.12",
     "vue-apexcharts": "^1.6.0",

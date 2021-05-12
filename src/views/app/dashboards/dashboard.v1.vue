@@ -58,6 +58,7 @@
                 <DynamicCustomTableView
                   :columns="tableColumns"
                   :rows="tableRows"
+                  :statusList="statusList"
                 />
               </div>
             </b-tab>
@@ -66,6 +67,7 @@
                 <DynamicCustomTableView
                   :columns="tableColumns"
                   :rows="tableRows"
+                  :statusList="statusList"
                 />
               </div>
             </b-tab>
@@ -74,6 +76,7 @@
                 <DynamicCustomTableView
                   :columns="tableColumns"
                   :rows="tableRows"
+                  :statusList="statusList"
                 />
               </div>
             </b-tab>
@@ -82,6 +85,7 @@
                 <DynamicCustomTableView
                   :columns="tableColumns"
                   :rows="tableRows"
+                  :statusList="statusList"
                 />
               </div>
             </b-tab>
@@ -116,15 +120,15 @@ export default {
       providers: [
         {
           id: 1,
-          name: "Provider 1",
+          name: "Medical Center 1",
         },
         {
           id: 2,
-          name: "Provider 2",
+          name: "Medical Center 2",
         },
         {
           id: 3,
-          name: "Provider 3",
+          name: "Medical Center 3",
         },
       ],
       selectedProvider: "",
@@ -139,7 +143,13 @@ export default {
           title: "Draggable",
         },
       ],
-      tableColumns: ["Time", "Location", "Name", "DOB", "Contact", "Status"],
+      statusList: [
+        { id: 1, title: "Scheduled" },
+        { id: 2, title: "In Office" },
+        { id: 3, title: "Finished" },
+        { id: 4, title: "Deferred" },
+      ],
+      tableColumns: ["Time", "Provider", "Name", "DOB", "Contact", "Status"],
       tableRows: [
         {
           id: 1,
@@ -216,12 +226,12 @@ export default {
   font-weight: normal;
 }
 .provider-dropdown .dropdown-toggle {
-    max-width: 200px;
-    min-width: 200px;
-    text-align: left;
+  max-width: 200px;
+  min-width: 200px;
+  text-align: left;
 }
 .provider-dropdown .dropdown-menu {
-    right: 0 !important;
+  right: 0 !important;
 }
 .daily-huddle span.active-tab {
   color: #355677;
@@ -259,7 +269,6 @@ export default {
   background-color: transparent;
 }
 .card-table .table th {
-  border: 0;
   padding: 0;
   text-align: center;
   background-color: transparent;
@@ -271,19 +280,11 @@ export default {
   border-bottom: 1px solid #ddd;
 }
 .card-table .table tbody tr td {
-  border: 0;
-  padding: 0;
   text-align: center;
-}
-.card-table .table tbody tr:hover {
-  background-color: transparent;
+  vertical-align: middle;
 }
 .card-table .table tbody tr td span {
-  background-color: #fff;
-  border: 0;
-  margin-top: 8px;
   display: block;
-  padding: 25px;
 }
 .card-table .table tbody tr td span label {
   margin: 0;
@@ -300,8 +301,14 @@ export default {
   width: 1px;
   background-color: #111827;
 }
-.status {
-  color: #00c5b4;
+.status-dropdown button {
+    border: 0;
+    background-color: transparent !important;
+    color: #00c5b4 !important;
+}
+.status-dropdown button:focus,
+.status-dropdown button:hover {
+    box-shadow: none;
 }
 .card-table .table tbody tr td:first-child span {
   border-radius: 10px 0 0 10px;

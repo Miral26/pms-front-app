@@ -6,6 +6,109 @@
         <div></div>
         <div></div>
       </div>
+      <div
+        :class="{ show: isMegaMenuOpen }"
+        class="dropdown mega-menu d-none d-md-block"
+        v-on-clickaway="closeMegaMenu"
+      >
+        <a
+          href="#"
+          class="btn text-muted dropdown-toggle mr-3"
+          id="dropdownMegaMenuButton"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          @click="toggleMegaMenu"
+          >Mega Menu</a
+        >
+        <div
+          class="dropdown-menu text-left"
+          :class="{ show: isMegaMenuOpen }"
+          aria-labelledby="dropdownMenuButton"
+        >
+          <div class="row m-0">
+            <div class="col-md-4 p-4 text-left bg-img">
+              <h2 class="title">
+                Mega Menu
+                <br />Sidebar
+              </h2>
+              <p>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Asperiores natus laboriosam fugit, consequatur.
+              </p>
+              <p class="mb-30">
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                Exercitationem odio amet eos dolore suscipit placeat.
+              </p>
+              <button class="btn btn-lg btn-rounded btn-outline-warning">
+                Learn More
+              </button>
+            </div>
+            <div class="col-md-4 p-4 text-left">
+              <p
+                class="text-primary text--cap border-bottom-primary d-inline-block"
+              >
+                Features
+              </p>
+              <div class="menu-icon-grid w-auto p-0">
+                <a href="#"> <i class="i-Shop-4"></i> Home </a>
+                <a href="#"> <i class="i-Library"></i> UI Kits </a>
+                <a href="#"> <i class="i-Drop"></i> Apps </a>
+                <a href="#">
+                  <i class="i-File-Clipboard-File--Text"></i> Forms
+                </a>
+                <a href="#"> <i class="i-Checked-User"></i> Sessions </a>
+                <a href="#"> <i class="i-Ambulance"></i> Support </a>
+              </div>
+            </div>
+            <div class="col-md-4 p-4 text-left">
+              <p
+                class="text-primary text--cap border-bottom-primary d-inline-block"
+              >
+                Components
+              </p>
+              <ul class="links">
+                <li>
+                  <a href="accordion.html">Accordion</a>
+                </li>
+                <li>
+                  <a href="alerts.html">Alerts</a>
+                </li>
+                <li>
+                  <a href="buttons.html">Buttons</a>
+                </li>
+                <li>
+                  <a href="badges.html">Badges</a>
+                </li>
+                <li>
+                  <a href="carousel.html">Carousels</a>
+                </li>
+                <li>
+                  <a href="lists.html">Lists</a>
+                </li>
+                <li>
+                  <a href="popover.html">Popover</a>
+                </li>
+                <li>
+                  <a href="tables.html">Tables</a>
+                </li>
+                <li>
+                  <a href="datatables.html">Datatables</a>
+                </li>
+                <li>
+                  <a href="modals.html">Modals</a>
+                </li>
+                <li>
+                  <a href="nouislider.html">Sliders</a>
+                </li>
+                <li>
+                  <a href="tabs.html">Tabs</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="header-toggle">
         <div class="search-bar">
           <i class="search-icon text-muted i-Magnifi-Glass1"></i>
@@ -69,7 +172,7 @@
                 class="text-decoration-none text-14 cursor-pointer"
                 style="text-decoration: none"
               >
-                {{ cloudBase.clinic ? cloudBase.clinic : "Cloud Base..." }}
+                {{ cloudBase.clinic ? cloudBase.clinic : "Cloud Based Smiles" }}
                 <i
                   class="i-Arrow-Down text-20 cursor-pointer header-icon d-sm-inline-block"
                   v-b-popover.hover.bottom="'Client - Location'"
@@ -81,7 +184,6 @@
               <div class="form-group w-100">
                 <b-form>
                   <div class="form-group">
-                    <label for="">Select a Clinic</label>
                     <b-form-select
                       id="input-3"
                       v-model="cloudBase.clinic"
@@ -101,9 +203,11 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import { mixin as clickaway } from 'vue-clickaway';
 import Util from "@/utils";
 
 export default {
+  mixins: [clickaway],
   computed: {
     ...mapGetters([
       "getVerticalCompact",
@@ -113,6 +217,7 @@ export default {
   },
   data() {
     return {
+      isMegaMenuOpen: false,
       dateSelected: new Date(),
       headerSearch: "",
       options2: [
@@ -124,14 +229,8 @@ export default {
       ],
 
       cloudBase: {
-        clinic: null,
-        clinics: [
-          { text: "Select Clinic", value: null },
-          "Cloud Base...",
-          "Clinic1",
-          "Clinic2",
-          "Clinic3",
-        ],
+        clinic: "Cloud Based Smiles",
+        clinics: ["Cloud Based Smiles", "Clinic1", "Clinic2", "Clinic3"],
         location: null,
         locations: [
           { text: "Select Location", value: null },
@@ -154,6 +253,16 @@ export default {
 
     handleFullScreen() {
       Util.toggleFullScreen();
+    },
+    closeMegaMenu() {
+      this.isMegaMenuOpen = false;
+      // console.log(this.isMouseOnMegaMenu);
+      // if (!this.isMouseOnMegaMenu) {
+      //   this.isMegaMenuOpen = !this.isMegaMenuOpen;
+      // }
+    },
+    toggleMegaMenu() {
+      this.isMegaMenuOpen = !this.isMegaMenuOpen;
     },
     logoutUser() {
       this.signOut();

@@ -16,6 +16,8 @@ import DashboardV4 from './views/app/dashboards/dashboard.v4.vue'
 import AppReports from './views/app/reports'
 import AppBillings from './views/app/billings'
 import AppScheduler from './views/app/scheduler'
+import VirtualConsults from './views/app/virtual-consults'
+import AppVirtualConsults from './views/app/virtual-consults/virtual-consults.vue'
 import Reports from './views/app/reports/reports.vue';
 import Billiings from './views/app/billings/billings.vue';
 import Scheduler from './views/app/scheduler/scheduler.vue';
@@ -82,16 +84,19 @@ const routes = [
         ]
       },
       {
-        path: "/app/scheduler",
-        component: () => import("./views/app/ui-kits/accordion")
+        path: "/app/virtual-consults",
+        component: AppVirtualConsults,
+        children: [
+          route('virtual-consults', '/', VirtualConsults),
+        ]
       },
       {
         path: "/app/billings",
         component: () => import("./views/app/pages/icons")
       },
       {
-        path: "/app/virtual-consults",
-        component: () => import("./views/app/widgets/widgetCard")
+        path: "/app/overview",
+        component: () => import("./views/app/chart/echart")
       },
       {
         path: "/app/settings",
@@ -340,7 +345,6 @@ const routes = [
             component: () => import("./views/app/apps/table")
           },
           {
-            path: "vue-table",
             path: "vue-table",
             component: () => import("./views/app/apps/vue-tables")
           },

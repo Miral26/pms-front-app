@@ -12,10 +12,11 @@
           <div class="col-md-12 control-section">
             <div class="content-wrapper schedule-container">
               <ejs-schedule
+                v-if="show"
                 id="Schedule"
                 ref="ScheduleObj"
                 :height="calenderHieght"
-                :selectedDate="dateSelected"
+                :selectedDate="selectedDate"
                 :eventSettings="eventSettings"
                 :eventRendered="onEventRendered"
                 :group="group"
@@ -25,7 +26,10 @@
                 :popupOpen="onPopupOpen"
               >
                 <e-views>
-                  <e-view option="Day"></e-view>
+                  <e-view
+                    option="Day"
+                    :allowVirtualScrolling="virtualScroll"
+                  ></e-view>
                   <!-- <e-view option="Week"></e-view>
                   <e-view option="Month"></e-view>
                   <e-view option="Agenda"></e-view> -->
@@ -53,22 +57,77 @@
         <div class="mb-3 page-title">
           <h3 class="font-weight-bold m-0">Appointment Requests</h3>
         </div>
-        <div class="appointment-list">
-          <div class="appointment-card" v-for="num in [1, 2, 3]" :key="num">
-            <div class="appointment-date-time">
-              <span>Mar 19, 2021</span>
-              <span>5:00 PM - 6:00 PM</span>
-            </div>
-            <div class="appointment-title">He - Ryan Smith</div>
-            <div class="contact-info">
-              <span>melissa.luvisi@gmail.com</span>
-              <span>(310)487-4291</span>
-            </div>
-            <div class="submitted-date">
-              <span>Submitted on 3/17/21</span>
-              <i class="fa fa-calendar-check-o"></i>
-            </div>
-          </div>
+        <div class="appointment-requests-tab">
+          <b-tabs content-class="mt-1">
+            <b-tab title="ASAP">
+              <div class="appointment-list">
+                <div
+                  class="appointment-card"
+                  v-for="num in [1, 2, 3]"
+                  :key="num"
+                >
+                  <div class="appointment-date-time">
+                    <span>Mar 19, 2021</span>
+                    <span>5:00 PM - 6:00 PM</span>
+                  </div>
+                  <div class="appointment-title">He - Ryan Smith</div>
+                  <div class="contact-info">
+                    <span>melissa.luvisi@gmail.com</span>
+                    <span>(310)487-4291</span>
+                  </div>
+                  <div class="submitted-date">
+                    <span>Submitted on 3/17/21</span>
+                    <i class="fa fa-calendar-check-o"></i>
+                  </div>
+                </div>
+              </div>
+            </b-tab>
+            <b-tab title="Broken/No Show">
+              <div class="appointment-list">
+                <div
+                  class="appointment-card"
+                  v-for="num in [1, 2, 3]"
+                  :key="num"
+                >
+                  <div class="appointment-date-time">
+                    <span>Mar 19, 2021</span>
+                    <span>5:00 PM - 6:00 PM</span>
+                  </div>
+                  <div class="appointment-title">He - Ryan Smith</div>
+                  <div class="contact-info">
+                    <span>melissa.luvisi@gmail.com</span>
+                    <span>(310)487-4291</span>
+                  </div>
+                  <div class="submitted-date">
+                    <span>Submitted on 3/17/21</span>
+                    <i class="fa fa-calendar-check-o"></i>
+                  </div>
+                </div>
+              </div>
+            </b-tab>
+            <b-tab title="Pinboard" active>
+              <div class="appointment-list">
+                <div
+                  class="appointment-card"
+                  v-for="num in [1, 2, 3]"
+                  :key="num"
+                >
+                  <div class="appointment-date-time mb-2">
+                    <i class="fa fa-thumb-tack pin-icon"></i>
+                    <span> Michelle Taylor Lagunas</span>
+                  </div>
+                  <div class="appointment-title">
+                    <p>Mar 19, 2021</p>
+                    <p>Consult for braces</p>
+                    <p>Consult, ITERO</p>
+                  </div>
+                  <div class="submitted-date">
+                    <span>Show Production</span>
+                  </div>
+                </div>
+              </div>
+            </b-tab>
+          </b-tabs>
         </div>
       </b-col>
     </b-row>
@@ -117,6 +176,15 @@
   font-weight: bold;
   font-size: 17px;
 }
+.appointment-title p {
+  margin-bottom: 0;
+  font-size: 14px;
+}
+.pin-icon {
+  float: right;
+  color: #d6d6d6;
+  font-size: 20px !important;
+}
 .contact-info span {
   color: #c7cadd;
   display: block;
@@ -135,6 +203,14 @@
 .submitted-date i {
   color: #00c5b4;
   font-size: 20px;
+}
+.appointment-requests-tab .tabs .nav-tabs .nav-item a {
+  font-size: 16px;
+  margin-left: 0px;
+  margin-right: 30px;
+}
+.appointment-requests-tab .tabs .tab-content {
+  padding: 0;
 }
 </style>
 
@@ -186,7 +262,7 @@ export default {
       eventSettings: {
         dataSource: extend([], resourceData, null, true),
       },
-      selectedDate: new Date(2018, 3, 1),
+      selectedDate: new Date(2018, 7, 1),
       group: { byDate: true, resources: ["Doctors"] },
       allowMultiple: true,
       resourceDataSource: [
@@ -226,16 +302,24 @@ export default {
           Designation: "Human Resource",
         },
       ],
-      headerSearch: "",
-      dateSelected: new Date(2018, 7, 1),
+      show: false,
+      virtualScroll: true,
       currentView: "Day",
       calenderHieght: window.innerHeight - 200,
       fullscreen: false,
     };
   },
   computed: {},
-  mounted() {},
+  mounted() {
+    this.setResourceData();
+  },
   methods: {
+    setResourceData() {
+      this.eventSettings.dataSource = resourceData;
+      setTimeout(() => {
+        this.show = true;
+      }, 200);
+    },
     onEventRendered: function (args) {
       let categoryColor = args.data.CategoryColor;
       if (!args.element || !categoryColor) {

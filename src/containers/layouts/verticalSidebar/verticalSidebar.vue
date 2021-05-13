@@ -53,8 +53,8 @@
       </div>
 
       <div class="sidenav-bottom">
-        <ul class="ul-vertical-sidebar pl-4" id="menu">
-          <li class="hover-menu">
+        <ul class="ul-vertical-sidebar pl-4 mb-0" id="menu">
+          <li class="hover-menu hover-dropdown">
             <div v-b-toggle.collapse-3>
               <a
                 class="has-arrow"
@@ -69,7 +69,6 @@
                   }"
                   >Settings</span
                 >
-                <arrowIcon />
               </a>
             </div>
             <b-collapse id="collapse-3">
@@ -79,14 +78,17 @@
               >
                 <li class="item-name">
                   <router-link tag="a" to="/app/schedule-template">
-                    <!-- <i class="i-Circular-Point mr-1"></i> -->
                     <span class>Schedule Template</span>
                   </router-link>
                 </li>
                 <li class="item-name">
                   <router-link tag="a" to="/app/virtual-consults">
-                    <!-- <i class="i-Circular-Point mr-1"></i> -->
                     <span class>Virtual-Consults</span>
+                  </router-link>
+                </li>
+                <li class="item-name">
+                  <router-link tag="a" to="/app/apps/contact-list-table">
+                    <span class>Contacts</span>
                   </router-link>
                 </li>
               </ul>
@@ -152,11 +154,8 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import arrowIcon from "@/components/arrow/arrowIcon";
 export default {
-  components: {
-    arrowIcon,
-  },
+  components: {},
   computed: {
     ...mapGetters(["getVerticalCompact", "getVerticalSidebar"]),
   },

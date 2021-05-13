@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="main-content">
-      <breadcumb :page="'Invoice'" :folder="'Apps'" />
+    <div class="main-content invoice">
+      <!-- <breadcumb :page="'Invoice'" :folder="'Apps'" /> -->
 
       <div class="wrapper">
         <vue-good-table
@@ -10,16 +10,16 @@
           :search-options="{
             enabled: true,
             placeholder: 'Search this table',
-            selectionInfoClass: ' flex-column flex-sm-row'
+            selectionInfoClass: ' flex-column flex-sm-row',
           }"
           :pagination-options="{
             enabled: true,
-            mode: 'records'
+            mode: 'records',
           }"
           styleClass="tableOne vgt-table"
           :selectOptions="{
             enabled: false,
-            selectionInfoClass: 'table-alert__box'
+            selectionInfoClass: 'table-alert__box',
           }"
           :rows="invoiceList"
         >
@@ -79,23 +79,23 @@ export default {
     return {
       input: [
         {
-          name: ""
-        }
+          name: "",
+        },
       ],
 
       columns: [
         {
           label: "Bill From",
-          field: "billFrom"
+          field: "billFrom",
         },
         {
           label: "Bill To",
-          field: "billTo"
+          field: "billTo",
         },
         {
           label: "Status",
           field: "status",
-          html: true
+          html: true,
         },
 
         {
@@ -103,15 +103,10 @@ export default {
           field: "button",
           html: true,
           tdClass: "text-right",
-          thClass: "text-right"
-        }
+          thClass: "text-right",
+        },
       ],
       newTodo: "",
-      input: [
-        {
-          name: ""
-        }
-      ]
     };
   },
   computed: mapGetters(["invoiceList"]),
@@ -128,8 +123,7 @@ export default {
     },
     createInvoice() {
       this.$router.push("/app/apps/createInvoice");
-    }
-  }
+    },
+  },
 };
 </script>
-<style >

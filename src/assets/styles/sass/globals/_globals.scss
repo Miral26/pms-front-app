@@ -355,3 +355,17 @@ blockquote {
   .checkbox-outline-primary:hover input ~ .checkmark {
     background-color: transparent;
   }
+
+  .invoice {
+    .vgt-inner-wrap {
+      box-shadow: none;
+    }
+    .vgt-global-search.vgt-clearfix,
+    table.tableOne.vgt-table thead tr th,
+    table.vgt-table td,
+    table.vgt-table,
+    table.tableOne tbody tr th.line-numbers,
+    div.vgt-wrap__footer.vgt-clearfix {
+        background: transparent;
+    }
+  }

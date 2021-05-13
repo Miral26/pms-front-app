@@ -13,7 +13,7 @@
             <ul class="billing-dropdown mb-4">
               <li v-for="option in billingOptions" :key="option.id">
                 <b-dropdown id="view-selector" :text="option.title">
-                  <b-dropdown-item>{{option.title}}</b-dropdown-item>
+                  <b-dropdown-item>{{ option.title }}</b-dropdown-item>
                 </b-dropdown>
               </li>
               <li>
@@ -32,13 +32,8 @@
                     />
                   </div>
                 </b-tab>
-                <b-tab title="In Office (45)">
-                  <div class="mb-20">
-                    <DynamicCustomTableView
-                      :columns="tableColumns"
-                      :rows="tableRows"
-                    />
-                  </div>
+                <b-tab title="Invoice (41)">
+                  <div class="mb-20"><InvoiceView /></div>
                 </b-tab>
                 <b-tab title="Finished (34)">
                   <div class="mb-20">
@@ -67,6 +62,7 @@
 <script>
 import { mapGetters } from "vuex";
 import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
+import InvoiceView from "../apps/invoice";
 
 export default {
   name: "Billings",
@@ -160,7 +156,7 @@ export default {
       ],
     };
   },
-  components: { DynamicCustomTableView },
+  components: { DynamicCustomTableView, InvoiceView },
   computed: {
     ...mapGetters(["getItems"]),
   },

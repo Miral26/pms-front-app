@@ -66,11 +66,8 @@
 
                 <b-form-group class="mb-3" label="Order Date">
                   <!-- <v-date-picker v-model="newInvoice.date" /> -->
-                  <b-form-input
-                    v-model="newInvoice.date"
-                    class="input"
-                    type="date"
-                  ></b-form-input>
+                  <!-- v-model="newInvoice.date" -->
+                  <b-form-input class="input" type="date"></b-form-input>
                 </b-form-group>
               </b-col>
             </b-row>
@@ -185,7 +182,7 @@
                       <input
                         @change="invoiceTotal(invoice_tax)"
                         v-model="invoice_tax"
-                        class="form-control small-input "
+                        class="form-control small-input"
                         type="text"
                       />
                     </span>
@@ -207,12 +204,9 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import invoice from "./invoice";
 
 export default {
-  components: {
-    invoice
-  },
+  components: {},
 
   data() {
     return {
@@ -227,9 +221,8 @@ export default {
         status: "",
         billFromAddress: "",
         billToAdress: "",
-        status: "",
         invoiceId: "",
-        date: new Date()
+        date: new Date(),
       },
 
       name: "",
@@ -239,13 +232,13 @@ export default {
           itemName: "",
           unitPrice: "",
           unit: "",
-          cost: 0
-        }
-      ]
+          cost: 0,
+        },
+      ],
     };
   },
   computed: {
-    ...mapGetters(["getEditInvoice"])
+    ...mapGetters(["getEditInvoice"]),
   },
   methods: {
     // vuex
@@ -269,12 +262,12 @@ export default {
         itemName: "",
         unitPrice: "",
         unit: "",
-        cost: 0
+        cost: 0,
       });
     },
     invoiceTotal() {
       var subtotal, total;
-      subtotal = this.items.reduce(function(sum, item) {
+      subtotal = this.items.reduce(function (sum, item) {
         var cost = parseFloat(item.cost);
         if (!isNaN(cost)) {
           return sum + cost;
@@ -311,7 +304,7 @@ export default {
     //global save
     removeRow(id) {
       this.rows.splice(this.rows.indexOf(id), 1);
-    }
-  }
+    },
+  },
 };
 </script>

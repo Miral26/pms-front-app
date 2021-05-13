@@ -6,9 +6,9 @@
           <div class="calender-info">
             <div class="calender-meeting-info">
               <h5>Diana Tereshchenko</h5>
-              <h3>30 Minute Meeting</h3>
+              <h3>60 Minute Meeting</h3>
               <ul>
-                <li><i class="fa fa-clock-o"></i><span>30 min</span></li>
+                <li><i class="fa fa-clock-o"></i><span>60 min</span></li>
                 <li>
                   <i class="fa fa-video-camera"></i
                   ><span
@@ -133,6 +133,7 @@
   transition: all 0.5s ease-in-out;
   width: 100%;
   flex: 0 0 100%;
+  display: block;
 }
 .time-slots li.active button {
   width: 49%;

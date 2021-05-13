@@ -294,6 +294,10 @@ export default {
 .card-table .table tbody tr td {
   text-align: center;
   vertical-align: middle;
+  border: 0;
+  color: #163c61;
+  background-color: #fff;
+  padding: 20px;
 }
 .card-table .table tbody tr td span {
   display: block;
@@ -303,6 +307,7 @@ export default {
   padding-left: 12px;
   margin-left: 10px;
   position: relative;
+  color: #a9b8c5;
 }
 .card-table .table tbody tr td span label:before {
   content: "";

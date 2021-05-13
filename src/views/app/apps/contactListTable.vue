@@ -20,11 +20,14 @@
           <b-card-body>
             <div class="ul-contact-list-body">
               <div class="ul-contact-main-content d-flex">
-                <div class="ul-contact-left-side" :class="{'contact-list-mobile' : isCLoseMenu }">
+                <div
+                  class="ul-contact-left-side"
+                  :class="{ 'contact-list-mobile': isCLoseMenu }"
+                >
                   <b-card class="ul-contact-vh">
                     <div class="contact-close-mobile-icon float-right mb-2">
                       <i
-                        @click="isCLoseMenu =!isCLoseMenu"
+                        @click="isCLoseMenu = !isCLoseMenu"
                         class="i-Close-Window text-15 font-weight-600"
                       ></i>
                     </div>
@@ -35,7 +38,8 @@
                         block
                         @click="onContactListBtn"
                         v-b-modal.contact-list-table-modal
-                      >ADD CONTACT</b-button>
+                        >ADD CONTACT</b-button
+                      >
                       <b-modal
                         id="contact-list-table-modal"
                         centered
@@ -73,8 +77,18 @@
                             ></b-form-input>
                           </b-form-group>
                           <b-form-group>
-                            <b-button v-if="isSaveBtn" type="submit" variant="success">Submit</b-button>
-                            <b-button v-else-if="isUpdateBtn" type="submit" variant="success">Update</b-button>
+                            <b-button
+                              v-if="isSaveBtn"
+                              type="submit"
+                              variant="success"
+                              >Submit</b-button
+                            >
+                            <b-button
+                              v-else-if="isUpdateBtn"
+                              type="submit"
+                              variant="success"
+                              >Update</b-button
+                            >
                           </b-form-group>
                         </b-form>
                       </b-modal>
@@ -82,17 +96,20 @@
                         <b-list-group-item
                           button
                           class="d-flex justify-content-between align-items-center"
-                        >Cras justo odio</b-list-group-item>
+                          >Cras justo odio</b-list-group-item
+                        >
 
                         <b-list-group-item
                           button
                           class="d-flex justify-content-between align-items-center"
-                        >Dapibus ac facilisis in</b-list-group-item>
+                          >Dapibus ac facilisis in</b-list-group-item
+                        >
 
                         <b-list-group-item
                           button
                           class="d-flex justify-content-between align-items-center"
-                        >Morbi leo risus</b-list-group-item>
+                          >Morbi leo risus</b-list-group-item
+                        >
                       </b-list-group>
                     </div>
                   </b-card>
@@ -111,8 +128,8 @@
                       :columns="columns"
                       :pagination-options="{
                         enabled: true,
-                        mode: 'records'
-                        }"
+                        mode: 'records',
+                      }"
                       styleClass="tableOne vgt-table"
                       :rows="rows"
                     >
@@ -125,7 +142,7 @@
                           <img
                             class="rounded"
                             :src="props.row.img"
-                            style="width:50px ; height:50px"
+                            style="width: 50px; height: 50px"
                             alt="corrupted img"
                           />
                         </span>
@@ -140,7 +157,10 @@
                             dropleft
                             no-caret
                           >
-                            <template v-slot:button-content class="_r_btn border-0">
+                            <template
+                              v-slot:button-content
+                              class="_r_btn border-0"
+                            >
                               <span class="_dot _r_block-dot bg-dark"></span>
                               <span class="_dot _r_block-dot bg-dark"></span>
                               <span class="_dot _r_block-dot bg-dark"></span>
@@ -149,13 +169,19 @@
                               v-b-modal.contact-list-table-modal-2
                               @click="editContactlist(props.row)"
                             >
-                              <i class="nav-icon i-Pen-2 text-success font-weight-bold mr-2"></i>
+                              <i
+                                class="nav-icon i-Pen-2 text-success font-weight-bold mr-2"
+                              ></i>
                               Edit
                             </b-dropdown-item>
 
-                            <b-dropdown-item @click="deleteContactList(props.index)">
-                              <i class="nav-icon i-Close-Window text-danger font-weight-bold mr-2"></i>
-Delete
+                            <b-dropdown-item
+                              @click="deleteContactList(props.index)"
+                            >
+                              <i
+                                class="nav-icon i-Close-Window text-danger font-weight-bold mr-2"
+                              ></i>
+                              Delete
                             </b-dropdown-item>
                           </b-dropdown>
                         </span>
@@ -205,7 +231,8 @@ Delete
                             type="submit"
                             variant="success"
                             @click="onUpdateContactList"
-                          >Update</b-button>
+                            >Update</b-button
+                          >
                         </b-form-group>
                       </b-form>
                     </b-modal>
@@ -234,28 +261,28 @@ export default {
           id: "",
           name: "",
           email: "",
-          phone: ""
-        }
+          phone: "",
+        },
       ],
       columns: [
         {
           label: "Name",
           field: "name",
-          html: true
+          html: true,
         },
         {
           label: "Email",
-          field: "email"
+          field: "email",
         },
         {
           label: "Phone",
           field: "phone",
-          type: "number"
+          type: "number",
         },
         {
           field: "action",
-          label: "Action"
-        }
+          label: "Action",
+        },
       ],
       rows: [
         {
@@ -264,21 +291,21 @@ export default {
           name:
             "Wireless Bluetooth V4.0 Portable Speaker with HD Sound and Bass",
           email: "2018-10-29",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 2,
 
           name: "Portable Speaker with HD Sound",
           email: "2011-10-31",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 3,
 
           name: "Lightweight On-Ear Headphones - Black",
           email: "2011-10-30",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 4,
@@ -286,42 +313,42 @@ export default {
           name:
             "Automatic-self-wind mens Watch 5102PR-001 (Certified Pre-owned)",
           email: "2011-10-11",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 5,
 
           name: "Automatic-self-wind mens Watch 5102PR-001",
           email: "2011-10-21",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 6,
 
           name: "On-Ear Headphones - Black",
           email: "2011-10-31",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 7,
 
           name: "In-Ear Headphone",
           email: "2018-10-29",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 8,
 
           name: "Duis exercitation nostrud anim",
           email: "2011-10-31",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 9,
 
           name: "Doasdlor eu nostrud excepteur",
           email: "2011-10-30",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 10,
@@ -329,7 +356,7 @@ export default {
           name:
             "Over-Ear Headphones, Stereo Lightweight Adjustable Wired Headset",
           email: "2011-10-11",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 11,
@@ -337,24 +364,24 @@ export default {
           name:
             "Wireless Bluetooth V4.0 Portable Speaker with HD Sound and Bass",
           email: "2011-10-21",
-          phone: 0.03343
+          phone: 0.03343,
         },
         {
           id: 12,
 
           name: "Portable Speaker with HD Sound",
           email: "2011-10-31",
-          phone: 0.03343
-        }
-      ]
+          phone: 0.03343,
+        },
+      ],
     };
   },
   computed: {
     filterIcons() {
-      return this.rows.filter(iconSearch => {
+      return this.rows.filter((iconSearch) => {
         return contactListFilter.toLowerCase().match(this.search.toLowerCase());
       });
-    }
+    },
   },
   methods: {
     openMenu() {
@@ -371,7 +398,7 @@ export default {
         id: this.rows.length + 1,
         name: this.contactListForm.name,
         email: this.contactListForm.email,
-        phone: this.contactListForm.phone
+        phone: this.contactListForm.phone,
       });
       this.onReset();
       this.$swal({
@@ -380,7 +407,7 @@ export default {
         showConfirmButton: false,
         timer: 3000,
         type: "success",
-        title: "Data Inserted Successfully"
+        title: "Data Inserted Successfully",
       });
     },
 
@@ -396,10 +423,8 @@ export default {
     },
     onUpdateContactList(evt) {
       evt.preventDefault();
-      let modifiedList = this.rows.map(row => {
+      let modifiedList = this.rows.map((row) => {
         // console.log(row.id, this.editContactListForm.id);
-
-        
 
         this.$refs["my-modal"].hide();
         this.$swal({
@@ -407,7 +432,7 @@ export default {
           type: "warning",
           title: "Your work has been saved",
           showConfirmButton: false,
-          timer: 1000
+          timer: 1000,
         });
 
         if (row.id == this.editContactListForm.id) {
@@ -429,14 +454,22 @@ export default {
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, delete it!"
-      }).then(result => {
+        confirmButtonText: "Yes, delete it!",
+      }).then((result) => {
         if (result.value) {
           this.$delete(this.rows, data);
           this.$swal("Deleted!", "Your file has been deleted.", "success");
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
+<style scoped>
+.gradient-purple-indigo {
+  /* background-color: #a855f7; */
+  background-image: -o-linear-gradient(-154deg, #a855f7 0%, #33214b 100%);
+  background: linear-gradient(104deg, #00ced7 0%, #33214b 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$from', endColorstr='$to',GradientType=1 );
+}
+</style>

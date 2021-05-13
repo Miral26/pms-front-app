@@ -12,6 +12,7 @@
           <div class="control-section">
             <div class="schedule-container">
               <ejs-schedule
+                v-if="show"
                 id="Schedule"
                 ref="ScheduleObj"
                 :height="calenderHieght"
@@ -23,9 +24,11 @@
                 :actionComplete="onActionComplete"
                 :popupOpen="onPopupOpen"
               >
-                <e-header-rows>
-                  <e-header-row option="Week"></e-header-row>
-                </e-header-rows>
+                     <e-header-rows>
+                        <!-- <e-header-row option="Month" :template="monthHeaderTemplate"></e-header-row> -->
+                        <e-header-row option="Week" :template="weekHeaderTemplate"></e-header-row>
+                        <e-header-row option="Date"></e-header-row>
+                    </e-header-rows>
                 <e-views>
                   <e-view option="Week"></e-view>
                   <!-- <e-view option="Day"></e-view>
@@ -48,13 +51,69 @@
           >
             <div class="appointment-title">{{ operatory.title }}</div>
             <ul class="days">
-              <li :class="!availability['MON'].includes(operatory.title) ? 'disabled' : ''">M</li>
-              <li :class="!availability['TUE'].includes(operatory.title) ? 'disabled' : ''">T</li>
-              <li :class="!availability['WED'].includes(operatory.title) ? 'disabled' : ''">W</li>
-              <li :class="!availability['THU'].includes(operatory.title) ? 'disabled' : ''">T</li>
-              <li :class="!availability['FRI'].includes(operatory.title) ? 'disabled' : ''">F</li>
-              <li :class="!availability['SAT'].includes(operatory.title) ? 'disabled' : ''">S</li>
-              <li :class="!availability['SUN'].includes(operatory.title) ? 'disabled' : ''">S</li>
+              <li
+                :class="
+                  !availability['MON'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                M
+              </li>
+              <li
+                :class="
+                  !availability['TUE'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                T
+              </li>
+              <li
+                :class="
+                  !availability['WED'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                W
+              </li>
+              <li
+                :class="
+                  !availability['THU'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                T
+              </li>
+              <li
+                :class="
+                  !availability['FRI'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                F
+              </li>
+              <li
+                :class="
+                  !availability['SAT'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                S
+              </li>
+              <li
+                :class="
+                  !availability['SUN'].includes(operatory.title)
+                    ? 'disabled'
+                    : ''
+                "
+              >
+                S
+              </li>
             </ul>
           </div>
         </div>
@@ -116,6 +175,7 @@ import {
   Resize,
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
+import { getWeekNumber, getWeekLastDate } from "@syncfusion/ej2-schedule";
 
 Vue.use(SchedulePlugin);
 
@@ -139,6 +199,21 @@ const resourceData = [
     DoctorId: 2,
   },
 ];
+
+var weekHeaderVue = Vue.component("week-header", {
+  template: '<span class="week">{{getWeekDetails(data)}}</span>',
+  data() {
+    return {
+      data: {},
+    };
+  },
+  methods: {
+    getWeekDetails: function (value) {
+      return "Week " + getWeekNumber(getWeekLastDate(value.date, 0));
+    },
+  },
+});
+
 export default {
   data() {
     return {
@@ -181,7 +256,7 @@ export default {
       eventSettings: {
         dataSource: extend([], resourceData, null, true),
       },
-      headerSearch: "",
+      show: false,
       dateSelected: new Date(2018, 7, 1),
       currentView: "Week",
       calenderHieght: window.innerHeight - 200,
@@ -226,11 +301,24 @@ export default {
           Designation: "Human Resource",
         },
       ],
+      weekHeaderTemplate: function () {
+        return {
+          template: weekHeaderVue,
+        };
+      },
     };
   },
-
   computed: {},
+  mounted() {
+    this.setResourceData();
+  },
   methods: {
+    setResourceData() {
+      this.eventSettings.dataSource = resourceData;
+      setTimeout(() => {
+        this.show = true;
+      }, 200);
+    },
     onEventRendered: function (args) {
       let categoryColor = args.data.CategoryColor;
       if (!args.element || !categoryColor) {

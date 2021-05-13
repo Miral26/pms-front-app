@@ -141,7 +141,7 @@
 .time-slots li.active button.btn-outline-primary,
 .time-slots li.active button.btn-outline-primary:focus {
   background-color: #4d5055;
-  border-color: #f2f7fc;
+  border-color: #f2f7fc !important;
   color: #fff;
 }
 .time-slots li button + button {

@@ -83,6 +83,12 @@
                     <span class>Schedule Template</span>
                   </router-link>
                 </li>
+                <li class="item-name">
+                  <router-link tag="a" to="/app/virtual-consults">
+                    <!-- <i class="i-Circular-Point mr-1"></i> -->
+                    <span class>Virtual-Consults</span>
+                  </router-link>
+                </li>
               </ul>
             </b-collapse>
           </li>
@@ -132,7 +138,6 @@
               <div class="dropdown-header">
                 <i class="i-Lock-User mr-1"></i> Timothy Carlson
               </div>
-              <a class="dropdown-item" href="/app/virtual-consults">Virtual Consults</a>
               <a class="dropdown-item">Profile Update</a>
               <a class="dropdown-item">Change Password</a>
               <a class="dropdown-item" href="#" @click.prevent="logoutUser"
@@ -160,16 +165,16 @@ export default {
       selectedParentMenu: "",
       sideMenu: [
         {
-          title: "Daily Huddle",
-          selectedParentMenu: "dashboards",
-          icon: "i-Home1",
-          redirectTo: "/app/dashboards/dashboard.v1",
-        },
-        {
           title: "Schedule",
           selectedParentMenu: "schedule",
           icon: "i-Calendar-4",
           redirectTo: "/app/schedule",
+        },
+        {
+          title: "Daily Huddle",
+          selectedParentMenu: "dashboards",
+          icon: "i-Home1",
+          redirectTo: "/app/dashboards/dashboard.v1",
         },
         {
           title: "Report",

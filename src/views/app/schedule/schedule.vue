@@ -182,6 +182,7 @@ export default {
   },
   data() {
     return {
+      resourceData: [],
       eventSettings: {
         dataSource: extend([], resourceData, null, true),
       },
@@ -232,8 +233,8 @@ export default {
       fullscreen: false,
     };
   },
-
   computed: {},
+  mounted() {},
   methods: {
     onEventRendered: function (args) {
       let categoryColor = args.data.CategoryColor;

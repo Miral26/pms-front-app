@@ -48,13 +48,13 @@
           >
             <div class="appointment-title">{{ operatory.title }}</div>
             <ul class="days">
-              <li>M</li>
-              <li>T</li>
-              <li>W</li>
-              <li>T</li>
-              <li>F</li>
-              <li>S</li>
-              <li>S</li>
+              <li :class="!availability['MON'].includes(operatory.title) ? 'disabled' : ''">M</li>
+              <li :class="!availability['TUE'].includes(operatory.title) ? 'disabled' : ''">T</li>
+              <li :class="!availability['WED'].includes(operatory.title) ? 'disabled' : ''">W</li>
+              <li :class="!availability['THU'].includes(operatory.title) ? 'disabled' : ''">T</li>
+              <li :class="!availability['FRI'].includes(operatory.title) ? 'disabled' : ''">F</li>
+              <li :class="!availability['SAT'].includes(operatory.title) ? 'disabled' : ''">S</li>
+              <li :class="!availability['SUN'].includes(operatory.title) ? 'disabled' : ''">S</li>
             </ul>
           </div>
         </div>
@@ -98,6 +98,9 @@
   line-height: 1;
   margin-top: 5px;
 }
+.days li.disabled {
+  color: #d5f0f9;
+}
 </style>
 
 <script>
@@ -139,10 +142,20 @@ const resourceData = [
 export default {
   data() {
     return {
+      availability: {
+        MON: ["OP-1", "OP-2", "OP-3", "OP-5", "Other Office"],
+        TUE: ["OP-1", "OP-3", "OP-4", "OP-5"],
+        WED: ["OP-3", "OP-4", "OP-5"],
+        THU: ["OP-1", "OP-2", "OP-3", "OP-4", "Other Office"],
+        FRI: ["OP-1", "OP-2", "OP-3", "OP-5", "Other Office"],
+        SAT: ["Other Office"],
+        SUN: ["Other Office"],
+      },
       operatories: [
         {
           id: 1,
           title: "OP-1",
+          days: [{ id: 1, title: "M", available: true }],
         },
         {
           id: 2,

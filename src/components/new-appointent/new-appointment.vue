@@ -13,7 +13,7 @@
           <input
             type="text"
             placeholder="Search a Patient"
-            v-model="appointmentData.headerSearch"
+            v-model="getAppointmentData.headerSearch"
           />
         </div>
       </div>
@@ -34,7 +34,7 @@
                           day: '2-digit',
                         }"
                         id="new-appointment-date-selector"
-                        v-model="appointmentData.selectedDate"
+                        v-model="getAppointmentData.selectedDate"
                         class="datepicker-input"
                       ></b-form-datepicker>
                     </div>
@@ -43,7 +43,7 @@
                     <div class="form-group">
                       <b-form-timepicker
                         id="timepicker-placeholder"
-                        v-model="appointmentData.selectedTime"
+                        v-model="getAppointmentData.selectedTime"
                         placeholder="Choose a time"
                         local="en"
                       ></b-form-timepicker>
@@ -240,16 +240,17 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "New-Appointment",
-  props: {
-    appointmentData: Object,
-  },
   data() {
     return {
       selectedProvider: "",
-      value: "",
     };
+  },
+  computed: {
+    ...mapGetters(["getAppointmentData"]),
   },
 };
 </script>

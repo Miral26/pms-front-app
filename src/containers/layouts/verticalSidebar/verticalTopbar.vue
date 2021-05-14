@@ -123,7 +123,7 @@
         <div class="d-flex">
           <i
             class="i-File-Clipboard-File--Text cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
-            v-b-modal.new-appointment
+            @click="openAppointmentModal"
             v-b-popover.hover.bottom="'Add Appointment'"
           >
           </i>
@@ -199,16 +199,23 @@
           </b-dropdown>
         </div>
       </div>
+
+      <b-modal id="new-appointment" size="xl">
+        <NewAppointment />
+      </b-modal>
     </header>
   </div>
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import * as moment from "moment";
 import { mixin as clickaway } from "vue-clickaway";
 import Util from "@/utils";
+import NewAppointment from "../../../components/new-appointent/new-appointment";
 
 export default {
   mixins: [clickaway],
+  components: { NewAppointment },
   computed: {
     ...mapGetters([
       "getVerticalCompact",
@@ -221,6 +228,11 @@ export default {
       isMegaMenuOpen: false,
       dateSelected: new Date(),
       headerSearch: "",
+      appointmentData: {
+        headerSearch: "",
+        selectedTime: moment().format("HH:MM:ss"),
+        selectedDate: new Date(2018, 7, 1),
+      },
       options2: [
         { value: "1", text: "aa" + " - " + "1" },
         { value: "2", text: "ab" + " - " + "2" },
@@ -250,8 +262,16 @@ export default {
       "sidebarCompact",
       "removeSidebarCompact",
       "mobileSidebar",
+      "setAppointmentData",
     ]),
-
+    openAppointmentModal() {
+      this.setAppointmentData({
+        headerSearch: "",
+        selectedTime: moment().format("HH:MM:ss"),
+        selectedDate: new Date(2018, 7, 1),
+      });
+      this.$bvModal.show("new-appointment");
+    },
     handleFullScreen() {
       Util.toggleFullScreen();
     },

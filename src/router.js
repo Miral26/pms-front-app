@@ -8,18 +8,9 @@ Vue.use(Router);
 
 import AppView from './views/app/index.vue'
 import VerticalSidebar from './containers/layouts/verticalSidebar'
-import AppDashboards from './views/app/dashboards'
 import DashboardV1 from './views/app/dashboards/dashboard.v1.vue'
-import DashboardV2 from './views/app/dashboards/dashboard.v2.vue'
-import DashboardV3 from './views/app/dashboards/dashboard.v3.vue'
-import DashboardV4 from './views/app/dashboards/dashboard.v4.vue'
-import AppReports from './views/app/reports'
-import AppBillings from './views/app/billings'
-import AppSchedule from './views/app/schedule'
-import AppScheduleTemplate from './views/app/schedule-template'
-import VirtualConsults from './views/app/virtual-consults'
-import AppVirtualConsults from './views/app/virtual-consults/virtual-consults.vue'
-import Reports from './views/app/reports/reports.vue';
+import VirtualConsults from './views/app/virtual-consults/virtual-consults.vue'
+import Report from './views/app/report/report.vue';
 import Billiings from './views/app/billings/billings.vue';
 import Schedule from './views/app/schedule/schedule.vue';
 import ScheduleTemplate from './views/app/schedule-template/schedule-template.vue';
@@ -54,54 +45,28 @@ const routes = [
     redirect: "./app/dashboards/dashboard.v1",
     children: [
       {
-        path: "/app/dashboards",
-        component: AppDashboards,
-        children: [
-          route('dashboard.v1', 'dashboard.v1', DashboardV1),
-          route('dashboard.v2', 'dashboard.v2', DashboardV2),
-          route('dashboard.v3', 'dashboard.v3', DashboardV3),
-          route('dashboard.v4', 'dashboard.v4', DashboardV4),
-        ]
+        path: "/app/dashboards/dashboard.v1",
+        component: DashboardV1,
       },
-
       {
         path: "/app/report",
-        component: AppReports,
-        children: [
-          route('report', '/', Reports),
-        ]
+        component: Report,
       },
       {
         path: "/app/billings",
-        component: AppBillings,
-        children: [
-          route('billings', '/', Billiings),
-        ]
+        component: Billiings,
       },
       {
         path: "/app/schedule",
-        component: AppSchedule,
-        children: [
-          route('schedule', '/', Schedule),
-        ]
+        component: Schedule,
       },
       {
         path: "/app/schedule-template",
-        component: AppScheduleTemplate,
-        children: [
-          route('schedule-template', '/', ScheduleTemplate),
-        ]
+        component: ScheduleTemplate,
       },
       {
         path: "/app/virtual-consults",
-        component: AppVirtualConsults,
-        children: [
-          route('virtual-consults', '/', VirtualConsults),
-        ]
-      },
-      {
-        path: "/app/billings",
-        component: () => import("./views/app/pages/icons")
+        component: VirtualConsults,
       },
       {
         path: "/app/overview",

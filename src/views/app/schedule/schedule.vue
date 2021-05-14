@@ -23,6 +23,8 @@
                 :currentView="currentView"
                 :actionBegin="onActionBegin"
                 :actionComplete="onActionComplete"
+                :cellClick="onCellClick"
+                :eventClick="onEventClick"
                 :popupOpen="onPopupOpen"
               >
                 <e-views>
@@ -146,7 +148,9 @@
       </b-col>
     </b-row> -->
 
-    <b-modal id="new-appointment" size="xl"> <NewAppointment /> </b-modal>
+    <b-modal id="new-appointment" size="xl">
+      <NewAppointment :appointmentData="appointmentData" />
+    </b-modal>
   </div>
 </template>
 <style>
@@ -228,6 +232,7 @@ import {
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
 import NewAppointment from "../../../components/new-appointent/new-appointment";
+import * as moment from "moment";
 
 Vue.use(SchedulePlugin);
 Vue.use(fullscreen);
@@ -261,6 +266,11 @@ export default {
       resourceData: [],
       eventSettings: {
         dataSource: extend([], resourceData, null, true),
+      },
+      appointmentData: {
+        headerSearch: "",
+        selectedTime: moment().format("HH:MM:ss"),
+        selectedDate: new Date(2018, 7, 1),
       },
       selectedDate: new Date(2018, 7, 1),
       group: { byDate: true, resources: ["Doctors"] },
@@ -353,6 +363,19 @@ export default {
     },
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;
+    },
+    onEventClick() {
+      this.$bvModal.show("new-appointment");
+    },
+    onCellClick(e) {
+      console.log(`e`, e);
+      this.appointmentData = {
+        selectedDate: e.startTime,
+        selectedTime: moment(new Date(e.startTime).getTime()).format(
+          "HH:MM:ss"
+        ),
+      };
+      this.$bvModal.show("new-appointment");
     },
     onPopupOpen: (args) => {
       args.cancel = true;

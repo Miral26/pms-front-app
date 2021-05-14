@@ -13,7 +13,7 @@
           <input
             type="text"
             placeholder="Search a Patient"
-            v-model="headerSearch"
+            v-model="appointmentData.headerSearch"
           />
         </div>
       </div>
@@ -34,7 +34,7 @@
                           day: '2-digit',
                         }"
                         id="new-appointment-date-selector"
-                        v-model="dateSelected"
+                        v-model="appointmentData.selectedDate"
                         class="datepicker-input"
                       ></b-form-datepicker>
                     </div>
@@ -43,6 +43,7 @@
                     <div class="form-group">
                       <b-form-timepicker
                         id="timepicker-placeholder"
+                        v-model="appointmentData.selectedTime"
                         placeholder="Choose a time"
                         local="en"
                       ></b-form-timepicker>
@@ -241,9 +242,13 @@
 <script>
 export default {
   name: "New-Appointment",
+  props: {
+    appointmentData: Object,
+  },
   data() {
     return {
       selectedProvider: "",
+      value: "",
     };
   },
 };

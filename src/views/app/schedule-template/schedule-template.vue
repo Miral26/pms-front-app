@@ -152,8 +152,8 @@
   float: left;
   color: #33b5e6;
   list-style: none;
-  margin-right: 5px;
-  font-size: 20px;
+  margin-right: 3px;
+  font-size: 15px;
   line-height: 1;
   margin-top: 5px;
 }

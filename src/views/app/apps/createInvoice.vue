@@ -253,7 +253,7 @@ export default {
     },
 
     backInvoice() {
-      this.$router.push("/app/apps/invoice");
+      this.$router.push("/app/billings");
     },
     addNewRow() {
       this.items.push({

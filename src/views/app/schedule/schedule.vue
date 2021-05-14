@@ -10,7 +10,7 @@
 
         <div class="schedule-vue-sample">
           <div class="col-md-12 control-section">
-            <div class="content-wrapper schedule-container">
+            <div class="content-wrapper schedule-container without-date-header">
               <ejs-schedule
                 v-if="show"
                 id="Schedule"
@@ -26,6 +26,7 @@
                 :cellClick="onCellClick"
                 :eventClick="onEventClick"
                 :popupOpen="onPopupOpen"
+                :navigating="onNavigating"
               >
                 <e-views>
                   <e-view
@@ -278,6 +279,7 @@ export default {
           Designation: "Human Resource",
         },
       ],
+      cssClas: "schedule-no-date",
       show: false,
       virtualScroll: true,
       currentView: "Day",
@@ -306,12 +308,19 @@ export default {
     },
     onActionBegin: function (args) {
       if (args.requestType === "toolbarItemRendering") {
-        let fullScreenIconItem = {
+        const fullScreenIconItem = {
           align: "Right",
           prefixIcon: "i-Full-Screen",
           cssClass: "full-screen-view-icon",
         };
         args.items.push(fullScreenIconItem);
+        const dayNameElement = {
+          align: "Left",
+          prefixIcon: "",
+          text: moment(this.selectedDate).format("dddd"),
+          cssClass: "selected-day-name",
+        };
+        args.items.push(dayNameElement);
       }
     },
     onActionComplete: function (args) {
@@ -330,6 +339,14 @@ export default {
     },
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;
+    },
+    onNavigating(e) {
+      this.selectedDate = e.currentDate;
+      const element = document.querySelector(".selected-day-name .e-tbar-btn-text");
+      if (element) {
+        element.innerHTML = moment(this.selectedDate).format("dddd");
+      }
+      console.log(`e`, e);
     },
     onEventClick() {
       this.$bvModal.show("new-appointment");

@@ -13,8 +13,8 @@
             <div class="schedule-container">
               <ejs-schedule
                 v-if="show"
-                id="Schedule"
-                ref="ScheduleObj"
+                id="Schedule1"
+                ref="ScheduleObj1"
                 :height="calenderHieght"
                 :selectedDate="dateSelected"
                 :eventSettings="eventSettings"
@@ -341,13 +341,13 @@ export default {
       }
     },
     onActionComplete: function (args) {
-      let scheduleElement = document.getElementById("Schedule");
+      let scheduleElement = document.getElementById("Schedule1");
       if (args.requestType === "toolBarItemRendered") {
         let fullScreenIconItem = scheduleElement.querySelector(
           ".full-screen-view-icon"
         );
         fullScreenIconItem.onclick = () => {
-          this.$fullscreen.toggle(this.$el.querySelector("#Schedule"), {
+          this.$fullscreen.toggle(this.$el.querySelector("#Schedule1"), {
             wrap: false,
             callback: this.fullscreenChange,
           });

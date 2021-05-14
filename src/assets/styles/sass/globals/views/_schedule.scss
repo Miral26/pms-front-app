@@ -1,4 +1,22 @@
-  .schedule-container {
+.without-date-header {
+    .e-table-container {
+        .e-outer-table {
+            .e-left-indent-wrap {
+                .e-schedule-table tbody .e-header-cells {
+                    display: none !important;
+                }
+            }
+        }
+    }
+    .e-date-header-container{
+        .e-date-header-wrap {
+            .e-schedule-table tbody .e-header-cells {
+                display: none !important;
+            }
+        }
+    }
+}
+.schedule-container {
         .fullscreen {
             .e-table-container {
                 height: 100%;
@@ -15,6 +33,11 @@
                     .e-date-header-wrap,
                     .e-schedule-table {
                             height: 100%;
+                    }
+                    .e-left-indent-wrap {
+                        .e-schedule-table tbody .e-header-cells {
+                            display: none !important;
+                        }
                     }
                 }
             }
@@ -76,6 +99,14 @@
                 }
                 .e-work-cells {
                     background-color: #fff;
+                }
+            }
+            .e-table-container {
+                .e-table-wrap {
+                    .e-outer-table tbody .e-resource-cells {
+                        text-align: center !important;
+                        font-weight: 500;
+                    }
                 }
             }
         }

@@ -23,6 +23,8 @@
                 :currentView="currentView"
                 :actionBegin="onActionBegin"
                 :actionComplete="onActionComplete"
+                :cellClick="onCellClick"
+                :eventClick="onEventClick"
                 :popupOpen="onPopupOpen"
               >
                 <e-views>
@@ -60,29 +62,6 @@
         <div class="appointment-requests-tab">
           <b-tabs content-class="mt-1">
             <b-tab title="ASAP">
-              <div class="appointment-list">
-                <div
-                  class="appointment-card"
-                  v-for="num in [1, 2, 3]"
-                  :key="num"
-                >
-                  <div class="appointment-date-time">
-                    <span>Mar 19, 2021</span>
-                    <span>5:00 PM - 6:00 PM</span>
-                  </div>
-                  <div class="appointment-title">He - Ryan Smith</div>
-                  <div class="contact-info">
-                    <span>melissa.luvisi@gmail.com</span>
-                    <span>(310)487-4291</span>
-                  </div>
-                  <div class="submitted-date">
-                    <span>Submitted on 3/17/21</span>
-                    <i class="fa fa-calendar-check-o"></i>
-                  </div>
-                </div>
-              </div>
-            </b-tab>
-            <b-tab title="Broken/No Show">
               <div class="appointment-list">
                 <div
                   class="appointment-card"
@@ -146,7 +125,9 @@
       </b-col>
     </b-row> -->
 
-    <b-modal id="new-appointment" size="xl"> <NewAppointment /> </b-modal>
+    <b-modal id="new-appointment" size="xl">
+      <NewAppointment :appointmentData="appointmentData" />
+    </b-modal>
   </div>
 </template>
 <style>
@@ -228,6 +209,7 @@ import {
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
 import NewAppointment from "../../../components/new-appointent/new-appointment";
+import * as moment from "moment";
 
 Vue.use(SchedulePlugin);
 Vue.use(fullscreen);
@@ -261,6 +243,11 @@ export default {
       resourceData: [],
       eventSettings: {
         dataSource: extend([], resourceData, null, true),
+      },
+      appointmentData: {
+        headerSearch: "",
+        selectedTime: moment().format("HH:MM:ss"),
+        selectedDate: new Date(2018, 7, 1),
       },
       selectedDate: new Date(2018, 7, 1),
       group: { byDate: true, resources: ["Doctors"] },
@@ -353,6 +340,19 @@ export default {
     },
     fullscreenChange(fullscreen) {
       this.fullscreen = fullscreen;
+    },
+    onEventClick() {
+      this.$bvModal.show("new-appointment");
+    },
+    onCellClick(e) {
+      console.log(`e`, e);
+      this.appointmentData = {
+        selectedDate: e.startTime,
+        selectedTime: moment(new Date(e.startTime).getTime()).format(
+          "HH:MM:ss"
+        ),
+      };
+      this.$bvModal.show("new-appointment");
     },
     onPopupOpen: (args) => {
       args.cancel = true;

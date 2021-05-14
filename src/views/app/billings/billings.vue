@@ -22,37 +22,7 @@
                 >
               </li>
             </ul>
-            <div class="huddle-tab">
-              <b-tabs content-class="mt-1">
-                <b-tab title="Scheduled (12)" active>
-                  <div class="mb-20">
-                    <DynamicCustomTableView
-                      :columns="tableColumns"
-                      :rows="tableRows"
-                    />
-                  </div>
-                </b-tab>
-                <b-tab title="Invoice (41)">
-                  <div class="mb-20"><InvoiceView /></div>
-                </b-tab>
-                <b-tab title="Finished (34)">
-                  <div class="mb-20">
-                    <DynamicCustomTableView
-                      :columns="tableColumns"
-                      :rows="tableRows"
-                    />
-                  </div>
-                </b-tab>
-                <b-tab title="Deferred (21)">
-                  <div class="mb-20">
-                    <DynamicCustomTableView
-                      :columns="tableColumns"
-                      :rows="tableRows"
-                    />
-                  </div>
-                </b-tab>
-              </b-tabs>
-            </div>
+            <div class="mb-20"><InvoiceView /></div>
           </div>
         </div>
       </b-col>
@@ -61,7 +31,6 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import DynamicCustomTableView from "../dashboards/views/table/DynamicCustomTableView";
 import InvoiceView from "../apps/invoice";
 
 export default {
@@ -156,7 +125,7 @@ export default {
       ],
     };
   },
-  components: { DynamicCustomTableView, InvoiceView },
+  components: { InvoiceView },
   computed: {
     ...mapGetters(["getItems"]),
   },

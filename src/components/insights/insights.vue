@@ -3,7 +3,7 @@
     <b-row>
       <b-col lg="12" md="12">
         <b-card title="Office Support Red Line Graphs" class="mb-30">
-          <div class="chart-wrapper" style="height: 300px">
+          <div class="chart-wrapper" style="height: 500px">
             <v-chart :options="stackedArea" :autoresize="true"></v-chart>
           </div>
         </b-card>

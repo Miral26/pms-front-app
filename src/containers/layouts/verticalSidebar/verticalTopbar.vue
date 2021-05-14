@@ -123,6 +123,7 @@
         <div class="d-flex">
           <i
             class="i-File-Clipboard-File--Text cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
+            v-b-modal.new-appointment
             v-b-popover.hover.bottom="'Add Appointment'"
           >
           </i>
@@ -203,7 +204,7 @@
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
-import { mixin as clickaway } from 'vue-clickaway';
+import { mixin as clickaway } from "vue-clickaway";
 import Util from "@/utils";
 
 export default {

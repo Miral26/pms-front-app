@@ -24,11 +24,14 @@
                 :actionComplete="onActionComplete"
                 :popupOpen="onPopupOpen"
               >
-                     <e-header-rows>
-                        <!-- <e-header-row option="Month" :template="monthHeaderTemplate"></e-header-row> -->
-                        <e-header-row option="Week" :template="weekHeaderTemplate"></e-header-row>
-                        <e-header-row option="Date"></e-header-row>
-                    </e-header-rows>
+                <e-header-rows>
+                  <!-- <e-header-row option="Month" :template="monthHeaderTemplate"></e-header-row> -->
+                  <e-header-row
+                    option="Week"
+                    :template="weekHeaderTemplate"
+                  ></e-header-row>
+                  <e-header-row option="Date"></e-header-row>
+                </e-header-rows>
                 <e-views>
                   <e-view option="Week"></e-view>
                   <!-- <e-view option="Day"></e-view>
@@ -129,10 +132,11 @@
   overflow-y: auto;
 }
 .appointment-card {
+  width: 90%;
   background-color: #fff;
   border-radius: 10px;
   padding: 15px;
-  margin-bottom: 40px;
+  margin-bottom: 20px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
 }
 .appointment-card:last-child {
@@ -152,8 +156,8 @@
   float: left;
   color: #33b5e6;
   list-style: none;
-  margin-right: 5px;
-  font-size: 20px;
+  margin-right: 3px;
+  font-size: 15px;
   line-height: 1;
   margin-top: 5px;
 }

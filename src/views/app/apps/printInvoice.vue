@@ -129,7 +129,7 @@ export default {
     },
 
     backInvoice() {
-      this.$router.push("/app/apps/invoice");
+      this.$router.push("/app/billings");
     },
     print() {
       // let printArea=document.getElementById('print-area');

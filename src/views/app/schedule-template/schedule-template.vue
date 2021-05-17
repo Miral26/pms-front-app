@@ -48,9 +48,10 @@
         </div>
         <div class="appointment-list">
           <div
-            class="appointment-card"
+            class="appointment-card c-pointer"
             v-for="operatory in operatories"
             :key="operatory.id"
+            @click="openOperatory(operatory)"
           >
             <div class="appointment-title">{{ operatory.title }}</div>
             <ul class="days">
@@ -121,10 +122,25 @@
           </div>
         </div>
       </b-col>
+      <b-modal
+        id="operatory"
+        size="xl"
+        hide-footer
+        :title="selectedOperatory && selectedOperatory.title"
+      >
+        <b-row>
+          <b-col lg="6" md="6"> </b-col>
+          <b-col lg="6" md="6"> </b-col>
+        </b-row>
+      </b-modal>
     </b-row>
   </div>
 </template>
 <style>
+#operatory .modal-dialog {
+  max-width: 70%;
+}
+
 .appointment-list {
   height: -moz-calc(100vh - 200px);
   height: -webkit-calc(100vh - 200px);
@@ -179,44 +195,29 @@ import {
   Resize,
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
-import { getWeekNumber, getWeekLastDate } from "@syncfusion/ej2-schedule";
 
 Vue.use(SchedulePlugin);
 
 const resourceData = [
   {
     Id: 1,
-    Subject: "Not Available",
-    StartTime: new Date(2018, 7, 1, 11, 0),
-    EndTime: new Date(2018, 7, 1, 12, 30),
+    Subject: "Appointment 1",
+    StartTime: new Date(new Date().setHours(11)),
+    EndTime: new Date(new Date().setHours(12)),
     IsAllDay: false,
     CategoryColor: "#bbdc00",
     DoctorId: 1,
   },
   {
     Id: 2,
-    Subject: "Not Available",
-    StartTime: new Date(2018, 7, 2, 14, 0),
-    EndTime: new Date(2018, 7, 2, 16, 0),
+    Subject: "Appointment 1",
+    StartTime: new Date(new Date().setHours(14)),
+    EndTime: new Date(new Date().setHours(16)),
     IsAllDay: false,
     CategoryColor: "#9e5fff",
     DoctorId: 2,
   },
 ];
-
-var weekHeaderVue = Vue.component("week-header", {
-  template: '<span class="week">{{getWeekDetails(data)}}</span>',
-  data() {
-    return {
-      data: {},
-    };
-  },
-  methods: {
-    getWeekDetails: function (value) {
-      return "Week " + getWeekNumber(getWeekLastDate(value.date, 0));
-    },
-  },
-});
 
 export default {
   data() {
@@ -230,11 +231,11 @@ export default {
         SAT: ["Other Office"],
         SUN: ["Other Office"],
       },
+      selectedOperatory: null,
       operatories: [
         {
           id: 1,
           title: "OP-1",
-          days: [{ id: 1, title: "M", available: true }],
         },
         {
           id: 2,
@@ -261,7 +262,7 @@ export default {
         dataSource: extend([], resourceData, null, true),
       },
       show: false,
-      dateSelected: new Date(2018, 7, 1),
+      dateSelected: new Date(),
       currentView: "Week",
       calenderHieght: window.innerHeight - 200,
       group: {
@@ -305,11 +306,6 @@ export default {
           Designation: "Human Resource",
         },
       ],
-      weekHeaderTemplate: function () {
-        return {
-          template: weekHeaderVue,
-        };
-      },
     };
   },
   computed: {},
@@ -317,6 +313,10 @@ export default {
     this.setResourceData();
   },
   methods: {
+    openOperatory(data) {
+      this.selectedOperatory = data;
+      this.$bvModal.show("operatory");
+    },
     setResourceData() {
       this.eventSettings.dataSource = resourceData;
       setTimeout(() => {

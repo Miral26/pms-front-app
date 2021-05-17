@@ -40,8 +40,9 @@
                   class="btn-rounded btn-block mt-2"
                   variant="primary mt-3"
                   :disabled="loading"
-                > Sign In 
-                <span v-if="loading">...</span>
+                >
+                  Sign In
+                  <span v-if="loading">...</span>
                 </b-button>
                 <!-- <div v-once class="typo__p" v-if="loading">
                   <div class="spinner sm spinner-primary mt-3"></div>
@@ -66,7 +67,7 @@
           <b-col
             md="6"
             class="text-center"
-            style="backgroundSize: cover;"
+            style="backgroundsize: cover"
             :style="{ backgroundImage: 'url(' + signInImage + ')' }"
           >
             <div class="pr-3 auth-right">
@@ -97,10 +98,10 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 export default {
-  name: 'signIn',
+  name: "signIn",
   metaInfo: {
     // if no subcomponents specify a metaInfo.title, this title will be used
-    title: "SignIn"
+    title: "SignIn",
   },
   data() {
     return {
@@ -110,14 +111,14 @@ export default {
       userId: "",
       bgImage: require("@/assets/images/photo-wide-4.jpg"),
       logo: require("@/assets/images/logo.png"),
-      signInImage: require("@/assets/images/photo-long-3.jpg")
+      signInImage: require("@/assets/images/photo-long-3.jpg"),
     };
   },
   computed: {
     validation() {
       return this.userId.length > 4 && this.userId.length < 13;
     },
-    ...mapGetters(["loggedInUser", "loading", "error"])
+    ...mapGetters(["loggedInUser", "loading", "error"]),
   },
 
   methods: {
@@ -129,17 +130,17 @@ export default {
       this.$bvToast.toast(msg, {
         title: ` ${variant || "default"}`,
         variant: variant,
-        solid: true
+        solid: true,
       });
-    }
+    },
   },
   watch: {
     loggedInUser(val) {
-      console.log('watcher');
+      console.log("watcher");
       if (val && val.uid && val.uid.length > 0) {
         this.makeToast("success", "Successfully Logged In");
         setTimeout(() => {
-          this.$router.push({ name: "dashboard.v1" })
+          this.$router.push("/app");
         }, 500);
       }
     },
@@ -147,8 +148,8 @@ export default {
       if (val != null) {
         this.makeToast("warning", val.message);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -5,7 +5,7 @@
     <div class="app-footer">
       <div class="row">
         <div class="col-md-9">
-          <p><strong>Gull - Vuejs Admin Dashboard Template</strong></p>
+          <p><strong>THDC</strong></p>
           <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Libero
             quis beatae officia saepe perferendis voluptatum minima eveniet

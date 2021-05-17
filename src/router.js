@@ -3,12 +3,15 @@ import store from "./store";
 // import {isMobile} from "mobile-device-detect";
 import Router from "vue-router";
 import authenticate from "./auth/authenticate";
+import unAuthenticate from "./auth/unAuthenticate";
 
 Vue.use(Router);
 
 import AppView from './views/app/index.vue'
 import VerticalSidebar from './containers/layouts/verticalSidebar'
-import DashboardV1 from './views/app/dashboards/dashboard.v1.vue'
+import Landing from './containers/layouts/landing/landing.vue'
+import Contact from './containers/layouts/contact/contact.vue'
+import DailyHuddle from './views/app/daily-huddle/daily-huddle.vue'
 import VirtualConsults from './views/app/virtual-consults/virtual-consults.vue'
 import Report from './views/app/report/report.vue';
 import Billiings from './views/app/billings/billings.vue';
@@ -38,15 +41,47 @@ function route(name, path, component, meta = {}, children = []) {
 const routes = [
   {
     path: "/",
+    component: Landing,
+  },
+  {
+    path: "/contact",
+    name: "Contact",
+    component: Contact,
+  },
+  {
+    path: "/signIn",
+    name: "Authentication",
+    beforeEnter: unAuthenticate,
+    component: signIn,
+  },
+  {
+    path: "/signUp",
+    name: "Authentication",
+    beforeEnter: unAuthenticate,
+    component: signUp,
+  },
+  {
+    path: "/forgot",
+    name: "Authentication",
+    beforeEnter: unAuthenticate,
+    component: forgot,
+  },
+  {
+    path: "/reset-password",
+    name: "Authentication",
+    beforeEnter: unAuthenticate,
+    component: ResetPassword,
+  },
+  {
+    path: "/app",
     name: "HomePageDashboard",
     component: AppView,
-    // component: () => import("./views/app"), //webpackChunkName app
     beforeEnter: authenticate,
-    redirect: "./app/dashboards/dashboard.v1",
+    redirect: "./app/daily-huddle",
     children: [
       {
-        path: "/app/dashboards/dashboard.v1",
-        component: DashboardV1,
+        path: "/app/daily-huddle",
+        component: DailyHuddle,
       },
       {
         path: "/app/report",
@@ -546,18 +581,18 @@ const routes = [
     ]
   },
   // sessions
-  {
-    path: "/app/sessions",
-    name: "SessionIndex",
-    component: SessionIndex,
-    redirect: "/app/sessions/signIn",
-    children: [
-      route('signIn', 'signIn', signIn),
-      route('signUp', 'signUp', signUp),
-      route('forgot', 'forgot', forgot),
-      route('reset-password', 'reset-password', ResetPassword)
-    ]
-  },
+  // {
+  //   path: "/app/sessions",
+  //   name: "SessionIndex",
+  //   component: SessionIndex,
+  //   redirect: "/app/sessions/signIn",
+  //   children: [
+  //     route('signIn', 'signIn', signIn),
+  //     route('signUp', 'signUp', signUp),
+  //     route('forgot', 'forgot', forgot),
+  //     route('reset-password', 'reset-password', ResetPassword)
+  //   ]
+  // },
   route("vertical-sidebar", 'vertical-sidebar', VerticalSidebar),
   {
     path: "*",

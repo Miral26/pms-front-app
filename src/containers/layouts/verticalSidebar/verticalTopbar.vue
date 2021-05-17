@@ -285,10 +285,6 @@ export default {
     toggleMegaMenu() {
       this.isMegaMenuOpen = !this.isMegaMenuOpen;
     },
-    logoutUser() {
-      this.signOut();
-      this.$router.push("/app/sessions/signIn");
-    },
   },
   watch: {
     // dateSelected(val){

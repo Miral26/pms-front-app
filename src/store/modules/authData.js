@@ -25,7 +25,7 @@ export default {
       state.loggedInUser = null;
       state.loading = false;
       state.error = null;
-      // this.$router.go("/");
+      // this.$router.go("/signIn");
     },
     setLoading(state, data) {
       state.loading = data;

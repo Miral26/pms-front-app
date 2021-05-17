@@ -106,27 +106,11 @@
                     .e-outer-table tbody .e-resource-cells {
                         text-align: center !important;
                         font-weight: 500;
+                        border-bottom: 0;
                     }
                 }
             }
         }
-        // &.full-screen {
-        //     position: fixed;
-        //     top: 0;
-        //     left: 0;
-        //     right: 0;
-        //     bottom: 0;
-        //     z-index: 1002;
-        //     > .e-control {
-        //         height: 100% !important;
-        //         .e-content-wrap,
-        //         .e-time-cells-wrap {
-        //             height: -moz-calc(100vh - 162px) !important;
-        //             height: -webkit-calc(100vh - 162px) !important;
-        //             height: calc(100vh - 162px) !important;
-        //         }
-        //     }
-        // }
         .e-spinner-pane {
             .e-spinner-inner {
                 .e-spin-material {
@@ -155,6 +139,19 @@
                     &:hover {
                         span.e-day {
                             background-color: #6cdcd4;
+                        }
+                    }
+                }
+                td.e-today {
+                    span.e-day {
+                        color: #6cdcd4;
+                        border-color: #6cdcd4;
+                    }
+                    &:hover {
+                        span.e-day {
+                            background-color: #6cdcd4;
+                            border-color: #6cdcd4;
+                            color: #fff;
                         }
                     }
                 }

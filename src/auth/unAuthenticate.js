@@ -3,9 +3,8 @@ export default (to, from, next) => {
     localStorage.getItem("userInfo") != null &&
     localStorage.getItem("userInfo").length > 0
   ) {
-    next();
+    next("/app");
   } else {
-    localStorage.removeItem("userInfo");
-    next("/");
+    next();
   }
 };

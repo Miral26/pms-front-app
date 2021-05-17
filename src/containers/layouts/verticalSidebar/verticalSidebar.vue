@@ -171,9 +171,9 @@ export default {
         },
         {
           title: "Daily Huddle",
-          selectedParentMenu: "dashboards",
+          selectedParentMenu: "daily-huddle",
           icon: "i-Home1",
-          redirectTo: "/app/dashboards/dashboard.v1",
+          redirectTo: "/app/daily-huddle",
         },
         {
           title: "Report",
@@ -205,6 +205,7 @@ export default {
   },
   methods: {
     ...mapActions([
+      "signOut",
       "switchSidebar",
       "sidebarCompact",
       "removeSidebarCompact",
@@ -215,15 +216,20 @@ export default {
       const currentParentUrl = this.$route.path
         .split("/")
         .filter((x) => x !== "")[1];
-
       if (currentParentUrl !== undefined || currentParentUrl !== null) {
         this.selectedParentMenu = currentParentUrl.toLowerCase();
       } else {
-        this.selectedParentMenu = "dashboards";
+        this.selectedParentMenu = "daily-huddle";
       }
     },
     returnSelectedParentMenu() {
       this.toggleSelectedParentMenu();
+    },
+    logoutUser() {
+      this.signOut();
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 500);
     },
   },
 };

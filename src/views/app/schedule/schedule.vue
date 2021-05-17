@@ -215,8 +215,8 @@ const resourceData = [
   {
     Id: 1,
     Subject: "Workflow Analysis",
-    StartTime: new Date(2018, 7, 1, 9, 30),
-    EndTime: new Date(2018, 7, 1, 12, 0),
+    StartTime: new Date(new Date().setHours(11)),
+    EndTime: new Date(new Date().setHours(12)),
     IsAllDay: false,
     ProjectId: 1,
     DoctorId: 2,
@@ -224,8 +224,8 @@ const resourceData = [
   {
     Id: 2,
     Subject: "Requirement planning",
-    StartTime: new Date(2018, 7, 1, 12, 30),
-    EndTime: new Date(2018, 7, 1, 14, 45),
+    StartTime: new Date(new Date().setHours(14)),
+    EndTime: new Date(new Date().setHours(16)),
     IsAllDay: false,
     ProjectId: 1,
     DoctorId: 1,
@@ -239,7 +239,7 @@ export default {
       eventSettings: {
         dataSource: extend([], resourceData, null, true),
       },
-      selectedDate: new Date(2018, 7, 1),
+      selectedDate: new Date(),
       group: { byDate: true, resources: ["Doctors"] },
       allowMultiple: true,
       resourceDataSource: [
@@ -342,7 +342,9 @@ export default {
     },
     onNavigating(e) {
       this.selectedDate = e.currentDate;
-      const element = document.querySelector(".selected-day-name .e-tbar-btn-text");
+      const element = document.querySelector(
+        ".selected-day-name .e-tbar-btn-text"
+      );
       if (element) {
         element.innerHTML = moment(this.selectedDate).format("dddd");
       }

@@ -12,11 +12,13 @@
 
 <style lang="scss">
 .footer-wrap {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  padding: 5px 60px;
+  padding: 15px 60px;
+  min-height: 53px;
+  background-color: #6cdcd4;
 }
 .footer-content {
   color: #fff;

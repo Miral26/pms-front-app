@@ -26,10 +26,7 @@
               >
                 <e-header-rows>
                   <!-- <e-header-row option="Month" :template="monthHeaderTemplate"></e-header-row> -->
-                  <e-header-row
-                    option="Week"
-                    :template="weekHeaderTemplate"
-                  ></e-header-row>
+                  <e-header-row option="Week"></e-header-row>
                   <e-header-row option="Date"></e-header-row>
                 </e-header-rows>
                 <e-views>
@@ -128,10 +125,121 @@
         hide-footer
         :title="selectedOperatory && selectedOperatory.title"
       >
-        <b-row>
-          <b-col lg="6" md="6"> </b-col>
-          <b-col lg="6" md="6"> </b-col>
-        </b-row>
+        <div class="schedule-template-form">
+          <b-row class="mb-5 pb-5">
+            <b-col lg="6" md="6">
+              <b-form>
+                <b-form-group class="col-md-12 mb-3" label="Title">
+                  <b-form-input
+                    type="text"
+                    required
+                    placeholder="Teeth Cleaning"
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group class="col-md-6 mb-3">
+                  <label class="form-label">Day Of Week <span>*</span></label>
+                  <b-dropdown block id="dayOfWeek" text="Monday" class="mb-2">
+                    <b-dropdown-item>Monday</b-dropdown-item>
+                    <b-dropdown-item>Tuesday</b-dropdown-item>
+                  </b-dropdown>
+                </b-form-group>
+                <b-form-group class="col-md-6 mb-3">
+                  <label class="form-label">Available <span>*</span></label>
+                  <b-form-input
+                    type="text"
+                    required
+                    placeholder=""
+                  ></b-form-input>
+                </b-form-group>
+                <b-form-group class="col-md-12 mb-3">
+                  <label class="form-label"
+                    >Provider that can be booked <span>*</span></label
+                  >
+                  <b-form-input type="textarea" required></b-form-input>
+                </b-form-group>
+              </b-form>
+            </b-col>
+            <b-col lg="6" md="6">
+              <b-form-group class="col-md-6 mb-3">
+                <label class="form-label">Color <span>*</span></label>
+                <ejs-colorpicker id="element" type="text" class="e-input">
+                </ejs-colorpicker>
+              </b-form-group>
+              <b-form-group class="mb-3 online-appoitment-booked">
+                <label class="form-label"
+                  >What type of appointments can be booked online?
+                  <span>*</span></label
+                >
+                <div class="d-flex align-items-center">
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span>Recare</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <i class="fa fa-info-circle"></i>
+                </div>
+                <div class="d-flex align-items-center">
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span>New Patients</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <i class="fa fa-info-circle"></i>
+                </div>
+                <div class="d-flex align-items-center">
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span>Existing Patients</span>
+                    <span class="checkmark"></span>
+                  </label>
+                  <i class="fa fa-info-circle"></i>
+                </div>
+                <div class="d-flex align-items-center">
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span>None (do not allow online booking)</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </b-form-group>
+              <b-form-group class="mb-3">
+                <label class="form-label"
+                  >What appointment reasons can patients choose from?
+                  <span>*</span></label
+                >
+                <div class="d-flex align-items-center">
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span>Other</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+                <div class="d-flex align-items-center">
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span>Teeth Cleaning</span>
+                    <span class="checkmark"></span>
+                  </label>
+                </div>
+              </b-form-group>
+            </b-col>
+          </b-row>
+          <b-row>
+            <b-col lg="6" md="6">
+              <b-button class="btn-radius" variant="primary ripple ml-2"
+                >Save</b-button
+              >
+              <b-button class="btn-radius" variant="outline-primary ripple m-1"
+                >Cancel</b-button
+              >
+            </b-col>
+            <b-col lg="6" md="6" class="text-right">
+              <b-button class="btn-radius" variant="danger ripple ml-2"
+                >Delete</b-button
+              >
+            </b-col>
+          </b-row>
+        </div>
       </b-modal>
     </b-row>
   </div>
@@ -180,6 +288,44 @@
 .days li.disabled {
   color: #d5f0f9;
 }
+
+.schedule-template-form .form-label {
+  display: block;
+}
+.schedule-template-form .form-label span {
+  color: red;
+}
+.schedule-template-form .form-control {
+  background-color: #fff;
+}
+.schedule-template-form .form-control:focus {
+  border-color: #6cdcd4;
+}
+.schedule-template-form .dropdown-toggle {
+  text-align: left;
+}
+.schedule-template-form .dropdown-menu {
+  width: 100%;
+  right: 0;
+}
+.schedule-template-form .online-appoitment-booked i {
+  margin-left: 10px;
+  margin-top: -10px;
+  font-size: 16px;
+}
+.e-colorpicker-wrapper,
+.e-split-btn-wrapper,
+.e-split-colorpicker,
+.e-split-colorpicker .e-selected-color,
+.e-split-colorpicker .e-selected-color .e-split-preview {
+  width: 100% !important;
+}
+.e-split-colorpicker:hover,
+.e-split-colorpicker:focus {
+  border: 0 !important;
+  box-shadow: none !important;
+  background-color: transparent !important;
+}
 </style>
 
 <script>
@@ -195,9 +341,10 @@ import {
   Resize,
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
+import { ColorPickerPlugin } from "@syncfusion/ej2-vue-inputs";
 
 Vue.use(SchedulePlugin);
-
+Vue.use(ColorPickerPlugin);
 const resourceData = [
   {
     Id: 1,
@@ -220,6 +367,16 @@ const resourceData = [
 ];
 
 export default {
+  mounted() {
+    this.setResourceData();
+    var target = document.getElementById("element");
+    if (target) {
+      target.nextElementSibling.insertBefore(
+        target,
+        target.nextElementSibling.children[1]
+      );
+    }
+  },
   data() {
     return {
       availability: {
@@ -309,9 +466,6 @@ export default {
     };
   },
   computed: {},
-  mounted() {
-    this.setResourceData();
-  },
   methods: {
     openOperatory(data) {
       this.selectedOperatory = data;

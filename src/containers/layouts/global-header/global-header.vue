@@ -7,8 +7,8 @@
     <div class="globle-header nav-bar">
       <nav>
         <ul class="nav-menu">
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="/signIn">Login</a></li>
+          <li><a href="javascript:void(0)" @click="$router.push('/contact')">Contact</a></li>
+          <li><a href="javascript:void(0)" @click="$router.push('/signIn')">Login</a></li>
         </ul>
         <ul class="nav-social">
           <li>

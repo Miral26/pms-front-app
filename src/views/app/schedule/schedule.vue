@@ -20,6 +20,7 @@
                 :eventSettings="eventSettings"
                 :eventRendered="onEventRendered"
                 :group="group"
+                :showTimeIndicator="showTimeIndicator"
                 :currentView="currentView"
                 :actionBegin="onActionBegin"
                 :actionComplete="onActionComplete"
@@ -242,6 +243,7 @@ export default {
       selectedDate: new Date(),
       group: { byDate: true, resources: ["Doctors"] },
       allowMultiple: true,
+      showTimeIndicator: false,
       resourceDataSource: [
         {
           Text: "OP - 1",

@@ -112,7 +112,137 @@
         </div>
       </b-col>
     </b-row>
-
+    <b-sidebar
+      id="sidebar-right"
+      class="patient-detail-sidebar"
+      title="Patient Information"
+      right
+      shadow
+    >
+      <div class="px-3 py-2">
+        <div class="patient-info">
+          <div class="left">
+            <div class="patient-img">
+              <img src="@/assets/images/faces/1.jpg" alt="" />
+            </div>
+            <div class="patient-detail">
+              <h6>Luke Shaw</h6>
+              <span>09/03/1978 (7 years old)</span>
+            </div>
+          </div>
+          <div class="right">
+            <p>Preferred Days</p>
+            <span>[None]</span>
+            <p>Preferred Times</p>
+            <span>[None]</span>
+          </div>
+        </div>
+        <div class="patient-info-tabs mt-4">
+          <b-tabs>
+            <b-tab title="Appt">
+              <div class="appt-form">
+                <b-form-group>
+                  <div class="status-dropdown">
+                    <label>Status</label>
+                    <b-dropdown id="dropdown-1" text="Unconfirmed">
+                      <b-dropdown-item>Unconfirmed</b-dropdown-item>
+                    </b-dropdown>
+                  </div>
+                  <a href="#" class="schedule-link">Schedule</a>
+                </b-form-group>
+                <b-form-group>
+                  <ul class="selection-section mt-4">
+                    <li>
+                      <label class="checkbox checkbox-outline-primary">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span> <span>ASAP</span></label
+                      >
+                    </li>
+                    <li>
+                      <label class="checkbox checkbox-outline-primary">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span
+                        ><span>Needs Follow-Up</span></label
+                      >
+                    </li>
+                    <li>
+                      <label class="checkbox checkbox-outline-primary">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span
+                        ><span>Premedicate</span></label
+                      >
+                    </li>
+                    <li>
+                      <label class="checkbox checkbox-outline-primary">
+                        <input type="checkbox" />
+                        <span class="checkmark"></span
+                        ><span>Pinned</span></label
+                      >
+                    </li>
+                  </ul>
+                </b-form-group>
+                <b-form-group>
+                  <div class="tx-planner-wrap mt-4">
+                    <div class="row">
+                      <div class="col-md-4">
+                        <label>Procedure(s) 0 seleted<span class="required">*</span></label>
+                        <div class="search-procedure">
+                          <b-form-input
+                            type="text"
+                            required
+                            placeholder="Description"
+                          ></b-form-input>
+                          <i class="fa fa-map-marker"></i>
+                        </div>
+                      </div>
+                      <div class="col-md-4">
+                        <label>Other</label>
+                          <b-form-input
+                            type="text"
+                            required
+                            placeholder="Description"
+                          ></b-form-input>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <span class="tx-planner">Add Tx planner</span>
+                      </div>
+                    </div>
+                  </div>
+                </b-form-group>
+                <b-form-group>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <label>Operatory</label>
+                      <b-dropdown text="Operatory">
+                        <b-dropdown-item>Operatory</b-dropdown-item>
+                      </b-dropdown>
+                    </div>
+                    <div class="col-md-4">
+                      <label>Operatory</label>
+                      <b-dropdown text="Operatory">
+                        <b-dropdown-item>Operatory</b-dropdown-item>
+                      </b-dropdown>
+                    </div>
+                    <div class="col-md-4">
+                      <label>Operatory</label>
+                      <b-dropdown text="Operatory">
+                        <b-dropdown-item>Operatory</b-dropdown-item>
+                      </b-dropdown>
+                    </div>
+                  </div>
+                </b-form-group>
+              </div>
+            </b-tab>
+            <b-tab title="Contact Info"> </b-tab>
+            <b-tab title="Rel. Appts"> </b-tab>
+            <b-tab title="Med. Alerts"> </b-tab>
+            <b-tab title="Lab Case"> </b-tab>
+          </b-tabs>
+        </div>
+      </div>
+    </b-sidebar>
     <!-- <b-row>
       <b-col md="12 mt-4">
         <b-button
@@ -190,6 +320,153 @@
 }
 .appointment-requests-tab .tabs .tab-content {
   padding: 0;
+}
+#sidebar-right {
+  width: 50%;
+}
+.patient-detail-sidebar .b-sidebar {
+  background-color: #fff !important;
+}
+.patient-detail-sidebar .b-sidebar-header {
+  color: #05070b;
+}
+.patient-detail-sidebar .b-sidebar-header .close {
+  margin-right: 10px !important;
+}
+.patient-detail-sidebar .b-sidebar-header .close svg {
+  border-radius: 100%;
+  border: 2px solid #d6d6d6;
+  color: #d6d6d6 !important;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  vertical-align: top;
+}
+.patient-info {
+  display: flex;
+  padding: 20px;
+  box-shadow: 0px 4px 5px rgba(0, 0, 0, 0.05);
+  border-radius: 10px;
+}
+.right {
+  margin-left: auto;
+}
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.patient-img img {
+  border-radius: 100%;
+  max-width: 60px;
+}
+
+.patient-img {
+  margin-right: 10px;
+}
+
+.right p {
+  margin: 0;
+}
+
+.right span {
+  margin-bottom: 5px;
+  display: block;
+  font-weight: 600;
+}
+
+.patient-detail h6 {
+  font-weight: 600;
+  margin: 0;
+  font-size: 20px;
+}
+.status-dropdown {
+  display: inline-block;
+  position: relative;
+}
+.status-dropdown label {
+  display: block;
+  position: absolute;
+  top: 10px;
+  margin: 0;
+  z-index: 9;
+  left: 10px;
+}
+.status-dropdown .dropdown-toggle.btn {
+  padding: 0;
+  background-color: #fafafa !important;
+  border-radius: 10px;
+  padding: 30px 50px 10px 10px;
+  color: #05070b !important;
+  font-size: 16px;
+}
+.status-dropdown .dropdown-toggle.btn:focus {
+  box-shadow: none;
+}
+.status-dropdown .dropdown-toggle::after {
+  content: normal;
+}
+.status-dropdown .dropdown-menu {
+  min-width: 100%;
+}
+.status-dropdown:after {
+  content: "\f107";
+  font-family: "FontAwesome";
+  border: 0;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  font-size: 24px;
+  color: #05070b;
+  font-weight: bold;
+  -moz-transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 9;
+}
+.schedule-link,
+.schedule-link:hover {
+  margin-left: 20px;
+  color: #00c5b4;
+  text-decoration: underline;
+}
+.tx-planner-wrap {
+  background-color: #fafafa;
+  padding: 20px;
+}
+.search-procedure {
+  position: relative;
+}
+.search-procedure i {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    font-size: 16px;
+}
+.required {
+  color: #ac252b;
+}
+.tx-planner {
+  color: #00c5b4;
+  margin-top: 15px;
+  display: block;
+  cursor: pointer;
+}
+.selection-section {
+  margin: 0;
+  padding: 0;
+}
+.selection-section li {
+  list-style: none;
+  float: left;
+  margin-right: 50px;
+}
+.selection-section li .checkbox {
+  margin: 0;
+}
+.selection-section li .checkbox span {
+  vertical-align: middle;
 }
 </style>
 
@@ -353,7 +630,7 @@ export default {
       console.log(`e`, e);
     },
     onEventClick() {
-      this.$bvModal.show("new-appointment");
+      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
     },
     onCellClick(e) {
       console.log(`e`, e);

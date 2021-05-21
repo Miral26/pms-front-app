@@ -13,7 +13,7 @@
     >
       <ul class="navigation-left">
         <div class="logo">
-          <img alt="" src="@/assets/images/logo.png" />
+          <img alt="" src="@/assets/images/new-logo.png" />
         </div>
         <li
           @mouseenter="toggleSubMenu"

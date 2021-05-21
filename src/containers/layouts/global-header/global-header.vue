@@ -1,13 +1,14 @@
 <template>
   <div class="header-wrap">
     <div class="logo">
-      <img src="@/assets/images/logo.png" alt />
+      <img src="@/assets/images/new-logo.png" alt />
     </div>
 
     <div class="globle-header nav-bar">
       <nav>
         <ul class="nav-menu">
-          <li><a href="javascript:void(0)" @click="$router.push('/contact')">Contact</a></li>
+          <!-- <li><a href="javascript:void(0)" @click="$router.push('/contact')">Contact</a></li> -->
+          <li><a href="javascript:void(0)" @click="$router.push('/book-appointment')">Book Appointment</a></li>
           <li><a href="javascript:void(0)" @click="$router.push('/signIn')">Login</a></li>
         </ul>
         <ul class="nav-social">
@@ -38,7 +39,7 @@
   left: 0;
   right: 0;
 }
-.logo {
+.header-wrap .logo {
   max-width: 200px;
 }
 .globle-header .nav-menu,

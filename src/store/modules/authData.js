@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import axios from 'axios';
 
 export default {
   state: {
@@ -44,48 +45,92 @@ export default {
     login({ commit }, data) {
       commit("clearError");
       commit("setLoading", true);
-      firebase
-        .auth()
-        .signInWithEmailAndPassword(data.email, data.password)
-        .then(user => {
-          const newUser = { uid: user.user.uid };
-          localStorage.setItem("userInfo", JSON.stringify(newUser));
-          commit("setUser", { uid: user.user.uid });
-          console.log("user");
-        })
-        .catch(function (error) {
-          // Handle Errors here.
-          // var errorCode = error.code;
-          // var errorMessage = error.message;
-          // console.log(error);
-          localStorage.removeItem("userInfo");
-          commit("setError", error);
-          // ...
-        });
+      axios({url: '/api/auth/login/', data: data, method: 'POST' })
+      .then(resp => {
+          if(resp.data.success){
+              const userInfo = {
+                access: resp.data.access,
+                refresh: resp.data.refresh,
+                authenticatedUser: resp.data.authenticatedUser
+              };
+              localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
+              commit("setUser", userInfo);
+              console.log('user:', userInfo);
+          }
+      })
+      .catch(err => {
+          localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
+          commit("setError", {message: "Invalid login credentials"});
+          console.log('user signin error:', err);
+      });
+      // firebase
+      //   .auth()
+      //   .signInWithEmailAndPassword(data.email, data.password)
+      //   .then(user => {
+      //     const newUser = { uid: user.user.uid };
+      //     localStorage.setItem("userInfo", JSON.stringify(newUser));
+      //     commit("setUser", { uid: user.user.uid });
+      //     console.log("user");
+      //   })
+      //   .catch(function (error) {
+      //     // Handle Errors here.
+      //     // var errorCode = error.code;
+      //     // var errorMessage = error.message;
+      //     // console.log(error);
+      //     localStorage.removeItem("userInfo");
+      //     commit("setError", error);
+      //     // ...
+      //   });
     },
 
     signUserUp({ commit }, data) {
       commit("setLoading", true);
       commit("clearError");
-      firebase
-        .auth()
-        .createUserWithEmailAndPassword(data.email, data.password)
-        .then(user => {
-          commit("setLoading", false);
+      return new Promise( (resolve, reject)=> {
+          axios({url: '/api/auth/register/', data: data, method: 'POST' })
+          .then(resp => {
+              commit("setLoading", false);
+              if(resp.data.success){
+                  localStorage.removeItem("userInfo");
+                  resolve(resp.data);
+                  // const userInfo = {
+                  //   access: resp.data.access,
+                  //   refresh: resp.data.refresh,
+                  //   authenticatedUser: resp.data.authenticatedUser
+                  // };
+                  // localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
+                  // commit("setUser", userInfo);
+                  // console.log('user:', userInfo);
+              }
+          })
+          .catch(err => {
+              commit("setLoading", false);
+              localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
+              commit("setError",err);
+              console.log('user signup error:', err);
+              reject(err);
+          });
+      });
 
-          const newUser = {
-            uid: user.user.uid
-          };
-          console.log(newUser);
-          localStorage.setItem("userInfo", JSON.stringify(newUser));
-          commit("setUser", newUser);
-        })
-        .catch(error => {
-          commit("setLoading", false);
-          commit("setError", error);
-          localStorage.removeItem("userInfo");
-          console.log(error);
-        });
+      // firebase
+      //   .auth()
+      //   .createUserWithEmailAndPassword(data.email, data.password)
+      //   .then(user => {
+      //     commit("setLoading", false);
+
+      //     const newUser = {
+      //       uid: user.user.uid
+      //     };
+      //     console.log(newUser);
+      //     localStorage.setItem("userInfo", JSON.stringify(newUser));
+      //     commit("setUser", newUser);
+      //   })
+      //   .catch(error => {
+      //     commit("setLoading", false);
+      //     commit("setError", error);
+      //     localStorage.removeItem("userInfo");
+      //     console.log(error);
+      //   });
     },
     signOut({ commit }) {
       firebase

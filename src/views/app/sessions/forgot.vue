@@ -65,7 +65,7 @@ export default {
       submitStatus: null,
 
       bgImage: require("@/assets/images/photo-wide-4.jpg"),
-      logo: require("@/assets/images/logo.png"),
+      logo: require("@/assets/images/new-logo.png"),
       formImage: require("@/assets/images/photo-long-3.jpg")
     };
   },

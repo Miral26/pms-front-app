@@ -1,7 +1,7 @@
 <template>
   <div class="main-header">
     <div class="logo">
-      <img src="@/assets/images/logo.png" alt />
+      <img src="@/assets/images/new-logo.png" alt />
     </div>
 
     <!-- <div @click="sideBarToggle" class="menu-toggle">

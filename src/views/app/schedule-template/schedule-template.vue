@@ -23,6 +23,8 @@
                 :actionBegin="onActionBegin"
                 :actionComplete="onActionComplete"
                 :popupOpen="onPopupOpen"
+                :cellClick="onCellClick"
+                :eventClick="onEventClick"
               >
                 <e-header-rows>
                   <!-- <e-header-row option="Month" :template="monthHeaderTemplate"></e-header-row> -->
@@ -145,22 +147,36 @@
                 </b-form-group>
                 <b-form-group class="col-md-6 mb-3">
                   <label class="form-label">Available <span>*</span></label>
-                  <b-form-input
-                    type="text"
-                    required
-                    placeholder=""
-                  ></b-form-input>
+                  <div class="available-timepicker">
+                    <b-form-timepicker
+                      id="timepicker-buttons-start"
+                      now-button
+                      reset-button
+                      locale="en"
+                    ></b-form-timepicker>
+                    <span>-</span>
+                    <b-form-timepicker
+                      id="timepicker-buttons-end"
+                      now-button
+                      reset-button
+                      locale="en"
+                    ></b-form-timepicker>
+                  </div>
                 </b-form-group>
                 <b-form-group class="col-md-12 mb-3">
                   <label class="form-label"
                     >Provider that can be booked <span>*</span></label
                   >
-                  <b-form-input type="textarea" required></b-form-input>
+                  <b-form-tags
+                    input-id="tags-basic"
+                    v-model="bookedProvider"
+                    placeholder=""
+                  ></b-form-tags>
                 </b-form-group>
               </b-form>
             </b-col>
             <b-col lg="6" md="6">
-              <b-form-group class="col-md-6 mb-3">
+              <b-form-group class="col-md-4 mb-3">
                 <label class="form-label">Color <span>*</span></label>
                 <ejs-colorpicker id="element" type="text" class="e-input">
                 </ejs-colorpicker>
@@ -196,7 +212,7 @@
                 </div>
                 <div class="d-flex align-items-center">
                   <label class="checkbox checkbox-outline-primary">
-                    <input type="checkbox" checked />
+                    <input type="checkbox" />
                     <span>None (do not allow online booking)</span>
                     <span class="checkmark"></span>
                   </label>
@@ -209,7 +225,7 @@
                 >
                 <div class="d-flex align-items-center">
                   <label class="checkbox checkbox-outline-primary">
-                    <input type="checkbox" checked />
+                    <input type="checkbox" />
                     <span>Other</span>
                     <span class="checkmark"></span>
                   </label>
@@ -298,8 +314,10 @@
 .schedule-template-form .form-control {
   background-color: #fff;
 }
-.schedule-template-form .form-control:focus {
+.schedule-template-form .form-control:focus,
+.schedule-template-form .form-control.focus {
   border-color: #6cdcd4;
+  box-shadow: none;
 }
 .schedule-template-form .dropdown-toggle {
   text-align: left;
@@ -325,6 +343,58 @@
   border: 0 !important;
   box-shadow: none !important;
   background-color: transparent !important;
+}
+.b-form-tags-list .badge {
+  background-color: transparent;
+  color: #4b5563;
+  border: 1px solid #4b5563;
+}
+.b-form-tags-list li {
+  padding: 4px;
+}
+.b-form-tags-input,
+.b-form-tags-list .badge .text-truncate,
+.b-form-tags-list .badge .b-form-tag-remove {
+  font-size: 14px;
+}
+.b-form-tags-list li .b-form-tags-button:hover {
+  background: #6cdcd4;
+  border-color: #6cdcd4;
+}
+.b-form-tags.focus {
+  border-color: #6cdcd4 !important;
+  box-shadow: none !important;
+}
+.available-timepicker {
+  display: flex;
+}
+.available-timepicker .b-time-header,
+.available-timepicker .b-time-footer {
+  display: none;
+}
+.available-timepicker .b-form-timepicker > .btn {
+  opacity: 0;
+  visibility: hidden;
+  padding: 0;
+  width: 0;
+}
+.available-timepicker > span {
+  padding: 0 5px;
+  font-size: 20px;
+}
+.available-timepicker .dropdown-menu .b-time {
+  background-color: #fff;
+}
+.available-timepicker .dropdown-menu {
+  box-shadow: none;
+  background-color: transparent;
+}
+.available-timepicker .b-form-spinbutton {
+  padding: 10px 7px;
+}
+
+.available-timepicker .b-form-spinbutton .btn {
+  padding: 5px 5px;
 }
 </style>
 
@@ -379,6 +449,7 @@ export default {
   },
   data() {
     return {
+      bookedProvider: ["One, Hygiene - Hygien"],
       availability: {
         MON: ["OP-1", "OP-2", "OP-3", "OP-5", "Other Office"],
         TUE: ["OP-1", "OP-3", "OP-4", "OP-5"],
@@ -467,6 +538,13 @@ export default {
   },
   computed: {},
   methods: {
+    makeToast(variant = null, msg) {
+      this.$bvToast.toast(msg, {
+        title: ` ${variant || "default"}`,
+        variant: variant,
+        solid: true,
+      });
+    },
     openOperatory(data) {
       this.selectedOperatory = data;
       this.$bvModal.show("operatory");
@@ -514,6 +592,18 @@ export default {
     onPopupOpen: (args) => {
       args.cancel = true;
     },
+    onEventClick() {
+      this.makeToast(
+        "danger",
+        "Click on operatory cards instead of the calendar!"
+      );
+    },
+    onCellClick() {
+      this.makeToast(
+        "danger",
+        "Click on operatory cards instead of the calendar!"
+      );
+    },
   },
   provide: {
     schedule: [
@@ -526,5 +616,6 @@ export default {
       DragAndDrop,
     ],
   },
+  components: {},
 };
 </script>

@@ -53,7 +53,7 @@
       </div>
 
       <div class="sidenav-bottom">
-        <ul class="ul-vertical-sidebar pl-4 mb-0" id="menu">
+        <!-- <ul class="ul-vertical-sidebar pl-4 mb-0" id="menu">
           <li class="hover-menu hover-dropdown">
             <div v-b-toggle.collapse-3>
               <a
@@ -87,31 +87,29 @@
                   </router-link>
                 </li>
                 <li class="item-name">
-                  <router-link tag="a" to="/app/apps/contact-list-table">
-                    <span class>Contacts</span>
+                  <router-link tag="a" to="/app/users">
+                    <span class>Users</span>
+                  </router-link>
+                </li>
+                <li class="item-name">
+                  <router-link tag="a" to="/app/locations">
+                    <span class>Locations</span>
+                  </router-link>
+                </li>
+                <li class="item-name">
+                  <router-link tag="a" to="/app/location-hours">
+                    <span class>Location Hours</span>
+                  </router-link>
+                </li>
+                <li class="item-name">
+                  <router-link tag="a" to="/app/operatories">
+                    <span class>Operatories</span>
                   </router-link>
                 </li>
               </ul>
             </b-collapse>
           </li>
-          <!-- <li class="hover-menu">
-            <div>
-              <router-link tag="a" class="has-arrow" to="/app/help">
-                <i
-                  :class="`i-Information text-23 mr-2 icon font-weight-bold`"
-                  v-b-popover.hover.right="'Help'"
-                ></i>
-                <span
-                  class="text-14"
-                  :class="{
-                    'vertical-item-name': getVerticalCompact.isItemName,
-                  }"
-                  >Help</span
-                >
-              </router-link>
-            </div>
-          </li> -->
-        </ul>
+        </ul> -->
 
         <div class="dropdown">
           <b-dropdown
@@ -228,14 +226,14 @@ export default {
     logoutUser() {
       this.signOut();
       setTimeout(() => {
-        this.$router.push("/");
+        this.$router.push("/signIn");
       }, 500);
     },
   },
 };
 </script>
 <style>
-.gull-brand .logo {
+.logo {
   max-width: 100px;
 }
 </style>

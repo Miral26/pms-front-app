@@ -16,7 +16,7 @@
           <td>
             <span>{{ row.phone }}</span>
           </td>
-          <td>
+          <td @click="() => openSocialHistory(row.insuranceExample)">
             <span><i class="i-Receipt c-pointer"></i></span>
           </td>
           <td>
@@ -31,6 +31,14 @@
         </tr>
       </tbody>
     </table>
+
+    <b-modal id="social-history" size="xl" hide-header hide-footer>
+      <div>
+        <b-col>
+          <h3>{{ selectedSocialHistory }}</h3>
+        </b-col>
+      </div>
+    </b-modal>
   </div>
 </template>
 
@@ -40,6 +48,16 @@ export default {
   props: {
     columns: Array,
     rows: Array,
+  },
+  data() {
+    return { selectedSocialHistory: null };
+  },
+  methods: {
+    openSocialHistory(title) {
+      console.log(`call`);
+      this.selectedSocialHistory = title;
+      this.$bvModal.show("social-history");
+    },
   },
 };
 </script>

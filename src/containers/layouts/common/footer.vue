@@ -18,7 +18,7 @@
         class="footer-bottom border-top pt-3 d-flex flex-column flex-sm-row align-items-center"
       >
         <div class="d-flex align-items-center">
-          <img class="logo" src="@/assets/images/logo.png" alt="" />
+          <img class="logo" src="@/assets/images/new-logo.png" alt="" />
           <div>
             <div>
               <p class="m-0">&copy; 2019 UI-Lib</p>

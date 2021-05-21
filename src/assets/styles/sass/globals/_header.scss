@@ -159,6 +159,30 @@
         left: auto !important;
       }
     }
+    .mega-menu {
+      .dropdown-toggle {
+        margin-left: 15px;
+        font-size: 20px;
+        color: #8da1b5;
+        &::after {
+          content: normal;
+        }
+      }
+      .dropdown-menu {
+        left: auto;
+        right: 0;
+        max-width: 400px;
+        .menu-icon-grid {
+          > a {
+            width: 33.33%;
+            text-align: center;
+            &:hover {
+              background-color: #6cdcd4;
+            }
+          }
+        }
+      }
+    }
   }
   .notification-dropdown {
     padding: 0;

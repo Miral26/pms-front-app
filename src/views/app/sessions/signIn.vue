@@ -8,8 +8,8 @@
         <div class="row">
           <div class="col-md-6">
             <div class="p-4">
-              <div class="auth-logo text-center mb-30">
-                <img :src="logo" />
+              <div class="auth-logo text-center mb-30 c-pointer">
+                <img :src="logo" @click="$router.push('/')" />
               </div>
               <h1 class="mb-3 text-18">Sign In</h1>
               <b-form @submit.prevent="formSubmit">
@@ -105,12 +105,11 @@ export default {
   },
   data() {
     return {
-      email: "ui-lib@gmail.com",
-      password: "123456",
-      // // password: "vue006",
+      email: "",
+      password: "",
       userId: "",
       bgImage: require("@/assets/images/photo-wide-4.jpg"),
-      logo: require("@/assets/images/logo.png"),
+      logo: require("@/assets/images/new-logo.png"),
       signInImage: require("@/assets/images/photo-long-3.jpg"),
     };
   },
@@ -136,11 +135,10 @@ export default {
   },
   watch: {
     loggedInUser(val) {
-      console.log("watcher");
-      if (val && val.uid && val.uid.length > 0) {
+      if (val && val.access) {
         this.makeToast("success", "Successfully Logged In");
         setTimeout(() => {
-          this.$router.push("/app");
+          this.$router.push({ name: "HomePageDashboard" });
         }, 500);
       }
     },

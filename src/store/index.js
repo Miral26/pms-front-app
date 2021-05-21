@@ -6,6 +6,8 @@ import chat from "./modules/chat";
 import config from "./modules/config";
 import authData from "./modules/authData";
 import invoice from "./modules/invoice";
+import operatories from "./modules/operatories";
+import deltaDental from "./modules/delta-dental";
 import cart from "./modules/cart";
 import verticalSidebar from "./modules/verticalSidebar";
 import scrumboard from "./modules/scrumboard";
@@ -27,6 +29,8 @@ export default new Vuex.Store({
     cart,
     verticalSidebar,
     scrumboard,
-    appointment
+    appointment,
+    operatories,
+    deltaDental
   }
 });

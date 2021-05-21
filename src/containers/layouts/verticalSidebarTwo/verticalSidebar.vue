@@ -14,7 +14,7 @@
         class="gull-brand text-center d-flex align-items-center pl-2 mb-2 justify-content-between"
       >
         <div>
-          <img class src="@/assets/images/logo.png" />
+          <img class src="@/assets/images/new-logo.png" />
         </div>
         <div class="toggle-sidebar-compact">
           <label class="switch ul-switch switch-white ml-auto">

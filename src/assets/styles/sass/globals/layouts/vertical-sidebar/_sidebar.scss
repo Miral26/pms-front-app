@@ -30,7 +30,7 @@
     left: 0;
     bottom: 0;
     overflow-x: hidden;
-    padding-top: 35px;
+    padding-top: 25px;
     transition: width 0.3s ease-in;
     background: #f7fafd;
   }
@@ -44,9 +44,9 @@
   }
   .main-menu {
     display: flex;
-    height: -moz-calc(100% - 82px);
-    height: -webkit-calc(100% - 82px);
-    height: calc(100% - 82px);
+    height: -moz-calc(100% - 108px);
+    height: -webkit-calc(100% - 108px);
+    height: calc(100% - 108px);
     flex-direction: column;
     .nav-menu {
       flex-grow: 1;

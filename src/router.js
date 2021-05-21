@@ -12,12 +12,16 @@ import VerticalSidebar from './containers/layouts/verticalSidebar'
 import Landing from './containers/layouts/landing/landing.vue'
 import Contact from './containers/layouts/contact/contact.vue'
 import DailyHuddle from './views/app/daily-huddle/daily-huddle.vue'
-import VirtualConsults from './views/app/virtual-consults/virtual-consults.vue'
+import BookAppointment from './views/app/virtual-consults/virtual-consults.vue'
 import Report from './views/app/report/report.vue';
 import Billiings from './views/app/billings/billings.vue';
 import Schedule from './views/app/schedule/schedule.vue';
 import ScheduleTemplate from './views/app/schedule-template/schedule-template.vue';
-import SessionIndex from './views/app/sessions/index.vue'
+import Users from './views/app/users/users.vue'
+import Locations from './views/app/locations/locations.vue'
+import LocationHours from './views/app/location-hours/location-hours.vue'
+import Operatories from './views/app/operatories/operatories.vue'
+import DeltaDental from './views/app/delta-dental/delta-dental.vue'
 import signIn from './views/app/sessions/signIn'
 import signUp from './views/app/sessions/signUp.vue'
 import forgot from './views/app/sessions/forgot.vue'
@@ -41,12 +45,18 @@ function route(name, path, component, meta = {}, children = []) {
 const routes = [
   {
     path: "/",
+    beforeEnter: unAuthenticate,
     component: Landing,
   },
   {
     path: "/contact",
     name: "Contact",
     component: Contact,
+  },
+  {
+    path: "/book-appointment",
+    name: "Book Appointment",
+    component: BookAppointment,
   },
   {
     path: "/signIn",
@@ -100,8 +110,24 @@ const routes = [
         component: ScheduleTemplate,
       },
       {
-        path: "/app/virtual-consults",
-        component: VirtualConsults,
+        path: "/app/users",
+        component: Users,
+      },
+      {
+        path: "/app/locations",
+        component: Locations,
+      },
+      {
+        path: "/app/location-hours",
+        component: LocationHours,
+      },
+      {
+        path: "/app/operatories",
+        component: Operatories,
+      },
+      {
+        path: "/app/delta-dental",
+        component: DeltaDental,
       },
       {
         path: "/app/overview",

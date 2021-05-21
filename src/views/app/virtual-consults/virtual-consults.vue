@@ -60,6 +60,10 @@
 .appointment-calender {
   max-width: 1140px;
   width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .appointment-calender .card-body {
   padding: 0;
@@ -198,7 +202,7 @@
 
 .calender-meeting-info ul li i {
   position: absolute;
-  left: 0;
+  left: 36px;
   font-size: 18px;
 }
 

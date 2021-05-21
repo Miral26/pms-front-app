@@ -5,7 +5,7 @@
 
             
             <div class="gull-brand text-center mt-4 mb-2">
-                <img src="@/assets/images/logo.png" alt="">
+                <img src="@/assets/images/new-logo.png" alt="">
             <br>
                 <span class=" item-name text-20 text-primary font-weight-700">GULL</span>
             </div>

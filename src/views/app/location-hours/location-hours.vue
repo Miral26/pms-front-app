@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="main-content table-list">
-      <!-- <breadcumb :page="'Invoice'" :folder="'Apps'" /> -->
-
+      <div class="mb-3 page-title">
+        <h3 class="font-weight-bold m-0">Location Hours</h3>
+      </div>
       <div class="wrapper">
         <vue-good-table
           :columns="columns"
@@ -23,7 +24,7 @@
           }"
           :rows="invoiceList"
         >
-          <div slot="table-actions" class="mb-3">
+          <!-- <div slot="table-actions" class="mb-3">
             <b-button
               @click="createInvoice"
               variant="primary"
@@ -31,7 +32,7 @@
             >
               Create New Invoice
             </b-button>
-          </div>
+          </div> -->
 
           <template slot="table-row" slot-scope="props">
             <span v-if="props.column.field == 'button'">

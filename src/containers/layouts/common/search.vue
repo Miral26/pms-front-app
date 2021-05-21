@@ -2,7 +2,7 @@
     <!-- ============ Search UI Start ============= -->
   <div class="search-ui" :class="{'open':isSearchOpen}">
         <div class="search-header">
-            <img src="@/assets/images/logo.png" alt="" class="logo">
+            <img src="@/assets/images/new-logo.png" alt="" class="logo">
             <button @click="closeSearch" class="search-close btn btn-icon bg-transparent float-right mt-2">
                 <i class="i-Close-Window text-22 text-muted"></i>
             </button>

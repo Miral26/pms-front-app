@@ -1,8 +1,9 @@
 <template>
   <div>
     <div class="main-content table-list">
-      <!-- <breadcumb :page="'Invoice'" :folder="'Apps'" /> -->
-
+      <div class="mb-3 page-title">
+        <h3 class="font-weight-bold m-0">Locations</h3>
+      </div>
       <div class="wrapper">
         <vue-good-table
           :columns="columns"

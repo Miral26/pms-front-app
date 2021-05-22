@@ -59,6 +59,7 @@
           <i
             class="i-Add-User cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
             v-b-popover.hover.bottom="'Add Patient'"
+            @click="openNewPatientModal"
           >
           </i>
           <!-- <i
@@ -77,7 +78,7 @@
             day: '2-digit',
           }"
           id="example-datepicker"
-          v-model="dateSelected"
+          v-model="selectedDate"
           class="datepicker-input"
         ></b-form-datepicker> -->
 
@@ -130,6 +131,7 @@
         <div
           :class="{ show: isMegaMenuOpen }"
           class="dropdown mega-menu d-none d-md-block"
+          v-on-clickaway="closeMegaMenu"
         >
           <a
             href="#"
@@ -144,7 +146,7 @@
           <div
             class="dropdown-menu text-left"
             :class="{ show: isMegaMenuOpen }"
-            aria-labelledby="dropdownMenuButton"
+            aria-labelledby="dropdownMegaMenuButton"
           >
             <div class="p-4 text-left">
               <div class="menu-icon-grid w-auto p-0">
@@ -165,6 +167,8 @@
       <b-modal id="new-appointment" size="xl">
         <NewAppointment />
       </b-modal>
+
+      <PatientInfoPanel />
     </header>
   </div>
 </template>
@@ -174,10 +178,11 @@ import * as moment from "moment";
 import { mixin as clickaway } from "vue-clickaway";
 import Util from "@/utils";
 import NewAppointment from "../../../components/new-appointent/new-appointment";
+import PatientInfoPanel from "../../../components/patient-info-panel/patient-info-panel.vue";
 
 export default {
   mixins: [clickaway],
-  components: { NewAppointment },
+  components: { NewAppointment, PatientInfoPanel },
   computed: {
     ...mapGetters([
       "getVerticalCompact",
@@ -226,12 +231,18 @@ export default {
           route: "/app/delta-dental",
         },
       ],
-      dateSelected: new Date(),
+      selectedDate: new Date(),
       headerSearch: "",
       appointmentData: {
         headerSearch: "",
         selectedTime: moment().format("HH:MM:ss"),
         selectedDate: new Date(2018, 7, 1),
+      },
+      patientData: {
+        name: "",
+        dob: "",
+        selectedTime: moment().format("HH:MM:ss"),
+        selectedDate: new Date(),
       },
       options2: [
         { value: "1", text: "aa" + " - " + "1" },
@@ -263,6 +274,7 @@ export default {
       "removeSidebarCompact",
       "mobileSidebar",
       "setAppointmentData",
+      "setPatientData",
     ]),
     openAppointmentModal() {
       this.setAppointmentData({
@@ -271,6 +283,12 @@ export default {
         selectedDate: new Date(),
       });
       this.$bvModal.show("new-appointment");
+    },
+    openNewPatientModal() {
+      this.setPatientData({
+        name: "",
+      });
+      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
     },
     handleFullScreen() {
       Util.toggleFullScreen();

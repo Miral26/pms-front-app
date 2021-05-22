@@ -1,6 +1,6 @@
 <template>
   <div class="main-content">
-    <breadcumb :page="'Chat'" :folder="'apps'" />
+    <!-- <breadcumb :page="'Chat'" :folder="'apps'" /> -->
 
     <div class="card chat-sidebar-container sidebar-container">
       <div class="chat-sidebar-wrap sidebar" :class="{ 'ml-0': isMobile }">

@@ -585,7 +585,7 @@ export default {
 #add-delta-dental .b-form-datepicker.focus {
   box-shadow: none;
 }
-#add-delta-dental .b-form-datepicker .btn {
+#add-delta-dental .b-form-datepicker > .btn {
   padding: 7px 10px;
 }
 </style>

@@ -151,6 +151,7 @@
                     <b-form-timepicker
                       id="timepicker-buttons-start"
                       now-button
+                      class="default-timepicker"
                       reset-button
                       locale="en"
                     ></b-form-timepicker>
@@ -159,6 +160,7 @@
                       id="timepicker-buttons-end"
                       now-button
                       reset-button
+                      class="default-timepicker"
                       locale="en"
                     ></b-form-timepicker>
                   </div>
@@ -368,33 +370,9 @@
 .available-timepicker {
   display: flex;
 }
-.available-timepicker .b-time-header,
-.available-timepicker .b-time-footer {
-  display: none;
-}
-.available-timepicker .b-form-timepicker > .btn {
-  opacity: 0;
-  visibility: hidden;
-  padding: 0;
-  width: 0;
-}
 .available-timepicker > span {
   padding: 0 5px;
   font-size: 20px;
-}
-.available-timepicker .dropdown-menu .b-time {
-  background-color: #fff;
-}
-.available-timepicker .dropdown-menu {
-  box-shadow: none;
-  background-color: transparent;
-}
-.available-timepicker .b-form-spinbutton {
-  padding: 10px 7px;
-}
-
-.available-timepicker .b-form-spinbutton .btn {
-  padding: 5px 5px;
 }
 </style>
 

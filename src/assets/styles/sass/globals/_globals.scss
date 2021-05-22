@@ -266,7 +266,30 @@ blockquote {
   background-color: transparent;
   color: #111827;
 }
-
+.btn-secondary,
+.btn-secondary:hover {
+  border-color: #9CA3AF;
+}
+.dropdown-toggle::after {
+  content: "\f107";
+  font-family: "FontAwesome";
+  border: 0;
+  position: absolute;
+  right: 10px;
+  width: auto;
+  height: auto;
+  top: 50%;
+  font-size: 20px;
+  color: #05070b;
+  font-weight: bold;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  pointer-events: none;
+  z-index: 9;
+}
+.btn:focus,.btn:hover {
+  box-shadow: none !important;
+}
 .billing-dropdown li .dropdown,
 .billing-dropdown li .dropdown-toggle {
   width: 100% !important;
@@ -304,13 +327,32 @@ blockquote {
   padding: 10px 30px !important;
   line-height: normal;
 }
-
 .main-header .header-part-right .datepicker-input button:hover {
   background-color: #6cdcd4;
 }
-
+.b-form-datepicker {
+  &.icon-none {
+    > button {
+      width: 0;
+      opacity: 0;
+      visibility: hidden;
+      padding: 0;
+    }
+  }
+  .dropdown-menu {
+    margin-left: -1px;
+  }
+}
 .b-calendar {
   background-color: #f2f7fc;
+  .b-calendar-inner {
+    .form-control:focus {
+      background-color: transparent;
+    }
+  }
+}
+.b-calendar .bg-light {
+  background-color: transparent !important;
 }
 .btn.btn-primary {
   color: #fff;
@@ -385,3 +427,46 @@ blockquote {
         background: transparent;
     }
   }
+  .default-timepicker {
+    .b-time-header {
+      display: none;
+    }
+    .b-time-footer {
+      display: none;
+    }
+    &.show-header {
+      .b-time-header {
+        display: block;
+      }
+    }
+    &.show-footer {
+      .b-time-footer {
+        display: block;
+      }
+    }
+    .dropdown-menu {
+      .b-time {
+        background-color: #fff;
+      }
+      box-shadow: none;
+      background-color: transparent;
+    }
+    .b-form-spinbutton {
+      padding: 10px 7px;
+      &.focus {
+        box-shadow: none;
+        border-color: #6cdcd4;
+      }
+      .btn {
+        padding: 5px 5px;
+      }
+    }
+  }
+  .default-timepicker.b-form-timepicker {
+    >.btn {
+      opacity: 0;
+      visibility: hidden;
+      padding: 0;
+      width: 0;
+    }
+  }  

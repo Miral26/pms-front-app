@@ -112,137 +112,7 @@
         </div>
       </b-col>
     </b-row>
-    <b-sidebar
-      id="sidebar-right"
-      class="patient-detail-sidebar"
-      title="Patient Information"
-      right
-      shadow
-    >
-      <div class="px-3 py-2">
-        <div class="patient-info">
-          <div class="left">
-            <div class="patient-img">
-              <img src="@/assets/images/faces/1.jpg" alt="" />
-            </div>
-            <div class="patient-detail">
-              <h6>Luke Shaw</h6>
-              <span>09/03/1978 (7 years old)</span>
-            </div>
-          </div>
-          <div class="right">
-            <p>Preferred Days</p>
-            <span>[None]</span>
-            <p>Preferred Times</p>
-            <span>[None]</span>
-          </div>
-        </div>
-        <div class="patient-info-tabs mt-4">
-          <b-tabs>
-            <b-tab title="Appt">
-              <div class="appt-form">
-                <b-form-group>
-                  <div class="status-dropdown">
-                    <label>Status</label>
-                    <b-dropdown id="dropdown-1" text="Unconfirmed">
-                      <b-dropdown-item>Unconfirmed</b-dropdown-item>
-                    </b-dropdown>
-                  </div>
-                  <a href="#" class="schedule-link">Schedule</a>
-                </b-form-group>
-                <b-form-group>
-                  <ul class="selection-section mt-4">
-                    <li>
-                      <label class="checkbox checkbox-outline-primary">
-                        <input type="checkbox" />
-                        <span class="checkmark"></span> <span>ASAP</span></label
-                      >
-                    </li>
-                    <li>
-                      <label class="checkbox checkbox-outline-primary">
-                        <input type="checkbox" />
-                        <span class="checkmark"></span
-                        ><span>Needs Follow-Up</span></label
-                      >
-                    </li>
-                    <li>
-                      <label class="checkbox checkbox-outline-primary">
-                        <input type="checkbox" />
-                        <span class="checkmark"></span
-                        ><span>Premedicate</span></label
-                      >
-                    </li>
-                    <li>
-                      <label class="checkbox checkbox-outline-primary">
-                        <input type="checkbox" />
-                        <span class="checkmark"></span
-                        ><span>Pinned</span></label
-                      >
-                    </li>
-                  </ul>
-                </b-form-group>
-                <b-form-group>
-                  <div class="tx-planner-wrap mt-4">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <label>Procedure(s) 0 seleted<span class="required">*</span></label>
-                        <div class="search-procedure">
-                          <b-form-input
-                            type="text"
-                            required
-                            placeholder="Description"
-                          ></b-form-input>
-                          <i class="fa fa-map-marker"></i>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <label>Other</label>
-                          <b-form-input
-                            type="text"
-                            required
-                            placeholder="Description"
-                          ></b-form-input>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <span class="tx-planner">Add Tx planner</span>
-                      </div>
-                    </div>
-                  </div>
-                </b-form-group>
-                <b-form-group>
-                  <div class="row">
-                    <div class="col-md-4">
-                      <label>Operatory</label>
-                      <b-dropdown text="Operatory">
-                        <b-dropdown-item>Operatory</b-dropdown-item>
-                      </b-dropdown>
-                    </div>
-                    <div class="col-md-4">
-                      <label>Operatory</label>
-                      <b-dropdown text="Operatory">
-                        <b-dropdown-item>Operatory</b-dropdown-item>
-                      </b-dropdown>
-                    </div>
-                    <div class="col-md-4">
-                      <label>Operatory</label>
-                      <b-dropdown text="Operatory">
-                        <b-dropdown-item>Operatory</b-dropdown-item>
-                      </b-dropdown>
-                    </div>
-                  </div>
-                </b-form-group>
-              </div>
-            </b-tab>
-            <b-tab title="Contact Info"> </b-tab>
-            <b-tab title="Rel. Appts"> </b-tab>
-            <b-tab title="Med. Alerts"> </b-tab>
-            <b-tab title="Lab Case"> </b-tab>
-          </b-tabs>
-        </div>
-      </div>
-    </b-sidebar>
+
     <!-- <b-row>
       <b-col md="12 mt-4">
         <b-button
@@ -326,6 +196,17 @@
 }
 .patient-detail-sidebar .b-sidebar {
   background-color: #fff !important;
+}
+.sidebar-open:before {
+  content: "";
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: #000;
+  opacity: 0.2;
+  z-index: 0;
 }
 .patient-detail-sidebar .b-sidebar-header {
   color: #05070b;
@@ -439,10 +320,10 @@
   position: relative;
 }
 .search-procedure i {
-    position: absolute;
-    right: 12px;
-    top: 8px;
-    font-size: 16px;
+  position: absolute;
+  right: 12px;
+  top: 8px;
+  font-size: 16px;
 }
 .required {
   color: #ac252b;
@@ -468,6 +349,57 @@
 .selection-section li .checkbox span {
   vertical-align: middle;
 }
+.form-group .patient-form-filed label {
+  display: block;
+  font-size: 16px;
+  font-weight: bold;
+  color: #05070b;
+}
+.patient-form-filed .b-dropdown,
+.patient-form-filed .b-dropdown .btn {
+  width: 100%;
+  text-align: left;
+}
+.time-icon {
+  float: right;
+  margin-top: 15px;
+}
+.patient-form-filed .dropdown-toggle,
+.patient-form-filed input,
+.patient-form-filed textarea {
+  padding: 12px 20px;
+  border-radius: 10px;
+  height: auto;
+}
+.patient-form-filed .b-form-datepicker,
+.patient-form-filed .b-form-btn-label-control.form-control.b-form-timepicker {
+  border-radius: 10px;
+}
+.patient-form-filed .b-form-btn-label-control.form-control > .form-control {
+  padding: 12px 20px;
+  white-space: nowrap;
+  min-height: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lenght-lebel {
+  margin-left: 8px;
+}
+.appt-form .form-btn .btn {
+  min-width: 150px;
+}
+.appt-form .btn + .btn {
+  margin-left: 10px;
+}
+.appt-form .btn-link {
+  padding-left: 0;
+  padding-right: 0;
+  min-width: auto;
+}
+.appt-form ul.dropdown-menu {
+  min-width: auto;
+  width: 100%;
+}
 </style>
 
 <script>
@@ -492,7 +424,7 @@ Vue.use(fullscreen);
 const resourceData = [
   {
     Id: 1,
-    Subject: "Workflow Analysis",
+    Subject: "Patient 1",
     StartTime: new Date(new Date().setHours(11)),
     EndTime: new Date(new Date().setHours(12)),
     IsAllDay: false,
@@ -501,14 +433,54 @@ const resourceData = [
   },
   {
     Id: 2,
-    Subject: "Requirement planning",
+    Subject: "Patient 2",
     StartTime: new Date(new Date().setHours(14)),
     EndTime: new Date(new Date().setHours(16)),
     IsAllDay: false,
     ProjectId: 1,
+    IsAlive: true,
     DoctorId: 1,
   },
 ];
+
+var contentTemplateVue = Vue.component("contentTemplate", {
+  template: `<div class="quick-info-content"><div class="e-cell-content" v-if="data.elementType === 'cell'">
+    <div class="content-area"><ejs-textbox ref="titleObj" id="title" placeholder="Title"></ejs-textbox></div>
+    <div class="content-area"><ejs-dropdownlist ref="eventTypeObj" id="eventType" :dataSource="roomData" index="0" :fields="fields" 
+    popupHeight="150px" placeholder="Choose Type"></ejs-dropdownlist></div>
+    <div class="content-area"><ejs-textbox ref="notesObj" id="notes" placeholder="Notes"></ejs-textbox></div></div>
+    <div class="event-content" v-else><div class="meeting-type-wrap"><label>Subject</label>:<span>{{data.Subject}}</span></div>
+    <div class="meeting-subject-wrap"><label>Type</label>:<span>{{getEventType(data)}}</span></div>
+    <div class="notes-wrap"><label>Notes</label>:<span>{{data.Description}}</span></div></div></div>`,
+  data() {
+    return {
+      fields: { text: "CalendarName", value: "CalendarId" },
+      roomData: [
+        {
+          CalendarName: "My Calendar",
+          CalendarId: 1,
+          CalendarColor: "#c43081",
+        },
+        { CalendarName: "Company", CalendarId: 2, CalendarColor: "#ff7f50" },
+        { CalendarName: "Birthday", CalendarId: 3, CalendarColor: "#AF27CD" },
+        { CalendarName: "Holiday", CalendarId: 4, CalendarColor: "#808000" },
+      ],
+      data: {},
+    };
+  },
+  methods: {
+    getEventType: function (data) {
+      const scheduleObj = document.querySelector(".e-schedule")
+        .ej2_instances[0];
+      const resources = scheduleObj.getResourceCollections()[0];
+      const resourceData = resources.dataSource.filter(
+        (resource) => resource.CalendarId === data.CalendarId
+      )[0];
+      return resourceData.CalendarText;
+    },
+  },
+});
+
 export default {
   components: {},
   data() {
@@ -564,6 +536,11 @@ export default {
       currentView: "Day",
       calenderHieght: window.innerHeight - 200,
       fullscreen: false,
+      quickInfoTemplates: {
+        content() {
+          return { template: contentTemplateVue };
+        },
+      },
     };
   },
   computed: {},
@@ -571,7 +548,7 @@ export default {
     this.setResourceData();
   },
   methods: {
-    ...mapActions(["setAppointmentData"]),
+    ...mapActions(["setAppointmentData", "setPatientData"]),
     setResourceData() {
       this.eventSettings.dataSource = resourceData;
       setTimeout(() => {
@@ -580,6 +557,10 @@ export default {
     },
     onEventRendered: function (args) {
       let categoryColor = args.data.CategoryColor;
+      if (args && args.data && args.data.IsAlive) {
+        args.element.classList.add('live-event')
+      }
+      console.log(`args`, args);
       if (!args.element || !categoryColor) {
         return;
       }
@@ -629,11 +610,20 @@ export default {
       }
       console.log(`e`, e);
     },
-    onEventClick() {
+    onEventClick(e) {
+      const { event } = e;
+      const obj = {
+        id: event.Id,
+        name: event.Subject,
+      };
+      this.setPatientData(obj);
+      const element = document.querySelector(".patient-detail-sidebar");
+      if (element) {
+        element.classList.toggle("sidebar-open");
+      }
       this.$root.$emit("bv::toggle::collapse", "sidebar-right");
     },
     onCellClick(e) {
-      console.log(`e`, e);
       this.setAppointmentData({
         headerSearch: "",
         selectedDate: e.startTime,

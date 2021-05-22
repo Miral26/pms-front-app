@@ -51,7 +51,7 @@
           </div>
         </div>
 
-        <div class="huddle-tab" v-if="selectedView === 'Table'">
+        <div class="huddle-tab">
           <b-tabs content-class="mt-1">
             <b-tab title="Scheduled (12)" active>
               <div class="mb-20">
@@ -95,8 +95,8 @@
   </div>
 </template>
 <script>
-import DailyHuddleTableView from "../dashboards/views/table/DailyHuddleTableView";
-import DynamicDraggableView from "../dashboards/views/draggable/DynamicDraggableView";
+import DailyHuddleTableView from "../daily-huddle/views/table/DailyHuddleTableView";
+import DynamicDraggableView from "../daily-huddle/views/draggable/DynamicDraggableView";
 import InsightsView from "../../../components/insights/insights";
 
 import { mapGetters } from "vuex";

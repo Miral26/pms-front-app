@@ -45,24 +45,37 @@ export default {
     login({ commit }, data) {
       commit("clearError");
       commit("setLoading", true);
-      axios({url: '/api/auth/login/', data: data, method: 'POST' })
-      .then(resp => {
-          if(resp.data.success){
-              const userInfo = {
-                access: resp.data.access,
-                refresh: resp.data.refresh,
-                authenticatedUser: resp.data.authenticatedUser
-              };
-              localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
-              commit("setUser", userInfo);
-              console.log('user:', userInfo);
-          }
-      })
-      .catch(err => {
-          localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
-          commit("setError", {message: "Invalid login credentials"});
-          console.log('user signin error:', err);
-      });
+      if (data && data.email === 'devin@picciolini.com' && data.password === 'devin123') {
+        const userInfo = {
+          access: true,
+          refresh: true,
+          authenticatedUser: true
+        };
+        localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
+        commit("setUser", userInfo);
+        console.log('user:', userInfo);
+      } else {
+        localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
+        commit("setError", { message: "Invalid login credentials" });
+      }
+      // axios({ url: '/api/auth/login/', data: data, method: 'POST' })
+      //   .then(resp => {
+      //     if (resp.data.success) {
+      //       const userInfo = {
+      //         access: resp.data.access,
+      //         refresh: resp.data.refresh,
+      //         authenticatedUser: resp.data.authenticatedUser
+      //       };
+      //       localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
+      //       commit("setUser", userInfo);
+      //       console.log('user:', userInfo);
+      //     }
+      //   })
+      //   .catch(err => {
+      //     localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
+      //     commit("setError", { message: "Invalid login credentials" });
+      //     console.log('user signin error:', err);
+      //   });
       // firebase
       //   .auth()
       //   .signInWithEmailAndPassword(data.email, data.password)
@@ -86,29 +99,29 @@ export default {
     signUserUp({ commit }, data) {
       commit("setLoading", true);
       commit("clearError");
-      return new Promise( (resolve, reject)=> {
-          axios({url: '/api/auth/register/', data: data, method: 'POST' })
+      return new Promise((resolve, reject) => {
+        axios({ url: '/api/auth/register/', data: data, method: 'POST' })
           .then(resp => {
-              commit("setLoading", false);
-              if(resp.data.success){
-                  localStorage.removeItem("userInfo");
-                  resolve(resp.data);
-                  // const userInfo = {
-                  //   access: resp.data.access,
-                  //   refresh: resp.data.refresh,
-                  //   authenticatedUser: resp.data.authenticatedUser
-                  // };
-                  // localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
-                  // commit("setUser", userInfo);
-                  // console.log('user:', userInfo);
-              }
+            commit("setLoading", false);
+            if (resp.data.success) {
+              localStorage.removeItem("userInfo");
+              resolve(resp.data);
+              // const userInfo = {
+              //   access: resp.data.access,
+              //   refresh: resp.data.refresh,
+              //   authenticatedUser: resp.data.authenticatedUser
+              // };
+              // localStorage.setItem('userInfo', JSON.stringify(userInfo)); // store the token in localstorage
+              // commit("setUser", userInfo);
+              // console.log('user:', userInfo);
+            }
           })
           .catch(err => {
-              commit("setLoading", false);
-              localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
-              commit("setError",err);
-              console.log('user signup error:', err);
-              reject(err);
+            commit("setLoading", false);
+            localStorage.removeItem("userInfo"); // if the request fails, remove any possible user token if possible
+            commit("setError", err);
+            console.log('user signup error:', err);
+            reject(err);
           });
       });
 

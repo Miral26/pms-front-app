@@ -16,6 +16,7 @@
                 id="Schedule"
                 ref="ScheduleObj"
                 :height="calenderHieght"
+                cssClass="quick-info-template"
                 :selectedDate="selectedDate"
                 :eventSettings="eventSettings"
                 :eventRendered="onEventRendered"
@@ -129,6 +130,103 @@
   </div>
 </template>
 <style>
+.schedule-vue-sample .quick-info-template .quick-info-header {
+  background-color: white;
+  padding: 8px 18px;
+}
+
+.schedule-vue-sample .quick-info-template .quick-info-header-content {
+  justify-content: flex-end;
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px 5px;
+}
+
+.schedule-vue-sample .quick-info-template .quick-info-title {
+  font-weight: 500;
+  font-size: 16px;
+  letter-spacing: 0.48px;
+  height: 22px;
+}
+
+.schedule-vue-sample .quick-info-template .duration-text {
+  font-size: 11px;
+  letter-spacing: 0.33px;
+  height: 14px;
+}
+
+.schedule-vue-sample .quick-info-template .content-area {
+  margin: 0;
+  padding: 10px;
+  width: auto;
+}
+
+.schedule-vue-sample .quick-info-template .event-content {
+  height: 90px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.schedule-vue-sample .quick-info-template .meeting-type-wrap,
+.schedule-vue-sample .quick-info-template .meeting-subject-wrap,
+.schedule-vue-sample .quick-info-template .notes-wrap {
+  font-size: 11px;
+  color: #666;
+  letter-spacing: 0.33px;
+  height: 24px;
+  padding: 5px;
+}
+
+.schedule-vue-sample .quick-info-template .event-content div label {
+  display: inline-block;
+  min-width: 45px;
+  color: #666;
+}
+
+.schedule-vue-sample .quick-info-template .event-content div span {
+  font-size: 11px;
+  color: #151515;
+  letter-spacing: 0.33px;
+  line-height: 14px;
+  padding-left: 8px;
+}
+
+.schedule-vue-sample .quick-info-template .cell-footer.e-btn {
+  background-color: #ffffff;
+  border-color: #878787;
+  color: #878787;
+}
+
+.schedule-vue-sample .quick-info-template .cell-footer {
+  padding-top: 10px;
+}
+
+.schedule-vue-sample
+  .quick-info-template
+  .e-quick-popup-wrapper
+  .e-cell-popup
+  .e-popup-content {
+  padding: 0 14px;
+}
+
+.schedule-vue-sample
+  .quick-info-template
+  .e-quick-popup-wrapper
+  .e-event-popup
+  .e-popup-footer {
+  display: block;
+}
+
+.schedule-vue-sample
+  .quick-info-template
+  .e-quick-popup-wrapper
+  .e-popup-footer
+  button:first-child {
+  margin-right: 5px;
+}
+
 .appointment-list {
   height: -moz-calc(100vh - 200px);
   height: -webkit-calc(100vh - 200px);
@@ -404,9 +502,12 @@
 
 <script>
 import Vue from "vue";
-import fullscreen from "vue-fullscreen";
-import { extend } from "@syncfusion/ej2-base";
 import { mapActions } from "vuex";
+import fullscreen from "vue-fullscreen";
+import { extend, Internationalization } from "@syncfusion/ej2-base";
+import { ButtonPlugin } from "@syncfusion/ej2-vue-buttons";
+import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
+import { TextBoxPlugin } from "@syncfusion/ej2-vue-inputs";
 import {
   SchedulePlugin,
   Day,
@@ -419,6 +520,9 @@ import {
 import * as moment from "moment";
 
 Vue.use(SchedulePlugin);
+Vue.use(ButtonPlugin);
+Vue.use(DropDownListPlugin);
+Vue.use(TextBoxPlugin);
 Vue.use(fullscreen);
 
 const resourceData = [
@@ -443,28 +547,68 @@ const resourceData = [
   },
 ];
 
+var headerTemplateVue = Vue.component("headerTemplate", {
+  template: `<div class="quick-info-header">
+    <div class="quick-info-header-content" v-if="data.elementType == 'event'" :style="{'align-items':'center','color':'#919191'}">
+      <div class="quick-info-title">{{getHeaderTitle(data)}}</div>
+      <div class="duration-text">{{getHeaderDetails(data)}}</div>
+    </div>
+    <div class="quick-info-header-content" v-else :style="{'background': getHeaderStyles(data),'color':'#FFFFFF'}">
+      <div class="quick-info-title">{{getHeaderTitle(data)}}</div>
+      <div class="duration-text">{{getHeaderDetails(data)}}</div>
+    </div>
+  </div>`,
+  data: function () {
+    return {
+      intl: new Internationalization(),
+      data: {},
+    };
+  },
+  methods: {
+    getHeaderStyles: function (data) {
+      const scheduleObj = document.querySelector(".e-schedule")
+        .ej2_instances[0];
+      console.log(`scheduleObj`, scheduleObj);
+      const resources = scheduleObj.getResourceCollections().slice(-1)[0];
+      console.log(`resources`, resources);
+      const resourceData = resources.dataSource.filter(
+        (resource) => resource.Id === data.RoomId
+      )[0];
+      console.log(`resourceData`, resourceData);
+      return resourceData.Color;
+    },
+    getHeaderTitle: function (data) {
+      return "Appointment Details";
+    },
+    getHeaderDetails: function (data) {
+      return (
+        this.intl.formatDate(data.StartTime, {
+          type: "date",
+          skeleton: "full",
+        }) +
+        " (" +
+        this.intl.formatDate(data.StartTime, { skeleton: "hm" }) +
+        " - " +
+        this.intl.formatDate(data.EndTime, { skeleton: "hm" }) +
+        ")"
+      );
+    },
+  },
+});
+
 var contentTemplateVue = Vue.component("contentTemplate", {
-  template: `<div class="quick-info-content"><div class="e-cell-content" v-if="data.elementType === 'cell'">
+  template: `<div class="quick-info-content"><div class="e-cell-content" v-if="data.elementType === 'event'">
     <div class="content-area"><ejs-textbox ref="titleObj" id="title" placeholder="Title"></ejs-textbox></div>
-    <div class="content-area"><ejs-dropdownlist ref="eventTypeObj" id="eventType" :dataSource="roomData" index="0" :fields="fields" 
-    popupHeight="150px" placeholder="Choose Type"></ejs-dropdownlist></div>
+    <div class="content-area"><ejs-dropdownlist ref="eventTypeObj" id="eventType" :dataSource="roomData" :index="0" :fields="fields" 
+    popupHeight="200px" placeholder="Choose Type"></ejs-dropdownlist></div>
     <div class="content-area"><ejs-textbox ref="notesObj" id="notes" placeholder="Notes"></ejs-textbox></div></div>
     <div class="event-content" v-else><div class="meeting-type-wrap"><label>Subject</label>:<span>{{data.Subject}}</span></div>
     <div class="meeting-subject-wrap"><label>Type</label>:<span>{{getEventType(data)}}</span></div>
     <div class="notes-wrap"><label>Notes</label>:<span>{{data.Description}}</span></div></div></div>`,
-  data() {
+  data: function () {
     return {
-      fields: { text: "CalendarName", value: "CalendarId" },
-      roomData: [
-        {
-          CalendarName: "My Calendar",
-          CalendarId: 1,
-          CalendarColor: "#c43081",
-        },
-        { CalendarName: "Company", CalendarId: 2, CalendarColor: "#ff7f50" },
-        { CalendarName: "Birthday", CalendarId: 3, CalendarColor: "#AF27CD" },
-        { CalendarName: "Holiday", CalendarId: 4, CalendarColor: "#808000" },
-      ],
+      fields: { text: "Name", value: "Id" },
+      roomData: extend([], resourceData, undefined, true),
       data: {},
     };
   },
@@ -472,11 +616,76 @@ var contentTemplateVue = Vue.component("contentTemplate", {
     getEventType: function (data) {
       const scheduleObj = document.querySelector(".e-schedule")
         .ej2_instances[0];
-      const resources = scheduleObj.getResourceCollections()[0];
+      const resources = scheduleObj.getResourceCollections().slice(-1)[0];
       const resourceData = resources.dataSource.filter(
-        (resource) => resource.CalendarId === data.CalendarId
+        (resource) => resource.Id === data.RoomId
       )[0];
-      return resourceData.CalendarText;
+      return resourceData.Name;
+    },
+  },
+});
+
+var footerTemplateVue = Vue.component("footerTemplate", {
+  template: `<div class="quick-info-footer"><div class="cell-footer" v-if="data.elementType === 'event'">
+    <ejs-button id="more-details" cssClass="e-flat" content="More Details" v-on:click.native="buttonClickActions"></ejs-button>
+    <ejs-button id="add" cssClass="e-flat" content="Add" :isPrimary="true" v-on:click.native="buttonClickActions"></ejs-button>
+    </div><div class="event-footer" v-else>
+    <ejs-button id="delete" cssClass="e-flat" content="Delete" v-on:click.native="buttonClickActions"></ejs-button>
+    <ejs-button id="more-details" cssClass="e-flat" content="More Details" :isPrimary="true" v-on:click.native="buttonClickActions"></ejs-button>
+    </div></div>`,
+  data: function () {
+    return {
+      data: {},
+    };
+  },
+  methods: {
+    buttonClickActions: function (e) {
+      const scheduleObj = document.querySelector(".e-schedule")
+        .ej2_instances[0];
+      const quickPopup = scheduleObj.element.querySelector(
+        ".e-quick-popup-wrapper"
+      );
+      const getSlotData = function () {
+        const titleObj = quickPopup.querySelector("#title").ej2_instances[0];
+        const notesObj = quickPopup.querySelector("#notes").ej2_instances[0];
+        const eventTypeObj = quickPopup.querySelector("#eventType")
+          .ej2_instances[0];
+        const cellDetails = scheduleObj.getCellDetails(
+          scheduleObj.getSelectedElements()
+        );
+        let addObj = {};
+        addObj.Id = scheduleObj.getEventMaxID();
+        addObj.Subject = titleObj.value;
+        addObj.StartTime = new Date(+cellDetails.startTime);
+        addObj.EndTime = new Date(+cellDetails.endTime);
+        addObj.Description = notesObj.value;
+        addObj.RoomId = eventTypeObj.value;
+        return addObj;
+      };
+      if (e.target.id === "add") {
+        const addObj = getSlotData();
+        scheduleObj.addEvent(addObj);
+      } else if (e.target.id === "delete") {
+        const eventDetails = scheduleObj.activeEventData.event;
+        let currentAction = "Delete";
+        if (eventDetails.RecurrenceRule) {
+          currentAction = "DeleteOccurrence";
+        }
+        scheduleObj.deleteEvent(eventDetails, currentAction);
+      } else {
+        const isCellPopup = quickPopup.firstElementChild.classList.contains(
+          "e-cell-popup"
+        );
+        const eventDetails = isCellPopup
+          ? getSlotData()
+          : scheduleObj.activeEventData.event;
+        let currentAction = isCellPopup ? "Add" : "Save";
+        if (eventDetails.RecurrenceRule) {
+          currentAction = "EditOccurrence";
+        }
+        scheduleObj.openEditor(eventDetails, currentAction, true);
+      }
+      scheduleObj.closeQuickInfoPopup();
     },
   },
 });
@@ -537,8 +746,14 @@ export default {
       calenderHieght: window.innerHeight - 200,
       fullscreen: false,
       quickInfoTemplates: {
+        header() {
+          return { template: headerTemplateVue };
+        },
         content() {
           return { template: contentTemplateVue };
+        },
+        footer() {
+          return { template: footerTemplateVue };
         },
       },
     };
@@ -558,9 +773,8 @@ export default {
     onEventRendered: function (args) {
       let categoryColor = args.data.CategoryColor;
       if (args && args.data && args.data.IsAlive) {
-        args.element.classList.add('live-event')
+        args.element.classList.add("live-event");
       }
-      console.log(`args`, args);
       if (!args.element || !categoryColor) {
         return;
       }

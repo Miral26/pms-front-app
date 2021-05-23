@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
+    "@syncfusion/ej2-vue-buttons": "^19.1.63",
+    "@syncfusion/ej2-vue-dropdowns": "^19.1.64",
     "@syncfusion/ej2-vue-inputs": "^19.1.63",
     "@syncfusion/ej2-vue-schedule": "^19.1.59",
     "apexcharts": "^3.23.1",

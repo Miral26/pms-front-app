@@ -237,7 +237,7 @@
           <b-tab title="Rel. Appts"> </b-tab>
           <b-tab title="Med. Alerts"> </b-tab>
           <b-tab title="Lab Case"> </b-tab>
-          <b-tab v-if="getPatientData.id" title="Chat"> <Chat /></b-tab>
+          <b-tab v-if="getPatientData.id" title="Chat"> <PatientChat /></b-tab>
         </b-tabs>
       </div>
     </div>
@@ -246,14 +246,14 @@
 
 <script>
 import { mapGetters } from "vuex";
-import Chat from "../../views/app/apps/chat";
+import PatientChat from "../../components/patient-chat/patient-chat";
 export default {
   data() {
     return {
       selectedDate: new Date(),
     };
   },
-  components: { Chat },
+  components: { PatientChat },
   computed: {
     ...mapGetters(["getPatientData"]),
   },

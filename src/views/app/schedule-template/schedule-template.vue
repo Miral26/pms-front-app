@@ -268,9 +268,9 @@
 }
 
 .appointment-list {
-  height: -moz-calc(100vh - 200px);
-  height: -webkit-calc(100vh - 200px);
-  height: calc(100vh - 200px);
+  height: -moz-calc(100vh - 265px);
+  height: -webkit-calc(100vh - 265px);
+  height: calc(100vh - 265px);
   overflow-y: auto;
 }
 .appointment-card {
@@ -471,47 +471,6 @@ export default {
       dateSelected: new Date(),
       currentView: "Week",
       calenderHieght: window.innerHeight - 200,
-      group: {
-        enableCompactView: true,
-        resources: ["Doctor"],
-      },
-      employeeDataSource: [
-        {
-          Text: "OP - 1",
-          Id: 1,
-          GroupId: 1,
-          Color: "#bbdc00",
-          Designation: "Content writer",
-        },
-        {
-          Text: "OP - 2",
-          Id: 2,
-          GroupId: 2,
-          Color: "#9e5fff",
-          Designation: "Designer",
-        },
-        {
-          Text: "OP - 3",
-          Id: 3,
-          GroupId: 1,
-          Color: "#bbdc00",
-          Designation: "Software Engineer",
-        },
-        {
-          Text: "OP - 4",
-          Id: 4,
-          GroupId: 2,
-          Color: "#9e5fff",
-          Designation: "Support Engineer",
-        },
-        {
-          Text: "Other Office",
-          Id: 5,
-          GroupId: 1,
-          Color: "#bbdc00",
-          Designation: "Human Resource",
-        },
-      ],
     };
   },
   computed: {},

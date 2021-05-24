@@ -29,6 +29,7 @@
                 :eventClick="onEventClick"
                 :popupOpen="onPopupOpen"
                 :navigating="onNavigating"
+                :quickInfoTemplates="quickInfoTemplates"
               >
                 <e-views>
                   <e-view
@@ -508,6 +509,7 @@ import { extend, Internationalization } from "@syncfusion/ej2-base";
 import { ButtonPlugin } from "@syncfusion/ej2-vue-buttons";
 import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
 import { TextBoxPlugin } from "@syncfusion/ej2-vue-inputs";
+import { DateTimePickerPlugin } from "@syncfusion/ej2-vue-calendars";
 import {
   SchedulePlugin,
   Day,
@@ -523,6 +525,7 @@ Vue.use(SchedulePlugin);
 Vue.use(ButtonPlugin);
 Vue.use(DropDownListPlugin);
 Vue.use(TextBoxPlugin);
+Vue.use(DateTimePickerPlugin);
 Vue.use(fullscreen);
 
 const resourceData = [
@@ -547,17 +550,59 @@ const resourceData = [
   },
 ];
 
+const providerData = [
+  { Name: "OP-1", Id: 1, Capacity: 20, Color: "#ea7a57", Type: "Conference" },
+  { Name: "OP-2", Id: 2, Capacity: 7, Color: "#7fa900", Type: "Cabin" },
+  { Name: "OP-3", Id: 3, Capacity: 5, Color: "#5978ee", Type: "Cabin" },
+  { Name: "OP-4", Id: 4, Capacity: 15, Color: "#fec200", Type: "Conference" },
+  {
+    Name: "Other Office",
+    Id: 5,
+    Capacity: 10,
+    Color: "#00bdae",
+    Type: "Cabin",
+  },
+];
+const appointmentData = [
+  {
+    Name: "Appointment-1",
+    Id: 1,
+    Capacity: 20,
+    Color: "#ea7a57",
+    Type: "Conference",
+  },
+  {
+    Name: "Appointment-2",
+    Id: 2,
+    Capacity: 7,
+    Color: "#7fa900",
+    Type: "Cabin",
+  },
+  {
+    Name: "Appointment-3",
+    Id: 3,
+    Capacity: 5,
+    Color: "#5978ee",
+    Type: "Cabin",
+  },
+  {
+    Name: "Appointment-4",
+    Id: 4,
+    Capacity: 15,
+    Color: "#fec200",
+    Type: "Conference",
+  },
+  {
+    Name: "Appointment-5",
+    Id: 5,
+    Capacity: 25,
+    Color: "#df5286",
+    Type: "Conference",
+  },
+];
+
 var headerTemplateVue = Vue.component("headerTemplate", {
-  template: `<div class="quick-info-header">
-    <div class="quick-info-header-content" v-if="data.elementType == 'event'" :style="{'align-items':'center','color':'#919191'}">
-      <div class="quick-info-title">{{getHeaderTitle(data)}}</div>
-      <div class="duration-text">{{getHeaderDetails(data)}}</div>
-    </div>
-    <div class="quick-info-header-content" v-else :style="{'background': getHeaderStyles(data),'color':'#FFFFFF'}">
-      <div class="quick-info-title">{{getHeaderTitle(data)}}</div>
-      <div class="duration-text">{{getHeaderDetails(data)}}</div>
-    </div>
-  </div>`,
+  template: `<div class="quick-info-header"></div>`,
   data: function () {
     return {
       intl: new Internationalization(),
@@ -566,14 +611,16 @@ var headerTemplateVue = Vue.component("headerTemplate", {
   },
   methods: {
     getHeaderStyles: function (data) {
+      console.log(`data`, data);
       const scheduleObj = document.querySelector(".e-schedule")
         .ej2_instances[0];
       console.log(`scheduleObj`, scheduleObj);
       const resources = scheduleObj.getResourceCollections().slice(-1)[0];
       console.log(`resources`, resources);
       const resourceData = resources.dataSource.filter(
-        (resource) => resource.Id === data.RoomId
+        (resource) => resource.Id === data.DoctorId
       )[0];
+      if (!resourceData) return;
       console.log(`resourceData`, resourceData);
       return resourceData.Color;
     },
@@ -598,28 +645,37 @@ var headerTemplateVue = Vue.component("headerTemplate", {
 
 var contentTemplateVue = Vue.component("contentTemplate", {
   template: `<div class="quick-info-content"><div class="e-cell-content" v-if="data.elementType === 'event'">
-    <div class="content-area"><ejs-textbox ref="titleObj" id="title" placeholder="Title"></ejs-textbox></div>
-    <div class="content-area"><ejs-dropdownlist ref="eventTypeObj" id="eventType" :dataSource="roomData" :index="0" :fields="fields" 
-    popupHeight="200px" placeholder="Choose Type"></ejs-dropdownlist></div>
-    <div class="content-area"><ejs-textbox ref="notesObj" id="notes" placeholder="Notes"></ejs-textbox></div></div>
-    <div class="event-content" v-else><div class="meeting-type-wrap"><label>Subject</label>:<span>{{data.Subject}}</span></div>
-    <div class="meeting-subject-wrap"><label>Type</label>:<span>{{getEventType(data)}}</span></div>
-    <div class="notes-wrap"><label>Notes</label>:<span>{{data.Description}}</span></div></div></div>`,
-  data: function () {
+    <div class="content-area"><ejs-textbox ref="patientNameObj" id="patient_name" placeholder="Patient name" v-model="data.Subject"></ejs-textbox></div>
+    <div class="content-area"><ejs-dropdownlist ref="appointmentTypeObj" id="appointmentTypes" :dataSource="appointmentData" :index="0" :fields="fields" 
+    popupHeight="200px" placeholder="Choose Appointment Type"></ejs-dropdownlist></div>
+    <div class="content-area"><ejs-dropdownlist ref="providerObj" id="provider" :dataSource="providerData" v-model="data.DoctorId || 1" :fields="fields" 
+    popupHeight="200px" placeholder="Choose Provider"></ejs-dropdownlist></div> <div class="content-area"><ejs-datetimepicker id="datetimepicker-start" 
+    placeholder="Start Time" :value="getTime(data, 'start')"></ejs-datetimepicker></div>
+    <div class="content-area"><ejs-datetimepicker id="datetimepicker-end" placeholder="End Time" 
+    :value="getTime(data, 'end')"></ejs-datetimepicker></div></div>
+    </div>`,
+  data() {
     return {
       fields: { text: "Name", value: "Id" },
-      roomData: extend([], resourceData, undefined, true),
+      appointmentData: extend([], appointmentData, undefined, true),
+      providerData: extend([], providerData, undefined, true),
       data: {},
     };
   },
   methods: {
-    getEventType: function (data) {
+    getTime(data, type) {
+      return type === "start" ? data.StartTime : data.EndTime;
+    },
+    getPatientName(data) {
+      console.log(`data`, data);
       const scheduleObj = document.querySelector(".e-schedule")
         .ej2_instances[0];
       const resources = scheduleObj.getResourceCollections().slice(-1)[0];
       const resourceData = resources.dataSource.filter(
-        (resource) => resource.Id === data.RoomId
+        (resource) => resource.Id === data.DoctorId
       )[0];
+      console.log(`resourceData`, resourceData);
+      if (!resourceData) return;
       return resourceData.Name;
     },
   },
@@ -627,11 +683,8 @@ var contentTemplateVue = Vue.component("contentTemplate", {
 
 var footerTemplateVue = Vue.component("footerTemplate", {
   template: `<div class="quick-info-footer"><div class="cell-footer" v-if="data.elementType === 'event'">
-    <ejs-button id="more-details" cssClass="e-flat" content="More Details" v-on:click.native="buttonClickActions"></ejs-button>
-    <ejs-button id="add" cssClass="e-flat" content="Add" :isPrimary="true" v-on:click.native="buttonClickActions"></ejs-button>
-    </div><div class="event-footer" v-else>
-    <ejs-button id="delete" cssClass="e-flat" content="Delete" v-on:click.native="buttonClickActions"></ejs-button>
-    <ejs-button id="more-details" cssClass="e-flat" content="More Details" :isPrimary="true" v-on:click.native="buttonClickActions"></ejs-button>
+    <ejs-button id="more-details" cssClass="e-flat" content="More Details" v-on:click.native="buttonClickActions(data)"></ejs-button>
+    <ejs-button id="save" cssClass="e-flat" :isPrimary="true" content="Save" v-on:click.native="saveDetails(data)"></ejs-button>
     </div></div>`,
   data: function () {
     return {
@@ -639,53 +692,64 @@ var footerTemplateVue = Vue.component("footerTemplate", {
     };
   },
   methods: {
-    buttonClickActions: function (e) {
-      const scheduleObj = document.querySelector(".e-schedule")
-        .ej2_instances[0];
-      const quickPopup = scheduleObj.element.querySelector(
-        ".e-quick-popup-wrapper"
-      );
-      const getSlotData = function () {
-        const titleObj = quickPopup.querySelector("#title").ej2_instances[0];
-        const notesObj = quickPopup.querySelector("#notes").ej2_instances[0];
-        const eventTypeObj = quickPopup.querySelector("#eventType")
-          .ej2_instances[0];
-        const cellDetails = scheduleObj.getCellDetails(
-          scheduleObj.getSelectedElements()
-        );
-        let addObj = {};
-        addObj.Id = scheduleObj.getEventMaxID();
-        addObj.Subject = titleObj.value;
-        addObj.StartTime = new Date(+cellDetails.startTime);
-        addObj.EndTime = new Date(+cellDetails.endTime);
-        addObj.Description = notesObj.value;
-        addObj.RoomId = eventTypeObj.value;
-        return addObj;
-      };
-      if (e.target.id === "add") {
-        const addObj = getSlotData();
-        scheduleObj.addEvent(addObj);
-      } else if (e.target.id === "delete") {
-        const eventDetails = scheduleObj.activeEventData.event;
-        let currentAction = "Delete";
-        if (eventDetails.RecurrenceRule) {
-          currentAction = "DeleteOccurrence";
+    saveDetails(data) {
+      console.log(`data`, data);
+    },
+    buttonClickActions(data) {
+      if (data.elementType === "event") {
+        const element = document.querySelector(".patient-detail-sidebar");
+        if (element) {
+          element.classList.toggle("sidebar-open");
         }
-        scheduleObj.deleteEvent(eventDetails, currentAction);
-      } else {
-        const isCellPopup = quickPopup.firstElementChild.classList.contains(
-          "e-cell-popup"
-        );
-        const eventDetails = isCellPopup
-          ? getSlotData()
-          : scheduleObj.activeEventData.event;
-        let currentAction = isCellPopup ? "Add" : "Save";
-        if (eventDetails.RecurrenceRule) {
-          currentAction = "EditOccurrence";
-        }
-        scheduleObj.openEditor(eventDetails, currentAction, true);
+        this.$root.$emit("bv::toggle::collapse", "sidebar-right");
       }
-      scheduleObj.closeQuickInfoPopup();
+
+      // const scheduleObj = document.querySelector(".e-schedule")
+      //   .ej2_instances[0];
+      // const quickPopup = scheduleObj.element.querySelector(
+      //   ".e-quick-popup-wrapper"
+      // );
+      // const getSlotData = function () {
+      //   const titleObj = quickPopup.querySelector("#title").ej2_instances[0];
+      //   const notesObj = quickPopup.querySelector("#notes").ej2_instances[0];
+      //   const eventTypeObj = quickPopup.querySelector("#eventType")
+      //     .ej2_instances[0];
+      //   const cellDetails = scheduleObj.getCellDetails(
+      //     scheduleObj.getSelectedElements()
+      //   );
+      //   let addObj = {};
+      //   addObj.Id = scheduleObj.getEventMaxID();
+      //   addObj.Subject = titleObj.value;
+      //   addObj.StartTime = new Date(+cellDetails.startTime);
+      //   addObj.EndTime = new Date(+cellDetails.endTime);
+      //   addObj.Description = notesObj.value;
+      //   addObj.RoomId = eventTypeObj.value;
+      //   return addObj;
+      // };
+      // if (e.target.id === "add") {
+      //   const addObj = getSlotData();
+      //   scheduleObj.addEvent(addObj);
+      // } else if (e.target.id === "delete") {
+      //   const eventDetails = scheduleObj.activeEventData.event;
+      //   let currentAction = "Delete";
+      //   if (eventDetails.RecurrenceRule) {
+      //     currentAction = "DeleteOccurrence";
+      //   }
+      //   scheduleObj.deleteEvent(eventDetails, currentAction);
+      // } else {
+      //   const isCellPopup = quickPopup.firstElementChild.classList.contains(
+      //     "e-cell-popup"
+      //   );
+      //   const eventDetails = isCellPopup
+      //     ? getSlotData()
+      //     : scheduleObj.activeEventData.event;
+      //   let currentAction = isCellPopup ? "Add" : "Save";
+      //   if (eventDetails.RecurrenceRule) {
+      //     currentAction = "EditOccurrence";
+      //   }
+      //   scheduleObj.openEditor(eventDetails, currentAction, true);
+      // }
+      // scheduleObj.closeQuickInfoPopup();
     },
   },
 });
@@ -831,11 +895,11 @@ export default {
         name: event.Subject,
       };
       this.setPatientData(obj);
-      const element = document.querySelector(".patient-detail-sidebar");
-      if (element) {
-        element.classList.toggle("sidebar-open");
-      }
-      this.$root.$emit("bv::toggle::collapse", "sidebar-right");
+      // const element = document.querySelector(".patient-detail-sidebar");
+      // if (element) {
+      //   element.classList.toggle("sidebar-open");
+      // }
+      // this.$root.$emit("bv::toggle::collapse", "sidebar-right");
     },
     onCellClick(e) {
       this.setAppointmentData({
@@ -848,7 +912,14 @@ export default {
       this.$bvModal.show("new-appointment");
     },
     onPopupOpen: (args) => {
-      args.cancel = true;
+      console.log(`args`, args);
+      if (
+        args &&
+        args.target &&
+        args.target.classList.contains("e-work-cells")
+      ) {
+        args.cancel = true;
+      }
     },
   },
   provide: {

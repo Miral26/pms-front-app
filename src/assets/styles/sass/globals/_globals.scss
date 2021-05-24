@@ -469,4 +469,17 @@ blockquote {
       padding: 0;
       width: 0;
     }
-  }  
+  } 
+  #add-location,
+  #location-hours {
+    .modal-body {
+      padding: 0;
+    }
+  }
+  .state-dropdown {
+    width: 100%;
+  }
+  .state-dropdown button {
+      width: 100%;
+      text-align: left;
+  }

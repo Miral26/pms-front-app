@@ -94,26 +94,6 @@
               </div>
               <div class="col-md-4">
                 <div class="form-group">
-                  <b-form-input
-                    type="text"
-                    required
-                    placeholder="Secondary"
-                  ></b-form-input>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="form-group">
-                  <b-dropdown class="provider-dropdown mb-2 mr-5" text="Staff">
-                    <b-dropdown-item @click="selectedProvider = ''"
-                      >Staff</b-dropdown-item
-                    >
-                  </b-dropdown>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-4">
-                <div class="form-group">
                   <b-dropdown class="provider-dropdown mb-2 mr-5" text="Status">
                     <b-dropdown-item @click="selectedProvider = ''"
                       >Status</b-dropdown-item

@@ -483,3 +483,20 @@ blockquote {
       width: 100%;
       text-align: left;
   }
+  .e-quick-popup-wrapper {
+    .e-input-group:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::before, .e-input-group.e-control-wrapper:not(.e-float-icon-left):not(.e-float-input)::after, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::before, .e-input-group.e-control-wrapper.e-float-icon-left:not(.e-float-input) .e-input-in-wrap::after,
+    input.e-input::selection, textarea.e-input::selection, .e-input-group input.e-input::selection, .e-input-group.e-control-wrapper input.e-input::selection, .e-float-input input::selection, .e-float-input.e-control-wrapper input::selection, .e-input-group textarea.e-input::selection, .e-input-group.e-control-wrapper textarea.e-input::selection, .e-float-input textarea::selection, .e-float-input.e-control-wrapper textarea::selection {
+      background: #35cfc3;
+    }
+    .e-time-wrapper .e-input-group-icon.e-icons.e-active {
+      color: #35cfc3 !important;
+    }
+  }
+  .e-dropdownbase .e-list-item.e-active,.e-dropdownbase .e-list-item.e-active.e-hover,
+  .e-timepicker.e-popup .e-list-parent.e-ul .e-list-item.e-active {
+    color: #35cfc3 !important;
+  }
+  .e-btn.e-flat.e-primary:focus, .e-css.e-btn.e-flat.e-primary:focus {
+    color: #35cfc3 !important;
+    background-color: #e5f4f8 !important;
+  }

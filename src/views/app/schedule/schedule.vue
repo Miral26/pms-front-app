@@ -509,7 +509,7 @@ import { extend, Internationalization } from "@syncfusion/ej2-base";
 import { ButtonPlugin } from "@syncfusion/ej2-vue-buttons";
 import { DropDownListPlugin } from "@syncfusion/ej2-vue-dropdowns";
 import { TextBoxPlugin } from "@syncfusion/ej2-vue-inputs";
-import { DateTimePickerPlugin } from "@syncfusion/ej2-vue-calendars";
+import { TimePickerPlugin } from "@syncfusion/ej2-vue-calendars";
 import {
   SchedulePlugin,
   Day,
@@ -525,7 +525,7 @@ Vue.use(SchedulePlugin);
 Vue.use(ButtonPlugin);
 Vue.use(DropDownListPlugin);
 Vue.use(TextBoxPlugin);
-Vue.use(DateTimePickerPlugin);
+Vue.use(TimePickerPlugin);
 Vue.use(fullscreen);
 
 const resourceData = [
@@ -645,14 +645,14 @@ var headerTemplateVue = Vue.component("headerTemplate", {
 
 var contentTemplateVue = Vue.component("contentTemplate", {
   template: `<div class="quick-info-content"><div class="e-cell-content" v-if="data.elementType === 'event'">
-    <div class="content-area"><ejs-textbox ref="patientNameObj" id="patient_name" placeholder="Patient name" v-model="data.Subject"></ejs-textbox></div>
+    <div class="content-area"><ejs-textbox ref="patientNameObj" id="patientName" placeholder="Patient name" v-model="data.Subject"></ejs-textbox></div>
     <div class="content-area"><ejs-dropdownlist ref="appointmentTypeObj" id="appointmentTypes" :dataSource="appointmentData" :index="0" :fields="fields" 
     popupHeight="200px" placeholder="Choose Appointment Type"></ejs-dropdownlist></div>
     <div class="content-area"><ejs-dropdownlist ref="providerObj" id="provider" :dataSource="providerData" v-model="data.DoctorId || 1" :fields="fields" 
-    popupHeight="200px" placeholder="Choose Provider"></ejs-dropdownlist></div> <div class="content-area"><ejs-datetimepicker id="datetimepicker-start" 
-    placeholder="Start Time" :value="getTime(data, 'start')"></ejs-datetimepicker></div>
-    <div class="content-area"><ejs-datetimepicker id="datetimepicker-end" placeholder="End Time" 
-    :value="getTime(data, 'end')"></ejs-datetimepicker></div></div>
+    popupHeight="200px" placeholder="Choose Provider"></ejs-dropdownlist></div> <div class="content-area"><ejs-timepicker cssClass="time-selection"  id="timepicker-start" 
+    placeholder="Start Time" :value="getTime(data, 'start')"></ejs-timepicker></div>
+    <div class="content-area"><ejs-timepicker id="timepicker-end" placeholder="End Time" 
+    :value="getTime(data, 'end')"></ejs-timepicker></div></div>
     </div>`,
   data() {
     return {
@@ -693,7 +693,28 @@ var footerTemplateVue = Vue.component("footerTemplate", {
   },
   methods: {
     saveDetails(data) {
-      console.log(`data`, data);
+      const scheduleObj = document.querySelector(".e-schedule")
+        .ej2_instances[0];
+      const quickPopup = scheduleObj.element.querySelector(
+        ".e-quick-popup-wrapper"
+      );
+      const patientName = quickPopup.querySelector("#patientName")
+        .ej2_instances[0].value;
+      const provider = quickPopup.querySelector("#provider").ej2_instances[0]
+        .value;
+      const timepickerStart = quickPopup.querySelector("#timepicker-start")
+        .ej2_instances[0].value;
+      const timepickerEnd = quickPopup.querySelector("#timepicker-end")
+        .ej2_instances[0].value;
+      const updatedData = {
+        ...data,
+        Subject: patientName,
+        DoctorId: provider,
+        StartTime: timepickerStart,
+        EndTime: timepickerEnd,
+      };
+      scheduleObj.saveEvent(updatedData);
+      scheduleObj.closeQuickInfoPopup();
     },
     buttonClickActions(data) {
       if (data.elementType === "event") {

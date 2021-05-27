@@ -44,8 +44,28 @@
           <input
             type="text"
             placeholder="Search a Patient"
-            v-model="headerSearch"
+            @input="searchPatient"
+            v-model="searchPatientText"
+            v-on-clickaway="resetSearchText"
           />
+          <div class="search-patient-dropdown" v-if="searchPatientText">
+            <ul>
+              <li v-for="(patient, index) in searchPatients" :key="index">
+                <div class="search-patient-info">
+                  <div class="search-patient-name">
+                    <h5>{{ patient.first_name }} {{ patient.last_name }}</h5>
+                  </div>
+                  <div class="search-patient-detail">
+                    <span>9876543210</span>
+                    <span>12/3/2021</span>
+                  </div>
+                </div>
+              </li>
+              <li class="p-3 text-center" v-if="!searchPatients.length">
+                No record found
+              </li>
+            </ul>
+          </div>
         </div>
 
         <!-- Header Icons -->
@@ -188,11 +208,13 @@ export default {
       "getVerticalCompact",
       "getVerticalSidebar",
       "getSideBarToggleProperties",
+      "getPatientsList",
     ]),
   },
   data() {
     return {
       isMegaMenuOpen: false,
+      patientsList: [],
       megaMenuOptions: [
         {
           id: 1,
@@ -232,9 +254,9 @@ export default {
         },
       ],
       selectedDate: new Date(),
-      headerSearch: "",
+      searchPatientText: "",
       appointmentData: {
-        headerSearch: "",
+        searchPatientText: "",
         selectedTime: moment().format("HH:MM:ss"),
         selectedDate: new Date(2018, 7, 1),
       },
@@ -275,7 +297,28 @@ export default {
       "mobileSidebar",
       "setAppointmentData",
       "setPatientData",
+      "setActiveTabInPatientForm",
     ]),
+    searchPatient(e) {
+      const searchInput = e.target.value;
+      let searchResult = [];
+      if (searchInput) {
+        const value =
+          searchInput.charAt(0).toUpperCase() + searchInput.slice(1);
+        searchResult = this.patientsList.filter((patient) => {
+          return (
+            patient.first_name.indexOf(value) > -1 ||
+            patient.last_name.indexOf(value) > -1
+          );
+        });
+      } else {
+        searchResult = [];
+      }
+      this.searchPatients = searchResult;
+    },
+    resetSearchText() {
+      this.searchPatientText = "";
+    },
     openAppointmentModal() {
       this.setAppointmentData({
         headerSearch: "",
@@ -286,8 +329,13 @@ export default {
     },
     openNewPatientModal() {
       this.setPatientData({
-        name: "",
+        first_name: "",
+        last_name: "",
+        gender: "",
+        dob: null,
+        id: null,
       });
+      this.setActiveTabInPatientForm("contact");
       this.$root.$emit("bv::toggle::collapse", "sidebar-right");
     },
     handleFullScreen() {
@@ -303,6 +351,9 @@ export default {
     toggleMegaMenu() {
       this.isMegaMenuOpen = !this.isMegaMenuOpen;
     },
+  },
+  mounted() {
+    this.patientsList = this.getPatientsList;
   },
   watch: {
     // dateSelected(val){

@@ -131,18 +131,6 @@
   </div>
 </template>
 <style>
-.schedule-vue-sample .quick-info-template .quick-info-header {
-  background-color: white;
-  padding: 8px 18px;
-}
-
-.schedule-vue-sample .quick-info-template .quick-info-header-content {
-  justify-content: flex-end;
-  display: flex;
-  flex-direction: column;
-  padding: 5px 10px 5px;
-}
-
 .schedule-vue-sample .quick-info-template .quick-info-title {
   font-weight: 500;
   font-size: 16px;
@@ -161,39 +149,6 @@
   padding: 10px;
   width: auto;
 }
-
-.schedule-vue-sample .quick-info-template .event-content {
-  height: 90px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 0 15px;
-}
-
-.schedule-vue-sample .quick-info-template .meeting-type-wrap,
-.schedule-vue-sample .quick-info-template .meeting-subject-wrap,
-.schedule-vue-sample .quick-info-template .notes-wrap {
-  font-size: 11px;
-  color: #666;
-  letter-spacing: 0.33px;
-  height: 24px;
-  padding: 5px;
-}
-
-.schedule-vue-sample .quick-info-template .event-content div label {
-  display: inline-block;
-  min-width: 45px;
-  color: #666;
-}
-
-.schedule-vue-sample .quick-info-template .event-content div span {
-  font-size: 11px;
-  color: #151515;
-  letter-spacing: 0.33px;
-  line-height: 14px;
-  padding-left: 8px;
-}
-
 .schedule-vue-sample .quick-info-template .cell-footer.e-btn {
   background-color: #ffffff;
   border-color: #878787;
@@ -331,10 +286,6 @@
 .right {
   margin-left: auto;
 }
-.left {
-  display: flex;
-  align-items: center;
-}
 
 .patient-img img {
   border-radius: 100%;
@@ -343,6 +294,11 @@
 
 .patient-img {
   margin-right: 10px;
+  float: left;
+}
+.patient-detail {
+  overflow: hidden;
+  margin-top: 10px;
 }
 
 .right p {
@@ -455,7 +411,9 @@
   color: #05070b;
 }
 .patient-form-filed .b-dropdown,
-.patient-form-filed .b-dropdown .btn {
+.patient-form-filed .b-dropdown .btn,
+.gender-dropdown.b-dropdown,
+.gender-dropdown.b-dropdown .btn {
   width: 100%;
   text-align: left;
 }
@@ -484,26 +442,37 @@
 .lenght-lebel {
   margin-left: 8px;
 }
-.appt-form .form-btn .btn {
+.patient-info-tabs .form-btn .btn {
   min-width: 150px;
 }
-.appt-form .btn + .btn {
+.patient-info-tabs .btn + .btn {
   margin-left: 10px;
 }
-.appt-form .btn-link {
+.patient-info-tabs .btn-link {
   padding-left: 0;
   padding-right: 0;
   min-width: auto;
 }
-.appt-form ul.dropdown-menu {
+.appt-form ul.dropdown-menu,
+.gender-dropdown ul.dropdown-menu {
   min-width: auto;
   width: 100%;
+}
+.patient-info-tabs {
+  padding-bottom: 61px;
+}
+.patient-form-button {
+  position: absolute;
+  background-color: #fff;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 </style>
 
 <script>
 import Vue from "vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import fullscreen from "vue-fullscreen";
 import { extend, Internationalization } from "@syncfusion/ej2-base";
 import { ButtonPlugin } from "@syncfusion/ej2-vue-buttons";
@@ -527,28 +496,6 @@ Vue.use(DropDownListPlugin);
 Vue.use(TextBoxPlugin);
 Vue.use(TimePickerPlugin);
 Vue.use(fullscreen);
-
-const resourceData = [
-  {
-    Id: 1,
-    Subject: "Patient 1",
-    StartTime: new Date(new Date().setHours(11)),
-    EndTime: new Date(new Date().setHours(12)),
-    IsAllDay: false,
-    ProjectId: 1,
-    DoctorId: 2,
-  },
-  {
-    Id: 2,
-    Subject: "Patient 2",
-    StartTime: new Date(new Date().setHours(14)),
-    EndTime: new Date(new Date().setHours(16)),
-    IsAllDay: false,
-    ProjectId: 1,
-    IsAlive: true,
-    DoctorId: 1,
-  },
-];
 
 const providerData = [
   { Name: "OP-1", Id: 1, Capacity: 20, Color: "#ea7a57", Type: "Conference" },
@@ -683,6 +630,7 @@ var contentTemplateVue = Vue.component("contentTemplate", {
 
 var footerTemplateVue = Vue.component("footerTemplate", {
   template: `<div class="quick-info-footer"><div class="cell-footer" v-if="data.elementType === 'event'">
+    <ejs-button id="more-details" cssClass="e-flat" :isPrimary="true" content="Join the video" v-on:click.native="$router.push('/app/video-call')"></ejs-button>
     <ejs-button id="more-details" cssClass="e-flat" content="More Details" v-on:click.native="buttonClickActions(data)"></ejs-button>
     <ejs-button id="save" cssClass="e-flat" :isPrimary="true" content="Save" v-on:click.native="saveDetails(data)"></ejs-button>
     </div></div>`,
@@ -781,7 +729,7 @@ export default {
     return {
       resourceData: [],
       eventSettings: {
-        dataSource: extend([], resourceData, null, true),
+        dataSource: extend([], this.resourceData, null, true),
       },
       selectedDate: new Date(),
       group: { byDate: true, resources: ["Doctors"] },
@@ -843,13 +791,34 @@ export default {
       },
     };
   },
-  computed: {},
+  computed: {
+    ...mapGetters(["getPatientsList"]),
+  },
   mounted() {
-    this.setResourceData();
+    this.resourceData = this.getPatientsList;
+    if (this.resourceData && this.resourceData.length) {
+      const dataList = [];
+      this.resourceData.forEach((d) => {
+        dataList.push(this.createObject(d));
+      });
+      this.setResourceData(dataList);
+    } else {
+      this.setResourceData([]);
+    }
   },
   methods: {
-    ...mapActions(["setAppointmentData", "setPatientData"]),
-    setResourceData() {
+    ...mapActions(["setAppointmentData", "setPatientData","setActiveTabInPatientForm"]),
+    createObject(data) {
+      return {
+        Id: data.id,
+        Subject: data.first_name + " " + data.last_name,
+        StartTime: data.startTime,
+        EndTime: data.endTime,
+        IsAlive: data.onCall,
+        DoctorId: data.doctorId,
+      };
+    },
+    setResourceData(resourceData) {
       this.eventSettings.dataSource = resourceData;
       setTimeout(() => {
         this.show = true;
@@ -910,11 +879,20 @@ export default {
       console.log(`e`, e);
     },
     onEventClick(e) {
+      console.log(`this.resourceData`, this.resourceData);
+      const { resourceData } = this;
       const { event } = e;
-      const obj = {
-        id: event.Id,
-        name: event.Subject,
-      };
+      const findResource = resourceData.find((d) => d.id === event.Id);
+      let obj = null;
+      if (findResource) {
+        obj = findResource;
+      } else {
+        obj = {
+          id: event.Id,
+          name: event.Subject,
+        };
+      }
+      this.setActiveTabInPatientForm('appt')
       this.setPatientData(obj);
       // const element = document.querySelector(".patient-detail-sidebar");
       // if (element) {

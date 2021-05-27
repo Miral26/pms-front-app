@@ -172,18 +172,18 @@
 .location-header h5 {
   margin: 0;
 }
-.form-btn {
+#location-hours .form-btn {
   margin-top: auto;
   background-color: #e5f4f8;
   padding: 10px;
 }
-.form-btn .btn,
+#location-hours .form-btn .btn,
 .header-btn .btn {
   padding: 5px 10px;
   font-size: 12px;
 }
 .header-btn .btn + .btn,
-.form-btn .btn + .btn {
+#location-hours .form-btn .btn + .btn {
   margin-left: 10px;
 }
 .location-hours-table {

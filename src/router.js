@@ -22,6 +22,7 @@ import Locations from './views/app/locations/locations.vue'
 import LocationHours from './views/app/location-hours/location-hours.vue'
 import Operatories from './views/app/operatories/operatories.vue'
 import DeltaDental from './views/app/delta-dental/delta-dental.vue'
+import VideoCall from './views/app/video-call/video-call.vue'
 import signIn from './views/app/sessions/signIn'
 import signUp from './views/app/sessions/signUp.vue'
 import forgot from './views/app/sessions/forgot.vue'
@@ -128,6 +129,10 @@ const routes = [
       {
         path: "/app/delta-dental",
         component: DeltaDental,
+      },
+      {
+        path: "/app/video-call",
+        component: VideoCall,
       },
       {
         path: "/app/overview",
@@ -638,9 +643,9 @@ const router = new Router({
 
 router.afterEach(() => {
   // Remove initial loading
-  const gullPreLoading = document.getElementById("loading_wrap");
-  if (gullPreLoading) {
-    gullPreLoading.style.display = "none";
+  const preLoading = document.getElementById("page-loader");
+  if (preLoading) {
+    preLoading.classList.toggle('hide')
   }
   // Complete the animation of the route progress bar.
   // if (isMobile) {

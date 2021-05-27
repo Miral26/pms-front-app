@@ -246,7 +246,9 @@ blockquote {
     }
   }
 }
-
+.text-primary {
+  color: #6cdcd4 !important
+}
 .form-control {
   background-color: transparent;
 }
@@ -269,6 +271,10 @@ blockquote {
 .btn-secondary,
 .btn-secondary:hover {
   border-color: #9CA3AF;
+}
+.dropdown-toggle.btn {
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 .dropdown-toggle::after {
   content: "\f107";

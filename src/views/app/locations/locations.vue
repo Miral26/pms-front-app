@@ -80,30 +80,14 @@
           <b-tab title="Basic Info" active>
             <h6 class="title"><span>Location Information</span></h6>
             <div class="form-row">
-              <div class="col-md-2">
-                <label>Location logo</label>
-                <div class="image-upload">
-                  <img src="@/assets/images/faces/17.jpg" alt="" />
-                  <input type="file" id="location-logo" class="d-none" />
-                  <b-button variant="outline-primary"
-                    ><label class="mb-0" for="location-logo"
-                      >Select</label
-                    ></b-button
-                  >
-                </div>
-              </div>
-              <div class="col-md-10">
+              <div class="col-md-12">
                 <b-form-group class="mb-3">
                   <div class="form-row">
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                       <label
                         >Location name <span class="required">*</span></label
                       >
                       <b-form-input type="text" required />
-                    </div>
-                    <div class="col-md-3">
-                      <label>Abbreviation</label>
-                      <b-form-input type="text" />
                     </div>
                   </div>
                 </b-form-group>
@@ -158,7 +142,9 @@
             <div class="row">
               <div class="col-md-6">
                 <b-form-group>
-                  <label>Website</label>
+                  <label class="trans-userId"
+                    >eTrans User ID<i class="fa fa-info-circle"></i
+                  ></label>
                   <b-form-input type="text" required />
                 </b-form-group>
               </div>
@@ -170,14 +156,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-6 offset-md-6">
-                <b-form-group>
-                  <label class="trans-userId"
-                    >eTrans User ID<i class="fa fa-info-circle"></i
-                  ></label>
-                  <b-form-input type="text" required />
-                </b-form-group>
-              </div>
+              <div class="col-md-6 offset-md-6"></div>
             </div>
             <div class="row">
               <div class="col-md-12">
@@ -223,6 +202,11 @@
 }
 .location-tab .form-btn {
   margin: 20px -15px -15px;
+  background-color: #e5f4f8;
+  padding: 15px;
+}
+.location-tab .form-btn .btn + .btn {
+  margin-left: 10px;
 }
 .trans-userId i {
   font-size: 16px;

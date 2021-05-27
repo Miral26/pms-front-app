@@ -109,6 +109,21 @@
                                 }
                             }
                         }
+                        .appointment-container {
+                            position: relative;
+                            padding-bottom: 50px;
+                        }
+                        
+                        .appointment-form-btn {
+                            position: fixed;
+                            bottom: 0;
+                            left: 0;
+                            right: 0;
+                            z-index: 99;
+                            background-color: #fff;
+                            margin: 1px;
+                            padding: 20px 50px;
+                        }
                     }
                     .tab-content {
                         padding: 0;
@@ -186,6 +201,21 @@
             .modal-footer {
                 display: none;
             }
+            .appointment-container {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.appointment-form-btn {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    background-color: #fff;
+    margin: 1px;
+    padding: 20px 50px;
+}
         }
       }
 }

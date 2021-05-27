@@ -11,13 +11,8 @@
             <i class="icon-regular i-Right ml-0 mr-3"></i>
           </a>
           <div class="d-flex align-items-center">
-            <img
-              :src="getSelectedUser.avatar"
-              alt=""
-              class="avatar-sm rounded-circle mr-2"
-            />
             <p class="m-0 text-title text-16 flex-grow-1">
-              {{ getPatientData.name }}
+              {{ getPatientData.first_name }} {{ getPatientData.last_name }}
             </p>
           </div>
         </div>
@@ -27,9 +22,9 @@
         >
           <div>
             <div
-              class="d-flex mb-30"
               v-for="(chat, index) in getChats[0].chats"
               :key="chat.id"
+              :class="`d-flex mb-30 ${index % 2 === 0 ? 'user' : ''}`"
             >
               <div class="message flex-grow-1" v-if="index % 2 === 0">
                 <div class="d-flex">
@@ -42,35 +37,7 @@
                   {{ chat.text }}
                 </p>
               </div>
-              <img
-                :src="getSelectedUser.avatar"
-                alt=""
-                class="avatar-sm rounded-circle ml-3"
-                v-if="index % 2 === 0"
-              />
-
-              <img
-                src="@/assets/images/faces/1.jpg"
-                alt=""
-                class="avatar-sm rounded-circle mr-3"
-                v-if="index % 2 !== 0"
-              />
               <div class="message flex-grow-1" v-if="index % 2 !== 0">
-                <div class="d-flex">
-                  <p class="mb-1 text-title text-16 flex-grow-1">Jhon Doe</p>
-                  <span class="text-small text-muted">24 min ago</span>
-                </div>
-                <p class="m-0">Lorem ipsum dolor sit amet.</p>
-              </div>
-            </div>
-
-            <div class="d-flex mb-30 user">
-              <img
-                src="@/assets/images/faces/1.jpg"
-                alt=""
-                class="avatar-sm rounded-circle mr-3"
-              />
-              <div class="message flex-grow-1">
                 <div class="d-flex">
                   <p class="mb-1 text-title text-16 flex-grow-1">Jhon Doe</p>
                   <span class="text-small text-muted">24 min ago</span>

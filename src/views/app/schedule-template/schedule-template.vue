@@ -390,6 +390,7 @@ import {
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
 import { ColorPickerPlugin } from "@syncfusion/ej2-vue-inputs";
+import { mapActions } from 'vuex';
 
 Vue.use(SchedulePlugin);
 Vue.use(ColorPickerPlugin);
@@ -416,6 +417,10 @@ const resourceData = [
 
 export default {
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     this.setResourceData();
     var target = document.getElementById("element");
     if (target) {
@@ -475,6 +480,7 @@ export default {
   },
   computed: {},
   methods: {
+    ...mapActions(["setLoading"]),
     makeToast(variant = null, msg) {
       this.$bvToast.toast(msg, {
         title: ` ${variant || "default"}`,

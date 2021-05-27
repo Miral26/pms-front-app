@@ -56,28 +56,29 @@
               </b-form-group>
               <b-form-group class="col-md-12 mb-3">
                 <div class="align-items-center">
-                <label class="checkbox checkbox-outline-primary"> 
-                  <input type="checkbox" checked />
-                  <span class="checkmark"></span>Status</label>
+                  <label class="checkbox checkbox-outline-primary">
+                    <input type="checkbox" checked />
+                    <span class="checkmark"></span>Status</label
+                  >
                 </div>
               </b-form-group>
               <div class="col-md-12">
-              <b-button
-                size="sm"
-                class="btn-radius"
-                variant="primary"
-                @click="save()"
-              >
-                Save
-              </b-button>
-              <b-button
-                size="sm"
-                class="btn-radius ml-2"
-                variant="outline-primary"
-                @click="cancel()"
-              >
-                Cancel
-              </b-button>
+                <b-button
+                  size="sm"
+                  class="btn-radius"
+                  variant="primary"
+                  @click="save()"
+                >
+                  Save
+                </b-button>
+                <b-button
+                  size="sm"
+                  class="btn-radius ml-2"
+                  variant="outline-primary"
+                  @click="cancel()"
+                >
+                  Cancel
+                </b-button>
               </div>
             </b-form>
           </b-col>
@@ -117,7 +118,13 @@ export default {
   },
   computed: mapGetters(["opratoryList"]),
   methods: {
-    ...mapActions(["addOperatory"]),
+    ...mapActions(["addOperatory", "setLoading"]),
+  },
+  mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
   },
 };
 </script>

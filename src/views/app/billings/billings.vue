@@ -30,7 +30,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import InvoiceView from "../apps/invoice";
 
 export default {
@@ -133,9 +133,14 @@ export default {
     // this.items = this.getItems;
   },
   methods: {
+    ...mapActions(["setLoading"]),
     addCartPage() {},
   },
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     // this.paginate(this.perPage, 0);
   },
 };

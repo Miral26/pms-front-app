@@ -640,15 +640,14 @@ const router = new Router({
   }
 });
 
-
 router.afterEach(() => {
   // Remove initial loading
-  const preLoading = document.getElementById("page-loader");
-  if (preLoading) {
-    preLoading.classList.toggle('hide')
-  }
   // Complete the animation of the route progress bar.
   // if (isMobile) {
+  const preLoading = document.getElementById("page-loader");
+  if (preLoading) {
+    preLoading.classList.add('hide')
+  }
   if (window.innerWidth <= 1200) {
     // console.log("mobile");
     store.dispatch("changeSidebarProperties");

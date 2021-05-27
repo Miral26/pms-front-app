@@ -210,6 +210,7 @@ import {
 } from "@syncfusion/ej2-vue-schedule";
 import { ColorPickerPlugin } from "@syncfusion/ej2-vue-inputs";
 import LocationHoursTable from "./table";
+import { mapActions } from "vuex";
 
 Vue.use(SchedulePlugin);
 Vue.use(ColorPickerPlugin);
@@ -217,6 +218,10 @@ Vue.use(ColorPickerPlugin);
 export default {
   components: { LocationHoursTable },
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     var target = document.getElementById("element");
     if (target) {
       target.nextElementSibling.insertBefore(
@@ -248,6 +253,7 @@ export default {
   },
   computed: {},
   methods: {
+    ...mapActions(["setLoading"]),
     makeToast(variant = null, msg) {
       this.$bvToast.toast(msg, {
         title: ` ${variant || "default"}`,

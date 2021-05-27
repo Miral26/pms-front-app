@@ -795,6 +795,10 @@ export default {
     ...mapGetters(["getPatientsList"]),
   },
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     this.resourceData = this.getPatientsList;
     if (this.resourceData && this.resourceData.length) {
       const dataList = [];
@@ -807,7 +811,12 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["setAppointmentData", "setPatientData","setActiveTabInPatientForm"]),
+    ...mapActions([
+      "setAppointmentData",
+      "setPatientData",
+      "setActiveTabInPatientForm",
+      "setLoading",
+    ]),
     createObject(data) {
       return {
         Id: data.id,
@@ -892,7 +901,7 @@ export default {
           name: event.Subject,
         };
       }
-      this.setActiveTabInPatientForm('appt')
+      this.setActiveTabInPatientForm("appt");
       this.setPatientData(obj);
       // const element = document.querySelector(".patient-detail-sidebar");
       // if (element) {

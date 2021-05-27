@@ -252,8 +252,19 @@ export default {
     };
   },
   computed: mapGetters(["invoiceList"]),
+  mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
+  },
   methods: {
-    ...mapActions(["editInvoice", "removeInvoice", "viewInvoice"]),
+    ...mapActions([
+      "editInvoice",
+      "removeInvoice",
+      "viewInvoice",
+      "setLoading",
+    ]),
 
     editInvoiceData(data) {
       this.editInvoice(data);

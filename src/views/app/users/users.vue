@@ -247,6 +247,7 @@
   </div>
 </template>
 <script>
+import { mapActions } from "vuex";
 export default {
   data() {
     return {
@@ -384,7 +385,14 @@ export default {
       });
     },
   },
+  mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
+  },
   methods: {
+    ...mapActions(["setLoading"]),
     openMenu() {
       this.isCLoseMenu = !this.isCLoseMenu;
     },

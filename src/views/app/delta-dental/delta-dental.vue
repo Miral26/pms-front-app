@@ -514,6 +514,7 @@ export default {
       "setDefaultDeltaDentalForm",
       "updateRecord",
       "saveRecord",
+      "setLoading",
     ]),
     save() {
       console.log("getDeltaDentalForm", this.getDeltaDentalForm);
@@ -531,6 +532,10 @@ export default {
     },
   },
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     // this.paginate(this.perPage, 0);
   },
 };

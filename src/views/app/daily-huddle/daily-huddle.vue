@@ -99,7 +99,7 @@ import DailyHuddleTableView from "../daily-huddle/views/table/DailyHuddleTableVi
 import DynamicDraggableView from "../daily-huddle/views/draggable/DynamicDraggableView";
 import InsightsView from "../../../components/insights/insights";
 
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "DashboardV1",
@@ -219,9 +219,14 @@ export default {
     // this.items = this.getItems;
   },
   methods: {
+    ...mapActions(["setLoading"]),
     addCartPage() {},
   },
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     // this.paginate(this.perPage, 0);
   },
 };

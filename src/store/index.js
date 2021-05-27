@@ -13,6 +13,7 @@ import verticalSidebar from "./modules/verticalSidebar";
 import scrumboard from "./modules/scrumboard";
 import appointment from "./modules/appointment";
 import patient from "./modules/patient";
+import loader from "./modules/loader";
 
 
 // Load Vuex
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     appointment,
     patient,
     operatories,
-    deltaDental
+    deltaDental,
+    loader
   }
 });

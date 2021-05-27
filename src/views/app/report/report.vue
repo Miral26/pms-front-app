@@ -134,7 +134,7 @@
   </div>
 </template>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Report",
@@ -152,9 +152,14 @@ export default {
     // this.items = this.getItems;
   },
   methods: {
+    ...mapActions(["setLoading"]),
     addCartPage() {},
   },
   mounted() {
+    this.setLoading(true);
+    setTimeout(() => {
+      this.setLoading(false);
+    }, 2000);
     // this.paginate(this.perPage, 0);
   },
 };

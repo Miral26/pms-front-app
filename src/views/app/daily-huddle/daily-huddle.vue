@@ -1,6 +1,6 @@
 <template>
   <!-- ============ Body content start ============= -->
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="12" xl="12" md="12">
@@ -93,11 +93,13 @@
       </b-col>
     </b-row>
   </div>
+  <Loader v-else />
 </template>
 <script>
 import DailyHuddleTableView from "../daily-huddle/views/table/DailyHuddleTableView";
 import DynamicDraggableView from "../daily-huddle/views/draggable/DynamicDraggableView";
 import InsightsView from "../../../components/insights/insights";
+import Loader from "../../../components/loader/loader";
 
 import { mapActions, mapGetters } from "vuex";
 
@@ -111,6 +113,7 @@ export default {
     DailyHuddleTableView,
     DynamicDraggableView,
     InsightsView,
+    Loader,
   },
   data() {
     return {
@@ -213,7 +216,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getItems"]),
+    ...mapGetters(["getItems", "getLoading"]),
   },
   created: function () {
     // this.items = this.getItems;

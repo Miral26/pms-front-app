@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="9" md="8">
@@ -114,7 +114,6 @@
         </div>
       </b-col>
     </b-row>
-
     <!-- <b-row>
       <b-col md="12 mt-4">
         <b-button
@@ -129,6 +128,7 @@
       </b-col>
     </b-row> -->
   </div>
+  <Loader v-else />
 </template>
 <style>
 .schedule-vue-sample .quick-info-template .quick-info-title {
@@ -489,6 +489,7 @@ import {
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
 import * as moment from "moment";
+import Loader from "../../../components/loader/loader";
 
 Vue.use(SchedulePlugin);
 Vue.use(ButtonPlugin);
@@ -724,7 +725,7 @@ var footerTemplateVue = Vue.component("footerTemplate", {
 });
 
 export default {
-  components: {},
+  components: { Loader },
   data() {
     return {
       resourceData: [],
@@ -792,7 +793,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["getPatientsList"]),
+    ...mapGetters(["getPatientsList", "getLoading"]),
   },
   mounted() {
     this.setLoading(true);

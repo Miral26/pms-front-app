@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <b-row>
       <b-col lg="12" xl="12" md="12">
         <div class="d-flex justify-content-between">
@@ -441,15 +441,19 @@
       </b-col>
     </b-row>
   </div>
+  <Loader v-else />
+
 </template>
 <script>
 import Table from "./table";
 
 import { mapActions, mapGetters } from "vuex";
+import Loader from "../../../components/loader/loader";
 
 export default {
   components: {
     Table,
+    Loader
   },
   data() {
     return {
@@ -501,6 +505,7 @@ export default {
       "getSelectedTab",
       "getSelectedRecord",
       "getDeltaDentalForm",
+      "getLoading"
     ]),
   },
   created: function () {

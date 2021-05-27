@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="12" md="12">
@@ -147,6 +147,7 @@
       </div>
     </b-modal>
   </div>
+  <Loader v-else />
 </template>
 <style>
 #location-hours .modal-dialog {
@@ -210,13 +211,14 @@ import {
 } from "@syncfusion/ej2-vue-schedule";
 import { ColorPickerPlugin } from "@syncfusion/ej2-vue-inputs";
 import LocationHoursTable from "./table";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import Loader from "../../../components/loader/loader";
 
 Vue.use(SchedulePlugin);
 Vue.use(ColorPickerPlugin);
 
 export default {
-  components: { LocationHoursTable },
+  components: { LocationHoursTable, Loader },
   mounted() {
     this.setLoading(true);
     setTimeout(() => {
@@ -251,7 +253,7 @@ export default {
       ],
     };
   },
-  computed: {},
+  computed: { ...mapGetters(["getLoading"]) },
   methods: {
     ...mapActions(["setLoading"]),
     makeToast(variant = null, msg) {

@@ -3,6 +3,7 @@ const state = {
 };
 
 const getters = {
+    getLoading: state => state.loading
 };
 
 const actions = {
@@ -13,18 +14,7 @@ const actions = {
 
 const mutations = {
     SET_LOADING(state, data) {
-        state.loading = !!data;
-        const preLoading = document.getElementById("page-loader");
-        console.log(`preLoading`, preLoading)
-        if (!preLoading) {
-            return
-        }
-        console.log(`data`, data)
-        if (data) {
-            preLoading.classList.remove('hide');
-        } else {
-            preLoading.classList.add('hide');
-        }
+        state.loading = data;
     }
 };
 

@@ -1,6 +1,6 @@
 <template>
   <!-- ============ Body content start ============= -->
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="12" xl="12" md="12">
@@ -28,10 +28,12 @@
       </b-col>
     </b-row>
   </div>
+  <Loader v-else />
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
 import InvoiceView from "../apps/invoice";
+import Loader from "../../../components/loader/loader";
 
 export default {
   name: "Billings",
@@ -125,9 +127,9 @@ export default {
       ],
     };
   },
-  components: { InvoiceView },
+  components: { InvoiceView, Loader },
   computed: {
-    ...mapGetters(["getItems"]),
+    ...mapGetters(["getItems", "getLoading"]),
   },
   created: function () {
     // this.items = this.getItems;

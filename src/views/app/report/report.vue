@@ -1,6 +1,6 @@
 <template>
   <!-- ============ Body content start ============= -->
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="12" xl="12" md="12">
@@ -132,9 +132,11 @@
       </b-col>
     </b-row>
   </div>
+  <Loader v-else />
 </template>
 <script>
 import { mapActions, mapGetters } from "vuex";
+import Loader from "../../../components/loader/loader";
 
 export default {
   name: "Report",
@@ -142,11 +144,12 @@ export default {
     // if no subcomponents specify a metaInfo.title, this title will be used
     title: "Report",
   },
+  components: { Loader },
   data() {
     return {};
   },
   computed: {
-    ...mapGetters(["getItems"]),
+    ...mapGetters(["getItems", "getLoading"]),
   },
   created: function () {
     // this.items = this.getItems;

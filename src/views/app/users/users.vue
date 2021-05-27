@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <breadcumb :page="'User List'" :folder="'App'" />
 
     <b-row>
@@ -245,9 +245,11 @@
       </b-col>
     </b-row>
   </div>
+  <Loader v-else />
 </template>
 <script>
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import Loader from "../../../components/loader/loader";
 export default {
   data() {
     return {
@@ -376,7 +378,11 @@ export default {
       ],
     };
   },
+  components: {
+    Loader,
+  },
   computed: {
+    ...mapGetters(["getLoading"]),
     filterIcons() {
       return this.rows.filter(() => {
         return this.contactListFilter

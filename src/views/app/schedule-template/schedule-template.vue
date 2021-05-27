@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content">
+  <div class="main-content" v-if="!getLoading">
     <!-- <breadcumb :page="'Dashboard'" :folder="'Version 1'" /> -->
     <b-row>
       <b-col lg="9" md="8">
@@ -261,6 +261,7 @@
       </b-modal>
     </b-row>
   </div>
+  <Loader v-else />
 </template>
 <style>
 #operatory .modal-dialog {
@@ -390,7 +391,8 @@ import {
   DragAndDrop,
 } from "@syncfusion/ej2-vue-schedule";
 import { ColorPickerPlugin } from "@syncfusion/ej2-vue-inputs";
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
+import Loader from "../../../components/loader/loader";
 
 Vue.use(SchedulePlugin);
 Vue.use(ColorPickerPlugin);
@@ -478,7 +480,7 @@ export default {
       calenderHieght: window.innerHeight - 200,
     };
   },
-  computed: {},
+  computed: { ...mapGetters(["getLoading"]) },
   methods: {
     ...mapActions(["setLoading"]),
     makeToast(variant = null, msg) {
@@ -559,6 +561,6 @@ export default {
       DragAndDrop,
     ],
   },
-  components: {},
+  components: { Loader },
 };
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!getLoading">
     <div class="main-content table-list">
       <div class="mb-3 page-title">
         <h3 class="font-weight-bold m-0">Operatories</h3>
@@ -86,9 +86,12 @@
       </b-modal>
     </div>
   </div>
+  <Loader v-else />
+
 </template>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Loader from "../../../components/loader/loader";
 // const STORAGE_KEY = 'invoice';
 export default {
   data() {
@@ -116,7 +119,8 @@ export default {
       newTodo: "",
     };
   },
-  computed: mapGetters(["opratoryList"]),
+  components: { Loader },
+  computed: mapGetters(["opratoryList","getLoading"]),
   methods: {
     ...mapActions(["addOperatory", "setLoading"]),
   },

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="!getLoading">
     <div class="main-content table-list">
       <div class="mb-3 page-title">
         <h3 class="font-weight-bold m-0">Locations</h3>
@@ -173,6 +173,7 @@
       </div>
     </b-modal>
   </div>
+  <Loader v-else />
 </template>
 <style scoped>
 .title {
@@ -215,6 +216,7 @@
 </style>
 <script>
 import { mapGetters, mapActions } from "vuex";
+import Loader from "../../../components/loader/loader";
 // const STORAGE_KEY = 'invoice';
 export default {
   data() {
@@ -251,7 +253,8 @@ export default {
       newTodo: "",
     };
   },
-  computed: mapGetters(["invoiceList"]),
+  components: { Loader },
+  computed: mapGetters(["invoiceList", "getLoading"]),
   mounted() {
     this.setLoading(true);
     setTimeout(() => {

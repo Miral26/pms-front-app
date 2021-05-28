@@ -12,6 +12,7 @@ import cart from "./modules/cart";
 import verticalSidebar from "./modules/verticalSidebar";
 import scrumboard from "./modules/scrumboard";
 import appointment from "./modules/appointment";
+import appointmentProgress from "./modules/appointment-progress";
 import patient from "./modules/patient";
 import loader from "./modules/loader";
 
@@ -32,6 +33,7 @@ export default new Vuex.Store({
     verticalSidebar,
     scrumboard,
     appointment,
+    appointmentProgress,
     patient,
     operatories,
     deltaDental,

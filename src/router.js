@@ -12,7 +12,7 @@ import VerticalSidebar from './containers/layouts/verticalSidebar'
 import Landing from './containers/layouts/landing/landing.vue'
 import Contact from './containers/layouts/contact/contact.vue'
 import DailyHuddle from './views/app/daily-huddle/daily-huddle.vue'
-import BookAppointment from './views/app/virtual-consults/virtual-consults.vue'
+import BookAppointment from './views/app/book-appointment/book-appointment.vue'
 import Report from './views/app/report/report.vue';
 import Billiings from './views/app/billings/billings.vue';
 import Schedule from './views/app/schedule/schedule.vue';

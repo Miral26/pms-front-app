@@ -16,6 +16,7 @@ const state = {
     pending: [
       {
         id: 1,
+        name: "Devin Picciolini",
         first_name: "Devin",
         last_name: "Picciolini",
         appointment_date: "2021-05-18",
@@ -33,6 +34,7 @@ const state = {
     completed: [
       {
         id: "2",
+        name: "Picciolini Devin",
         first_name: "Picciolini",
         last_name: "Devin",
         appointment_date: "2021-05-18",
@@ -63,6 +65,7 @@ const state = {
     overDue: [
       {
         id: "3",
+        name: "Picciolini",
         first_name: "Devin",
         last_name: "Picciolini",
         appointment_date: "2021-05-18",

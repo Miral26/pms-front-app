@@ -47,7 +47,11 @@
         </div>
         <div class="appointment-list">
           <div
-            class="appointment-card c-pointer"
+            :class="`appointment-card c-pointer ${
+              operatory.id === selectedOperatory.id
+                ? 'selected'
+                : ''
+            }`"
             v-for="operatory in operatories"
             :key="operatory.id"
             @click="openOperatory(operatory)"
@@ -282,6 +286,10 @@
   margin-bottom: 20px;
   box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
 }
+.appointment-card.selected {
+  background-color: #559a5d;
+  box-shadow: 2px 2px 2px 2px #7b947e;
+}
 .appointment-card:last-child {
   margin-bottom: 0;
 }
@@ -444,7 +452,10 @@ export default {
         SAT: ["Other Office"],
         SUN: ["Other Office"],
       },
-      selectedOperatory: null,
+      selectedOperatory: {
+        id: 1,
+        title: "OP-1",
+      },
       operatories: [
         {
           id: 1,

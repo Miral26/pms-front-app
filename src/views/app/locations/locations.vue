@@ -4,71 +4,7 @@
       <div class="mb-3 page-title">
         <h3 class="font-weight-bold m-0">Locations</h3>
       </div>
-      <div class="wrapper">
-        <vue-good-table
-          :columns="columns"
-          :line-numbers="true"
-          :search-options="{
-            enabled: true,
-            placeholder: 'Search this table',
-            selectionInfoClass: ' flex-column flex-sm-row',
-          }"
-          :pagination-options="{
-            enabled: true,
-            mode: 'records',
-          }"
-          styleClass="tableOne vgt-table"
-          :selectOptions="{
-            enabled: false,
-            selectionInfoClass: 'table-alert__box',
-          }"
-          :rows="invoiceList"
-        >
-          <div slot="table-actions" class="mb-3">
-            <b-button
-              @click="$bvModal.show('add-location')"
-              variant="primary"
-              class="btn-rounded d-sm-block d-none"
-            >
-              Add Location
-            </b-button>
-          </div>
-
-          <template slot="table-row" slot-scope="props">
-            <span v-if="props.column.field == 'button'">
-              <!-- editInvoiceData(props.row) -->
-
-              <a
-                @click="editInvoiceData(props.row)"
-                v-b-tooltip.hover
-                class="o-hidden d-inline-block"
-                title="Edit"
-              >
-                <i class="i-Eraser-2 text-25 text-info mr-2"></i>
-                {{ props.row.button }}</a
-              >
-              <a
-                @click="viewInvoicePage(props.row)"
-                v-b-tooltip.hover
-                class="o-hidden d-inline-block"
-                title="View"
-              >
-                <i class="i-Edit text-25 text-success mr-2"></i>
-                {{ props.row.button }}</a
-              >
-              <a
-                @click="removeInvoice(props.row.invoiceId)"
-                v-b-tooltip.hover
-                class="o-hidden d-inline-block"
-                title="Delete"
-              >
-                <i class="i-Close-Window text-25 text-danger"></i>
-                {{ props.row.button }}</a
-              >
-            </span>
-          </template>
-        </vue-good-table>
-      </div>
+      <LocationTable />
     </div>
 
     <b-modal id="add-location" size="lg" hide-header hide-footer>
@@ -167,8 +103,6 @@
               </div>
             </div>
           </b-tab>
-          <b-tab title="Billing Statements"> </b-tab>
-          <b-tab title="Claim Provider"> </b-tab>
         </b-tabs>
       </div>
     </b-modal>
@@ -217,44 +151,15 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import Loader from "../../../components/loader/loader";
+import LocationTable from "./table";
+
 // const STORAGE_KEY = 'invoice';
 export default {
   data() {
-    return {
-      input: [
-        {
-          name: "",
-        },
-      ],
-
-      columns: [
-        {
-          label: "Bill From",
-          field: "billFrom",
-        },
-        {
-          label: "Bill To",
-          field: "billTo",
-        },
-        {
-          label: "Status",
-          field: "status",
-          html: true,
-        },
-
-        {
-          label: "Button",
-          field: "button",
-          html: true,
-          tdClass: "text-right",
-          thClass: "text-right",
-        },
-      ],
-      newTodo: "",
-    };
+    return {};
   },
-  components: { Loader },
-  computed: mapGetters(["invoiceList", "getLoading"]),
+  components: { Loader, LocationTable },
+  computed: mapGetters(["getLoading"]),
   mounted() {
     this.setLoading(true);
     setTimeout(() => {
@@ -262,24 +167,7 @@ export default {
     }, 2000);
   },
   methods: {
-    ...mapActions([
-      "editInvoice",
-      "removeInvoice",
-      "viewInvoice",
-      "setLoading",
-    ]),
-
-    editInvoiceData(data) {
-      this.editInvoice(data);
-      this.$router.push("/app/apps/edit-invoice");
-    },
-    viewInvoicePage(data) {
-      this.viewInvoice(data);
-      this.$router.push("/app/apps/printInvoice");
-    },
-    createInvoice() {
-      this.$router.push("/app/apps/createInvoice");
-    },
+    ...mapActions(["setLoading"]),
   },
 };
 </script>

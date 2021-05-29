@@ -142,6 +142,11 @@
                 name="gender"
                 id="gender"
                 class="custom-input custom-select"
+                @change="
+                  (e) => {
+                    appointmentData.type = e.target.value;
+                  }
+                "
               >
                 <option value="" selected="">Select Reason</option>
                 <option value="Teeth Cleaning">Teeth Cleaning</option>
@@ -167,10 +172,15 @@
                 id="location"
                 class="custom-input custom-select"
                 style="height: 52px"
+                @change="
+                  (e) => {
+                    appointmentData.location = e.target.value;
+                  }
+                "
               >
                 <option value="" selected="">Select Location</option>
-                <option value="7000000000142">THDC Office 1</option>
-                <option value="7000000000143">THDC Office 2</option>
+                <option value="THDC Office 1">THDC Office 1</option>
+                <option value="THDC Office 2">THDC Office 2</option>
               </select>
             </b-form-group>
           </div>
@@ -194,34 +204,80 @@
             </b-form-group>
           </div>
         </div>
-        <div class="row justify-content-center" v-if="getCompletedStep === 12">
-          <div class="col-xl-7">
-            <label class="custom-label"
-              >Choose a time for the appointment?</label
-            >
-            <div class="schedule-vue-sample">
-              <div class="col-md-12 control-section">
-                <div class="content-wrapper">
-                  <ejs-schedule
-                    id="Schedule"
-                    height="650px"
-                    :selectedDate="selectedDate"
-                    :timeScale="timeScale"
-                    :eventSettings="eventSettings"
-                    :eventRendered="oneventRendered"
-                  >
-                    <e-views>
-                      <e-view
-                        option="Day"
-                        displayName="5 Days"
-                        :interval="dayInterval"
-                      ></e-view>
-                    </e-views>
-                  </ejs-schedule>
+        <div
+          class="row appointment-calender justify-content-center"
+          v-if="getCompletedStep === 12"
+        >
+          <label class="custom-label">Choose a time for the appointment?</label>
+          <b-card>
+            <div class="row">
+              <div class="col-md-5">
+                <div class="calender-info">
+                  <div class="calender-meeting-info">
+                    <h5>Diana Tereshchenko</h5>
+                    <h3>60 Minute Meeting</h3>
+                    <ul>
+                      <li><i class="fa fa-clock-o"></i><span>60 min</span></li>
+                      <li>
+                        <i class="fa fa-video-camera"></i
+                        ><span
+                          >Web conferencing details provided upon
+                          confirmation.</span
+                        >
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div class="calender-right">
+                  <h5>Select a Date & Time</h5>
+                  <div class="calender-wrap">
+                    <DatePicker
+                      mode="single"
+                      title-position="left"
+                      v-model="selectedDate"
+                      :locale="{
+                        firstDayOfWeek: 2,
+                        masks: { weekdays: 'WWW' },
+                      }"
+                      :disabled-dates="{ weekdays: [1, 7] }"
+                      :min-date="new Date()"
+                      @dayclick="onDayClick"
+                    />
+                    <ul class="time-slots">
+                      <h6 v-if="selectedDate">
+                        {{ moment(selectedDate).format("dddd, MMM YY") }}
+                      </h6>
+                      <li
+                        v-for="timeSlot in timeSlots"
+                        :key="timeSlot.time"
+                        :class="selectedTimeSlot === timeSlot ? 'active' : ''"
+                      >
+                        <b-button
+                          variant="outline-primary ripple"
+                          @click="selectedTimeSlot = timeSlot"
+                          >{{ timeSlot.time }}</b-button
+                        >
+                        <b-button
+                          pill
+                          variant="primary ripple"
+                          @click="
+                            () => {
+                              appointmentData.time = timeSlot.time;
+                              getCompletedStep < 13 &&
+                                setCompletedStep(getCompletedStep + 1);
+                            }
+                          "
+                          >Confirm</b-button
+                        >
+                      </li>
+                    </ul>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </b-card>
         </div>
         <div class="row justify-content-center" v-if="getCompletedStep === 13">
           <div class="col-xl-7">
@@ -233,25 +289,26 @@
               <tbody>
                 <tr>
                   <th>Time:</th>
-                  <td>03:00 pm</td>
+                  <td>{{appointmentData.time}}</td>
                 </tr>
                 <tr>
                   <th>Date:</th>
-                  <td>June 9, 2021</td>
+                  <td>{{moment(appointmentData.date).format("MMM D, YYYY")}}</td>
                 </tr>
                 <tr>
                   <th>Type:</th>
-                  <td>Teeth Cleaning -</td>
+                  <td>{{appointmentData.type}}</td>
                 </tr>
                 <tr>
                   <th>Location:</th>
-                  <td>THDC Office 1</td>
+                  <td>{{appointmentData.location}}</td>
                 </tr>
+
               </tbody>
             </table>
           </div>
         </div>
-        <div class="row justify-content-center">
+        <div class="row justify-content-center" v-if="getCompletedStep !== 12">
           <div class="col-xl-7">
             <div class="btn-action">
               <b-button
@@ -296,29 +353,30 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import Vue from "vue";
-import { extend } from "@syncfusion/ej2-base";
-import {
-  SchedulePlugin,
-  Day,
-  Week,
-  Month,
-  Resize,
-  DragAndDrop,
-} from "@syncfusion/ej2-vue-schedule";
-Vue.use(SchedulePlugin);
+import { DatePicker } from "v-calendar";
+import * as moment from "moment";
 
 export default {
   data() {
     return {
-      eventSettings: { dataSource: extend([], [], null, true) },
-      selectedDate: new Date(2018, 5, 21),
-      showWeekend: false,
-      dayInterval: 5,
-      timeScale: { enable: true, interval: 60, slotCount: 1 },
+      selectedDate: new Date(),
+      selectedTimeSlot: null,
+      firstDayOfWeek: 2,
+      moment: moment,
+      timeSlots: this.getTimeSlots(
+        moment(new Date()).set({ hours: 15, minutes: 0, seconds: 0 }),
+        moment(new Date()).set({ hours: 18, minutes: 0, seconds: 0 }),
+        60
+      ),
+      appointmentData: {
+        time: new Date(),
+        date: this.selectedDate,
+        type: "",
+        location: "",
+      },
     };
   },
-  components: {},
+  components: { DatePicker },
   computed: {
     ...mapGetters(["getLoading", "getProgressValue", "getCompletedStep"]),
   },
@@ -328,16 +386,37 @@ export default {
       const confirmation = confirm("Are you sure?");
       if (confirmation) this.setCompletedStep(1);
     },
-    oneventRendered: function (args) {
-      let categoryColor = args.data.CategoryColor;
-      if (!args.element || !categoryColor) {
-        return;
-      }
-      args.element.style.backgroundColor = categoryColor;
+    myDayFormat(e) {
+      console.log(`e`, e);
+      return moment(e).format("YYYY");
     },
-  },
-  provide: {
-    schedule: [Day, Week, Month, Resize, DragAndDrop],
+    getTimeSlots(start, end, diff) {
+      const startTime = moment(start, "HH:mm");
+      const endTime = moment(end, "HH:mm");
+
+      if (endTime.isBefore(startTime)) {
+        endTime.add(1, "day");
+      }
+      this.timeSlots = [];
+      while (startTime <= endTime) {
+        this.timeSlots.push({
+          time: moment(startTime).format("hh:mm A"),
+          selected: false,
+        });
+        startTime.add(diff, "minutes");
+      }
+      return this.timeSlots;
+    },
+    onDayClick(e) {
+      this.selectedDate = e.date;
+      this.getTimeSlots(
+        moment(e.date).set({ hours: 15, minutes: 0, seconds: 0 }),
+        moment(e.date).set({ hours: 18, minutes: 0, seconds: 0 }),
+        60
+      );
+      console.log(`e`, moment(e.date).format("MM-DD-YYYY HH:mm:ss a"));
+      console.log(`this.timeSlots`, this.timeSlots);
+    },
   },
 };
 </script>

@@ -78,9 +78,6 @@ export default {
   computed: mapGetters([]),
   methods: {
     ...mapActions([]),
-    showIndex(index, length) {
-      console.log(`index`, index, "===>", length);
-    },
   },
 };
 </script>

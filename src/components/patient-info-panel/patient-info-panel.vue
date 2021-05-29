@@ -293,23 +293,61 @@
             :active="getActiveTabInPatientForm === 'contact'"
             @click="setActiveTabInPatientForm('contact')"
           >
+            <div class="form-row">
+              <div class="col-md-12">
+                <b-form-group>
+                  <div class="form-row">
+                    <div class="col-md-12">
+                      <label>Address <span class="required">*</span></label>
+                      <b-form-input type="text" class="mb-2" required />
+                      <b-form-input type="text" required />
+                    </div>
+                  </div>
+                </b-form-group>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <b-form-group>
+                  <label>City <span class="required">*</span></label>
+                  <b-form-input type="text" required />
+                </b-form-group>
+              </div>
+              <div class="col-md-3">
+                <b-form-group>
+                  <label>State <span class="required">*</span></label>
+                  <b-dropdown class="state-dropdown" text="UT">
+                    <b-dropdown-item>UT</b-dropdown-item>
+                    <b-dropdown-item>BT</b-dropdown-item>
+                  </b-dropdown>
+                </b-form-group>
+              </div>
+              <div class="col-md-3">
+                <b-form-group>
+                  <label>Zip Code <span class="required">*</span></label>
+                  <b-form-input type="text" required />
+                </b-form-group>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-6">
+                <b-form-group>
+                  <label>Phone number <span class="required">*</span></label>
+                  <b-form-input type="text" required />
+                </b-form-group>
+              </div>
+              <div class="col-md-6">
+                <b-form-group>
+                  <label>Email</label>
+                  <b-form-input type="email" required />
+                </b-form-group>
+              </div>
+            </div>
           </b-tab>
           <b-tab
             title="Rel. Appts"
             :active="getActiveTabInPatientForm === 'rel'"
             @click="setActiveTabInPatientForm('rel')"
-          >
-          </b-tab>
-          <b-tab
-            title="Med. Alerts"
-            :active="getActiveTabInPatientForm === 'med'"
-            @click="setActiveTabInPatientForm('med')"
-          >
-          </b-tab>
-          <b-tab
-            title="Lab Case"
-            :active="getActiveTabInPatientForm === 'lab'"
-            @click="setActiveTabInPatientForm('lab')"
           >
           </b-tab>
           <b-tab

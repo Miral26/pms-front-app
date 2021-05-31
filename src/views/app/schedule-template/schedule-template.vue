@@ -48,9 +48,7 @@
         <div class="appointment-list">
           <div
             :class="`appointment-card c-pointer ${
-              operatory.id === selectedOperatory.id
-                ? 'selected'
-                : ''
+              operatory.id === selectedOperatory.id ? 'selected' : ''
             }`"
             v-for="operatory in operatories"
             :key="operatory.id"
@@ -287,8 +285,7 @@
   box-shadow: 0 3px 10px rgb(0 0 0 / 5%);
 }
 .appointment-card.selected {
-  background-color: #559a5d;
-  box-shadow: 2px 2px 2px 2px #7b947e;
+  background-color: #00c5b4;
 }
 .appointment-card:last-child {
   margin-bottom: 0;
@@ -314,6 +311,12 @@
 }
 .days li.disabled {
   color: #d5f0f9;
+}
+.selected .days li {
+  color: #0c90c1;
+}
+.selected .days li.disabled {
+  color: #fff;
 }
 
 .schedule-template-form .form-label {

@@ -25,29 +25,34 @@
             >
           </div>
         </div>
-        <div class="left col-md-8" v-if="!getPatientData.id">
+        <div class="left col-md-12" v-if="!getPatientData.id">
           <h5 class="mb-3">Create New Patient</h5>
           <b-form-group>
             <div class="form-row">
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>First Name <span class="required">*</span></label>
                 <b-form-input
                   type="text"
                   :value="getPatientData.first_name || ''"
                 />
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>Last Name <span class="required">*</span></label>
                 <b-form-input
                   type="text"
                   :value="getPatientData.last_name || ''"
                 />
               </div>
-            </div>
-          </b-form-group>
-          <b-form-group>
-            <div class="form-row">
-              <div class="col-md-6">
+              <div class="col-md-4" v-if="!getPatientData.id">
+                <label>Preferred Times</label>
+                <ejs-multiselect
+                  id="time-list"
+                  :dataSource="timeSlots"
+                  :mode="defaultMode"
+                  placeholder="Preferred Times"
+                ></ejs-multiselect>
+              </div>
+              <div class="col-md-4">
                 <label>Gender</label>
                 <b-dropdown
                   class="gender-dropdown"
@@ -64,7 +69,7 @@
                   >
                 </b-dropdown>
               </div>
-              <div class="col-md-6">
+              <div class="col-md-4">
                 <label>Birthday <span class="required">*</span></label>
                 <b-form-datepicker
                   :date-format-options="{
@@ -79,12 +84,6 @@
               </div>
             </div>
           </b-form-group>
-        </div>
-        <div class="right col-md-4 text-right">
-          <p>Preferred Days</p>
-          <span>[None]</span>
-          <p>Preferred Times</p>
-          <span>[None]</span>
         </div>
       </div>
       <div class="patient-info-tabs mt-4">
@@ -385,11 +384,24 @@
 import { mapActions, mapGetters } from "vuex";
 import PatientChat from "../../components/patient-chat/patient-chat";
 import * as moment from "moment";
+import Vue from "vue";
+import { MultiSelectPlugin } from "@syncfusion/ej2-vue-dropdowns";
+
+Vue.use(MultiSelectPlugin);
+
 export default {
   data() {
     return {
       moment,
       selectedDate: new Date(),
+      defaultMode: "Default",
+      boxMode: "Box",
+      delimiterMode: "Delimiter",
+      timeSlots: this.getTimeSlots(
+        moment(new Date()).set({ hours: 12, minutes: 0, seconds: 0 }),
+        moment(new Date()).set({ hours: 24, minutes: 0, seconds: 0 }),
+        60
+      ),
     };
   },
   components: { PatientChat },
@@ -405,6 +417,20 @@ export default {
       } else {
         element.classList.remove("sidebar-open");
       }
+    },
+    getTimeSlots(start, end, diff) {
+      const startTime = moment(start, "HH:mm");
+      const endTime = moment(end, "HH:mm");
+
+      if (endTime.isBefore(startTime)) {
+        endTime.add(1, "day");
+      }
+      this.timeSlots = [];
+      while (startTime <= endTime) {
+        this.timeSlots.push(moment(startTime).format("hh:mm A"));
+        startTime.add(diff, "minutes");
+      }
+      return this.timeSlots;
     },
   },
 };

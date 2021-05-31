@@ -1,14 +1,5 @@
 <template>
   <div v-if="!getLoading">
-    <div class="switch-account">
-      <div class="account-info">
-        <span>hello@gmail.com</span>
-        <span>Switch account</span>
-      </div>
-      <div class="account-img">
-        <img src="@/assets/images/faces/1.jpg" alt />
-      </div>
-    </div>
     <div class="video-call-wrap">
       <div class="video-call-inner">
         <div class="row align-items-center">

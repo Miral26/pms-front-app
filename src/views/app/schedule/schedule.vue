@@ -246,7 +246,7 @@
   padding: 0;
 }
 #sidebar-right {
-  width: 50%;
+  width: 55%;
 }
 .patient-detail-sidebar .b-sidebar {
   background-color: #fff !important;
@@ -467,6 +467,28 @@
   left: 0;
   right: 0;
   bottom: 0;
+}
+.e-input-group::before,
+.e-input-group::after {
+  content: normal !important;
+}
+.e-multiselect.e-input-group.e-control-wrapper {
+    border: 1px solid #9CA3AF !important;
+    border-radius: 5px;
+}
+.e-multiselect.e-input-group.e-control-wrapper.e-input-focus {
+  border-width: 1px !important;
+}
+.e-multi-select-wrapper .e-searcher {
+    margin-bottom: 0;
+}
+.e-control-wrapper .e-multi-select-wrapper {
+  padding: 2px 10px;
+  min-height: 32px;
+}
+.e-multi-select-wrapper .e-chips {
+    margin-bottom: 0 !important;
+    margin-top: 2px;
 }
 </style>
 

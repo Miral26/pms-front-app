@@ -3,11 +3,6 @@
     <div class="appointment-head">
       <h2>New Appointment</h2>
       <div class="head-right">
-        <i
-          class="i-Add-User cursor-pointer header-icon d-none d-sm-inline-block font-weight-bold"
-          v-b-popover.hover.bottom="'Add Patient'"
-        >
-        </i>
         <div class="search-bar">
           <i class="search-icon text-muted i-Magnifi-Glass1"></i>
           <input
@@ -131,27 +126,6 @@
                 </div>
               </div>
             </div>
-            <div class="mb-20">
-              <h5 class="font-weight-bold mb-3">Treatments</h5>
-              <b-tabs content-class="mt-1">
-                <b-tab title="Selected" active>
-                  <div class="treatments-wrap pt-4 mt-5"></div>
-                  <div class="row">
-                    <div class="col-md-12">
-                      <h6 class="font-weight-bold mb-3">Save The Date</h6>
-                      <label class="checkbox checkbox-outline-primary">
-                        <input type="checkbox" checked />
-                        <span
-                          >(HelloPatient - message sent via e-mail/text)</span
-                        >
-                        <span class="checkmark"></span>
-                      </label>
-                    </div>
-                  </div>
-                </b-tab>
-                <b-tab title="Template"> </b-tab>
-              </b-tabs>
-            </div>
             <div class="row appointment-form-btn">
               <div class="col-md-12 text-right">
                 <div class="appointment-btn">
@@ -168,29 +142,18 @@
             </div>
           </div>
         </b-tab>
-        <b-tab title="Insurance">
-          <div class="mb-20">
-            <div></div>
-          </div>
-        </b-tab>
-        <b-tab title="History">
-          <div class="mb-20">
-            <div></div>
-          </div>
-        </b-tab>
         <b-tab title="Patient Notes">
           <div class="mb-20">
-            <div></div>
-          </div>
-        </b-tab>
-        <b-tab title="Recall/Frequency">
-          <div class="mb-20">
-            <div></div>
-          </div>
-        </b-tab>
-        <b-tab title="SOC">
-          <div class="mb-20">
-            <div></div>
+            <div>
+              <b-form-group class="col-md-12 mb-3">
+                <b-form-textarea
+                  rows="5"
+                  max-rows="5"
+                  required
+                  placeholder="Patient Notes"
+                ></b-form-textarea>
+              </b-form-group>
+            </div>
           </div>
         </b-tab>
       </b-tabs>

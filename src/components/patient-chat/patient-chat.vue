@@ -26,7 +26,7 @@
               :key="chat.id"
               :class="`d-flex mb-30 ${index % 2 === 0 ? 'user' : ''}`"
             >
-              <div class="message flex-grow-1" v-if="index % 2 === 0">
+              <div class="message flex-grow-1 mr-5" v-if="index % 2 === 0">
                 <div class="d-flex">
                   <p class="mb-1 text-title text-16 flex-grow-1">
                     {{ getSelectedUser.name }}
@@ -37,7 +37,12 @@
                   {{ chat.text }}
                 </p>
               </div>
-              <div class="message flex-grow-1" v-if="index % 2 !== 0">
+              <div
+                :class="`message flex-grow-1 ml-5 ${
+                  index % 2 !== 0 ? 'bg-blue' : ''
+                }`"
+                v-if="index % 2 !== 0"
+              >
                 <div class="d-flex">
                   <p class="mb-1 text-title text-16 flex-grow-1">Jhon Doe</p>
                   <span class="text-small text-muted">24 min ago</span>
@@ -135,8 +140,25 @@ export default {
 </script>
 
 <style>
+.chat-sidebar-container {
+  height: calc(100vh - 342px) !important;
+  min-height: unset;
+}
+.chat-sidebar-container .chat-content-wrap .chat-content {
+  height: calc(100vh - 532px) !important;
+}
 .chat-sidebar-container .chat-content-wrap {
   margin-left: 0 !important;
+}
+.chat-content .message.bg-blue {
+  background: #24a0ed !important;
+}
+.chat-sidebar-container
+  .chat-content-wrap
+  .chat-content
+  .message.bg-blue:before {
+  background: #24a0ed !important;
+  border-color: #24a0ed transparent #24a0ed transparent !important;
 }
 </style>
 

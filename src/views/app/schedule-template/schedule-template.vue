@@ -54,11 +54,11 @@
             :key="operatory.id"
             @click="openOperatory(operatory)"
           >
-            <div class="appointment-title">{{ operatory.title }}</div>
+            <div class="appointment-title">{{ operatory.name }}</div>
             <ul class="days">
               <li
                 :class="
-                  !availability['MON'].includes(operatory.title)
+                  !availability['MON'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -67,7 +67,7 @@
               </li>
               <li
                 :class="
-                  !availability['TUE'].includes(operatory.title)
+                  !availability['TUE'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -76,7 +76,7 @@
               </li>
               <li
                 :class="
-                  !availability['WED'].includes(operatory.title)
+                  !availability['WED'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -85,7 +85,7 @@
               </li>
               <li
                 :class="
-                  !availability['THU'].includes(operatory.title)
+                  !availability['THU'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -94,7 +94,7 @@
               </li>
               <li
                 :class="
-                  !availability['FRI'].includes(operatory.title)
+                  !availability['FRI'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -103,7 +103,7 @@
               </li>
               <li
                 :class="
-                  !availability['SAT'].includes(operatory.title)
+                  !availability['SAT'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -112,7 +112,7 @@
               </li>
               <li
                 :class="
-                  !availability['SUN'].includes(operatory.title)
+                  !availability['SUN'].includes(operatory.name)
                     ? 'disabled'
                     : ''
                 "
@@ -123,11 +123,12 @@
           </div>
         </div>
       </b-col>
+
       <b-modal
         id="operatory"
         size="xl"
         hide-footer
-        :title="selectedOperatory && selectedOperatory.title"
+        :title="selectedOperatory && selectedOperatory.name"
       >
         <div class="schedule-template-form">
           <b-row class="mb-5 pb-5">
@@ -137,6 +138,7 @@
                   <b-form-input
                     type="text"
                     required
+                    :value="selectedOperatory.title"
                     placeholder="Teeth Cleaning"
                   ></b-form-input>
                 </b-form-group>
@@ -155,6 +157,7 @@
                       now-button
                       class="default-timepicker"
                       reset-button
+                      v-model="selectedOperatory.startTime"
                       locale="en"
                     ></b-form-timepicker>
                     <span>-</span>
@@ -164,6 +167,7 @@
                       reset-button
                       class="default-timepicker"
                       locale="en"
+                      v-model="selectedOperatory.endTime"
                     ></b-form-timepicker>
                   </div>
                 </b-form-group>
@@ -182,7 +186,12 @@
             <b-col lg="6" md="6">
               <b-form-group class="col-md-4 mb-3">
                 <label class="form-label">Color <span>*</span></label>
-                <ejs-colorpicker id="element" type="text" class="e-input">
+                <ejs-colorpicker
+                  id="element"
+                  type="text"
+                  class="e-input"
+                  :value="selectedOperatory.color"
+                >
                 </ejs-colorpicker>
               </b-form-group>
               <b-form-group class="mb-3 online-appoitment-booked">
@@ -404,27 +413,26 @@ import {
 import { ColorPickerPlugin } from "@syncfusion/ej2-vue-inputs";
 import { mapActions, mapGetters } from "vuex";
 import Loader from "../../../components/loader/loader";
+import * as moment from "moment";
 
 Vue.use(SchedulePlugin);
 Vue.use(ColorPickerPlugin);
 const resourceData = [
   {
     Id: 1,
-    Subject: "Appointment 1",
+    Subject: "Detail 1",
     StartTime: new Date(new Date().setHours(11)),
     EndTime: new Date(new Date().setHours(12)),
     IsAllDay: false,
     CategoryColor: "#bbdc00",
-    DoctorId: 1,
   },
   {
     Id: 2,
-    Subject: "Appointment 1",
+    Subject: "Detail 2",
     StartTime: new Date(new Date().setHours(14)),
     EndTime: new Date(new Date().setHours(16)),
     IsAllDay: false,
     CategoryColor: "#9e5fff",
-    DoctorId: 2,
   },
 ];
 
@@ -457,32 +465,36 @@ export default {
       },
       selectedOperatory: {
         id: 1,
-        title: "OP-1",
+        name: "OP-1",
+        title: "",
+        startTime: moment().format("HH:MM:SS"),
+        endTime: moment().format("HH:MM:SS"),
+        color: "#008000",
       },
       operatories: [
         {
           id: 1,
-          title: "OP-1",
+          name: "OP-1",
         },
         {
           id: 2,
-          title: "OP-2",
+          name: "OP-2",
         },
         {
           id: 3,
-          title: "OP-3",
+          name: "OP-3",
         },
         {
           id: 4,
-          title: "OP-4",
+          name: "OP-4",
         },
         {
           id: 5,
-          title: "OP-5",
+          name: "OP-5",
         },
         {
           id: 6,
-          title: "Other Office",
+          name: "Other Office",
         },
       ],
       eventSettings: {
@@ -506,7 +518,6 @@ export default {
     },
     openOperatory(data) {
       this.selectedOperatory = data;
-      this.$bvModal.show("operatory");
     },
     setResourceData() {
       this.eventSettings.dataSource = resourceData;
@@ -551,17 +562,32 @@ export default {
     onPopupOpen: (args) => {
       args.cancel = true;
     },
-    onEventClick() {
-      this.makeToast(
-        "danger",
-        "Click on operatory cards instead of the calendar!"
-      );
+    onEventClick(e) {
+      const { event } = e;
+      const data = {
+        title: event.Subject,
+        startTime: moment(event.StartTime).format("HH:MM:SS"),
+        endTime: moment(event.EndTime).format("HH:MM:SS"),
+        color: event.CategoryColor,
+      };
+      this.selectedOperatory = {
+        ...this.selectedOperatory,
+        ...data,
+      };
+      this.$bvModal.show("operatory");
     },
-    onCellClick() {
-      this.makeToast(
-        "danger",
-        "Click on operatory cards instead of the calendar!"
-      );
+    onCellClick(event) {
+      const data = {
+        title: "",
+        startTime: moment(event.startTime).format("HH:MM:SS"),
+        endTime: moment(event.endTime).format("HH:MM:SS"),
+        color: "#008000",
+      };
+      this.selectedOperatory = {
+        ...this.selectedOperatory,
+        ...data,
+      };
+      this.$bvModal.show("operatory");
     },
   },
   provide: {

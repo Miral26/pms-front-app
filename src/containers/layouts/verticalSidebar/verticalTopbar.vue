@@ -252,6 +252,12 @@ export default {
           icon: "i-Ambulance",
           route: "/app/delta-dental",
         },
+        {
+          id: 7,
+          title: "Patients",
+          icon: "i-Checked-User",
+          route: "/app/patients",
+        },
       ],
       selectedDate: new Date(),
       searchPatientText: "",

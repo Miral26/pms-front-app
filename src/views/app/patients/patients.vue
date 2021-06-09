@@ -1,5 +1,5 @@
 <template>
-  <div class="main-content" v-if="!getLoading">
+  <div class="main-content" v-if="!loading">
     <b-row>
       <b-col lg="12" xl="12" md="12">
         <div class="d-flex justify-content-between">
@@ -10,7 +10,11 @@
           </div>
         </div>
 
-        <Table />
+        <Table
+          :patients="patients"
+          :onPatientEdit="onPatientEdit"
+          :onPatientDelete="onPatientDelete"
+        />
 
         <b-modal
           id="add-patient"
@@ -21,14 +25,13 @@
         >
           <div>
             <b-col>
-              <b-form>
+              <b-form @submit.prevent="submit">
                 <div class="row">
                   <div class="col-md-4">
                     <b-form-group class="mb-3" label="First Name">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.first_name"
+                        v-model.trim="$v.patientForm.first_name.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -36,8 +39,7 @@
                     <b-form-group class="mb-3" label="Middle Name">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.middle_name"
+                        v-model.trim="$v.patientForm.middle_name.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -45,8 +47,7 @@
                     <b-form-group class="mb-3" label="Last Name">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.last_name"
+                        v-model.trim="$v.patientForm.last_name.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -56,9 +57,8 @@
                   <div class="col-md-4">
                     <b-form-group class="mb-3" label="Email Address">
                       <b-form-input
-                        type="email"
-                        required
-                        v-model="getPatientForm.email_address"
+                        type="text"
+                        v-model.trim="$v.patientForm.email_address.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -71,7 +71,7 @@
                           day: 'numeric',
                         }"
                         :max="new Date()"
-                        v-model="getPatientForm.date_of_birth"
+                        v-model="$v.patientForm.date_of_birth.$model"
                       ></b-form-datepicker>
                     </b-form-group>
                   </div>
@@ -79,16 +79,15 @@
                     <b-form-group class="mb-3" label="Gender">
                       <b-dropdown
                         class="gender-dropdown"
-                        :text="getPatientForm.gender || 'Select a gender'"
+                        :text="patientForm.gender || 'Select a gender'"
                       >
-                        <b-dropdown-item @click="getPatientForm.gender = ''"
+                        <b-dropdown-item @click="patientForm.gender = ''"
                           >Select a gender</b-dropdown-item
                         >
-                        <b-dropdown-item @click="getPatientForm.gender = 'Male'"
+                        <b-dropdown-item @click="patientForm.gender = 'MALE'"
                           >Male</b-dropdown-item
                         >
-                        <b-dropdown-item
-                          @click="getPatientForm.gender = 'Female'"
+                        <b-dropdown-item @click="patientForm.gender = 'FEMALE'"
                           >Female</b-dropdown-item
                         >
                       </b-dropdown>
@@ -101,8 +100,7 @@
                     <b-form-group class="mb-3" label="Nick Name">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.nick_name"
+                        v-model.trim="$v.patientForm.nick_name.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -110,8 +108,7 @@
                     <b-form-group class="mb-3" label="Phone">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.phone"
+                        v-model.trim="$v.patientForm.phone.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -119,8 +116,7 @@
                     <b-form-group class="mb-3" label="Cell">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.cell"
+                        v-model.trim="$v.patientForm.cell.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -131,8 +127,7 @@
                     <b-form-group class="mb-3" label="Foreign Id">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.foreign_id"
+                        v-model.trim="$v.patientForm.foreign_id.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -140,8 +135,7 @@
                     <b-form-group class="mb-3" label="Guardian">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.guardian"
+                        v-model.trim="$v.patientForm.guardian.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -149,8 +143,7 @@
                     <b-form-group class="mb-3" label="SSN">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.ssn"
+                        v-model.trim="$v.patientForm.ssn.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -161,8 +154,7 @@
                     <b-form-group class="mb-3" label="Home Office">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.home_office"
+                        v-model.trim="$v.patientForm.home_office.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -170,8 +162,7 @@
                     <b-form-group class="mb-3" label="Other Notes">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.other_notes"
+                        v-model.trim="$v.patientForm.other_notes.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -179,8 +170,7 @@
                     <b-form-group class="mb-3" label="Insurance Policy#">
                       <b-form-input
                         type="text"
-                        required
-                        v-model="getPatientForm.insurance_policy"
+                        v-model.trim="$v.patientForm.insurance_policy.$model"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -189,24 +179,29 @@
                 <div class="row">
                   <div class="col-md-12">
                     <b-button
+                      type="submit"
                       size="sm"
                       class="btn-radius"
                       variant="primary"
-                      @click="
-                        getPatientForm && getPatientForm.id
-                          ? updatePatient(getPatientForm)
-                          : savePatient(getPatientForm);
-                        $bvModal.hide('add-patient');
-                      "
+                      :disabled="$v.$invalid || actionLoading"
                     >
-                      Save
+                      <div class="d-flex">
+                        <span :class="actionLoading ? 'mr-3' : ''">{{
+                          actionLoading
+                            ? "Saving..."
+                            : patientForm.id
+                            ? "Update"
+                            : "Save"
+                        }}</span>
+                        <span class="spinner" v-if="actionLoading"></span>
+                      </div>
                     </b-button>
                     <b-button
                       size="sm"
                       class="btn-radius ml-2"
                       variant="outline-primary"
                       @click="
-                        setDefaultPatientForm();
+                        patientForm = {};
                         $bvModal.hide('add-patient');
                       "
                     >
@@ -306,9 +301,7 @@
                 enabled: false,
                 selectionInfoClass: 'table-alert__box',
               }"
-              :rows="
-                (getSelectedPatient && getSelectedPatient.customer_card) || []
-              "
+              :rows="[]"
             >
               <template slot="table-row" slot-scope="props">
                 <span v-if="props.column.field == 'action'">
@@ -338,9 +331,15 @@
 </template>
 <script>
 import Table from "./table";
-
+import { required, minLength, email } from "vuelidate/lib/validators";
 import { mapActions, mapGetters } from "vuex";
 import Loader from "../../../components/loader/loader";
+import {
+  getPatients,
+  createPatient,
+  updatePatient,
+  deletePatient,
+} from "./APICalls";
 
 export default {
   components: {
@@ -349,6 +348,26 @@ export default {
   },
   data() {
     return {
+      loading: false,
+      actionLoading: false,
+      patientForm: {
+        first_name: "",
+        middle_name: "",
+        last_name: "",
+        email_address: "",
+        date_of_birth: null,
+        gender: "",
+        nick_name: "",
+        phone: "",
+        cell: "",
+        foreign_id: "",
+        guardian: "",
+        ssn: "",
+        home_office: "",
+        other_notes: "",
+        insurance_policy: "",
+      },
+      patients: [],
       customerCardForm: {
         card_number: "",
         expiry_date: "",
@@ -378,29 +397,90 @@ export default {
       ],
     };
   },
+  validations: {
+    patientForm: {
+      first_name: { required, minLength: minLength(4) },
+      last_name: { required, minLength: minLength(4) },
+      middle_name: { required, minLength: minLength(4) },
+      email_address: { required, email: email() },
+      date_of_birth: { required },
+      gender: { required },
+      nick_name: { required },
+      phone: { required, minLength: minLength(10) },
+      home_office: { required, minLength: minLength(5) },
+      cell: { required },
+      foreign_id: { required },
+      guardian: { required },
+      ssn: { required },
+      other_notes: { required },
+      insurance_policy: { required },
+    },
+  },
   computed: {
-    ...mapGetters([
-      "getItems",
-      "getSelectedPatient",
-      "getPatientForm",
-      "getLoading",
-    ]),
+    ...mapGetters([]),
   },
   created: function () {
     // this.items = this.getItems;
   },
   methods: {
-    ...mapActions([
-      "savePatientCard",
-      "removePatientCard",
-      "setDefaultPatientForm",
-      "setPatientForm",
-      "updatePatient",
-      "savePatient",
-      "setLoading",
-    ]),
-    save() {
-      console.log("getPatientForm", this.getPatientForm);
+    ...mapActions([]),
+    submit() {
+      if (this.patientForm) {
+        this.actionLoading = true;
+        if (this.patientForm.id) {
+          const updatedObj = { ...this.patientForm };
+          const patientId = updatedObj.id;
+          updatedObj.id;
+          updatePatient(updatedObj, patientId).then((result) => {
+            const patientsData = this.patients.slice(0);
+            const patientIndex = patientsData.findIndex(
+              (p) => p.id === result.id
+            );
+            if (patientIndex > -1) {
+              patientsData[patientIndex] = { ...result, id: patientId };
+              this.patients = patientsData;
+            }
+            this.actionLoading = false;
+            this.$bvModal.hide("add-patient");
+            this.makeToast("success", "Patient updated successfully!");
+          });
+        } else {
+          createPatient(this.patientForm).then((result) => {
+            this.patients.push(result);
+            this.makeToast("success", "Patient added successfully!");
+            this.$bvModal.hide("add-patient");
+            this.actionLoading = false;
+          });
+        }
+      }
+    },
+    onPatientEdit(data) {
+      console.log(`data`, data);
+      this.patientForm = data;
+      this.$bvModal.show("add-patient");
+    },
+    onPatientDelete(data) {
+      this.actionLoading = true;
+      if (data && data.id) {
+        deletePatient(data.id).then((result) => {
+          if (result) {
+            const patientIndex = this.patients.findIndex(
+              (p) => p.id === data.id
+            );
+            if (patientIndex > -1) {
+              this.patients.splice(patientIndex, 1);
+            }
+          }
+          this.actionLoading = false;
+        });
+      }
+    },
+    makeToast(variant = null, msg) {
+      this.$bvToast.toast(msg, {
+        title: ` ${variant || "default"}`,
+        variant: variant,
+        solid: true,
+      });
     },
     confirmationPopup() {
       return this.$swal({
@@ -414,12 +494,12 @@ export default {
       });
     },
   },
-  mounted() {
-    this.setLoading(true);
-    setTimeout(() => {
-      this.setLoading(false);
-    }, 2000);
-    // this.paginate(this.perPage, 0);
+  async mounted() {
+    this.loading = true;
+    await getPatients().then((result) => {
+      this.patients = (result && result.results) || [];
+      this.loading = false;
+    });
   },
 };
 </script>

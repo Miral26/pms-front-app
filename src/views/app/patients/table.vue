@@ -19,14 +19,13 @@
             enabled: false,
             selectionInfoClass: 'table-alert__box',
           }"
-          :rows="getPatients"
+          :rows="patients"
         >
           <div slot="table-actions" class="mb-3">
             <b-button
               variant="primary"
               @click="
                 () => {
-                  setDefaultPatientForm();
                   $bvModal.show('add-patient');
                 }
               "
@@ -47,9 +46,7 @@
                   class="i-Eraser-2 text-25 text-info mr-2"
                   @click="
                     () => {
-                      setRecord(props.row);
-                      setPatientForm(props.row);
-                      $bvModal.show('add-patient');
+                      onPatientEdit(props.row);
                     }
                   "
                 ></i>
@@ -63,7 +60,7 @@
                   class="i-Close-Window text-25 text-danger"
                   @click="
                     confirmationPopup().then((result) => {
-                      if (result.value) removePatient(props.row);
+                      if (result.value) onPatientDelete(props.row);
                     })
                   "
                 ></i>
@@ -114,12 +111,17 @@
 import { mapGetters, mapActions } from "vuex";
 // const STORAGE_KEY = 'invoice';
 export default {
+  props: {
+    patients: Array,
+    onPatientEdit: Function,
+    onPatientDelete: Function,
+  },
   data() {
     return {
       columns: [
         {
           label: "Name",
-          field: "name",
+          field: "full_name",
         },
         {
           label: "Email",

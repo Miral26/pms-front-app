@@ -442,7 +442,6 @@
     </b-row>
   </div>
   <Loader v-else />
-
 </template>
 <script>
 import Table from "./table";
@@ -453,7 +452,7 @@ import Loader from "../../../components/loader/loader";
 export default {
   components: {
     Table,
-    Loader
+    Loader,
   },
   data() {
     return {
@@ -505,7 +504,7 @@ export default {
       "getSelectedTab",
       "getSelectedRecord",
       "getDeltaDentalForm",
-      "getLoading"
+      "getLoading",
     ]),
   },
   created: function () {

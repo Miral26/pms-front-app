@@ -6,7 +6,13 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
-    "start": "node server.js"
+    "start": "node server.js",
+    "start-staging": "npm run copy-staging && npm run serve",
+    "start-prod": "npm run copy-prod && npm run serve",
+    "start-preprod": "npm run copy-preprod && npm run serve",
+    "copy-staging": "copy env.staging .env || cp env.staging .env",
+    "copy-prod": "copy env.production .env || cp env.production .env",
+    "copy-preprod": "copy env.preproduction .env || cp env.preproduction .env"
   },
   "dependencies": {
     "@johmun/vue-tags-input": "^2.1.0",
@@ -35,6 +41,7 @@
     "v2-datepicker": "^3.1.1",
     "vue": "^2.6.12",
     "vue-apexcharts": "^1.6.0",
+    "vue-axios": "^3.2.4",
     "vue-chartjs": "^3.5.1",
     "vue-clickaway": "^2.2.2",
     "vue-cropperjs": "^4.2.0",

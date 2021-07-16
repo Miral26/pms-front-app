@@ -5,7 +5,7 @@ export default {
   state: {
     loggedInUser:
       localStorage.getItem("userInfo") != null
-        ? JSON.parse(localStorage.getItem("userInfo")).authenticatedUser
+        ? JSON.parse(localStorage.getItem("userInfo"))
         : null,
     loading: false,
     error: null
@@ -16,14 +16,16 @@ export default {
     error: state => state.error
   },
   mutations: {
-    SET_USER(state, data) {
+    setUser(state, data) {
       state.loggedInUser = data;
+      state.loading = false;
+      state.error = null;
     },
     setLogout(state) {
       state.loggedInUser = null;
       state.loading = false;
       state.error = null;
-      // this.$router.go("/signIn");
+      // this.$router.go("/");
     },
     setLoading(state, data) {
       state.loading = data;
@@ -39,8 +41,60 @@ export default {
     }
   },
   actions: {
-    setUser({ commit }, data) {
-      commit("SET_USER", data)
+    login({ commit }, data) {
+      commit("clearError");
+      commit("setLoading", true);
+      if (data.email === 'devin@gmail.com' && data.password === "devin@123") {
+        const newUser = { uid: "123" };
+        localStorage.setItem("userInfo", JSON.stringify(newUser));
+        commit("setUser", { uid: "123" });
+        console.log("user");
+      } else {
+        localStorage.removeItem("userInfo");
+        commit("setError", "Invalid Credentials");
+      }
+      // firebase
+      //   .auth()
+      //   .signInWithEmailAndPassword(data.email, data.password)
+      //   .then(user => {
+      //     const newUser = { uid: user.user.uid };
+      //     localStorage.setItem("userInfo", JSON.stringify(newUser));
+      //     commit("setUser", { uid: user.user.uid });
+      //     console.log("user");
+      //   })
+      //   .catch(function (error) {
+      //     // Handle Errors here.
+      //     // var errorCode = error.code;
+      //     // var errorMessage = error.message;
+      //     // console.log(error);
+      //     localStorage.removeItem("userInfo");
+      //     commit("setError", error);
+      //     // ...
+      //   });
+    },
+
+    signUserUp({ commit }, data) {
+      commit("setLoading", true);
+      commit("clearError");
+      firebase
+        .auth()
+        .createUserWithEmailAndPassword(data.email, data.password)
+        .then(user => {
+          commit("setLoading", false);
+
+          const newUser = {
+            uid: user.user.uid
+          };
+          console.log(newUser);
+          localStorage.setItem("userInfo", JSON.stringify(newUser));
+          commit("setUser", newUser);
+        })
+        .catch(error => {
+          commit("setLoading", false);
+          commit("setError", error);
+          localStorage.removeItem("userInfo");
+          console.log(error);
+        });
     },
     signOut({ commit }) {
       firebase
@@ -51,6 +105,7 @@ export default {
             localStorage.removeItem("userInfo");
             commit("setLogout");
           },
+          _error => { }
         );
     }
   }
